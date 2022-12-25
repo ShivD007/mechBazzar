@@ -1,0 +1,4 @@
+#Sat Dec 24 16:52:49 IST 2022
+base.0=E\:\\mech bazzar\\admin_jandhara\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

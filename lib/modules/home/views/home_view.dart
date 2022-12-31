@@ -8,7 +8,6 @@ import 'package:admin_jandhara/modules/home/widget/sliver_list_title_widget.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../../atoms/drawer_widget.dart';
 import '../controllers/home_controller.dart';
 
@@ -36,7 +35,7 @@ class HomeView extends GetView<HomeController> {
       body: CustomScrollView(
         shrinkWrap: true,
         slivers: [
-          SliverCustomAppBar(),
+          const SliverCustomAppBar(),
           makeHeader(Container(color: AppColors.COLOR_WHITE, child: CustomSpacers.height16), 16),
           makeHeader(_crouselWidget(), 200),
           SliverToBoxAdapter(child: CustomSpacers.height12),
@@ -74,7 +73,7 @@ class HomeView extends GetView<HomeController> {
             text: "Safety Supplies",
           ),
           SliverToBoxAdapter(child: CustomSpacers.height6),
-          SliverHorizontalList(),
+          const SliverHorizontalList(),
         ],
       ),
     );

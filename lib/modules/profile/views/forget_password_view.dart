@@ -17,65 +17,46 @@ class ForgetPasswordView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: 
-      
-      Padding(
-        padding:  EdgeInsets.all(16.h),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            CustomSpacers.height24,
-
-            Align(
-              alignment: Alignment.centerLeft,
-              child: welcomeBack.h25(textColor: AppColors.COLOR_GREEN)),
-            CustomSpacers.height54,
-            CustomInput(
-              prefixIcon: Icon(Icons.email),
-
-              placeholder: email,
-              validator: (val){
-            if(val!.isEmpty){
-               return enterEmail;
-             }
-             return null;
-            },),
-            CustomSpacers.height12,
-
-            CustomInput(
-              prefixIcon: Icon(Icons.lock),
-              isObscure: true,
-              placeholder: password,
-              validator: (val){
-            if(val!.isEmpty){
-               return enterPassword;
-             }
-             return null;
-            },),
-            CustomSpacers.height8,
-            Align(alignment: Alignment.centerRight,
-            child: ClickableTexts(title: forgetPassword.body14()),
-            ),
-
-            CustomSpacers.height16,
-            RedButton(login, (){}),
-            CustomSpacers.height8,
-            Row(
-              mainAxisAlignment:MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                dontHaveAccount.body14(),
-                CustomSpacers.width8,
-                
-                ClickableTexts(title: signup.body16(textColor: AppColors.COLOR_GREEN)),
-              ],
-            )
-        ],),
-      )
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.fromLTRB(
+            22.w, 2.h, 22.w, 16.w + MediaQuery.of(context).viewInsets.bottom),
+        child: RedButton(submit, () {}),
       ),
+      body: SafeArea(
+          child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(22.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              CustomSpacers.height24,
+              Align(
+                  alignment: Alignment.centerLeft,
+                  child: forgetPasswordTitle.h25(
+                      textColor: AppColors.COLOR_GREEN)),
+              CustomSpacers.height10,
+              Align(
+                  alignment: Alignment.centerLeft,
+                  child: forgetPasswordMsg.h25(
+                    fontSize: 16.sp,
+                      textColor: AppColors.COLOR_GREY_500,
+                      textAlign: TextAlign.start)),
+              CustomSpacers.height54,
+              CustomInput(
+                prefixIcon: Icon(Icons.email),
+                placeholder: email,
+                validator: (val) {
+                  if (val!.isEmpty) {
+                    return enterEmail;
+                  }
+                  return null;
+                },
+              ),
+            ],
+          ),
+        ),
+      )),
     );
-    
-    
-    }
+  }
 }

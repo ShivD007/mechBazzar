@@ -16,9 +16,7 @@ extension ExtendedString on String {
         textAlign: textAlign,
         maxLines: maxLines,
         overflow: overflow,
-        style: textColor == null
-            ? MontserratStyle.h3SemiboldGrey900_25px
-            : MontserratStyle.h3SemiboldGrey900_25px.copyWith(
+        style:  MontserratStyle.h3SemiboldGrey900_25px.copyWith(
                 color: textColor, fontSize: fontSize, fontWeight: fontWeight),
       );
 

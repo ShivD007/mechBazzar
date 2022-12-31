@@ -1,4 +1,4 @@
-package com.app.mechBazar
+package com.example.mechBazar
 
 import io.flutter.embedding.android.FlutterActivity
 

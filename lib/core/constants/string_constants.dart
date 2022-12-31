@@ -7,11 +7,7 @@ const ERROR = "Error";
 const APPLY = "Apply";
 const UPLOAD = "Upload";
 const CREATE = "Create";
-const LET_GET_STARTED = "Let Get Started";
-const ENTER_VALID_NAME = "Please enter valid name";
-const ENTER_NAME = "Please enter name";
-const ENTER_EMAIL = "Please enter email";
-const ENTER_VALID_EMAIL = "Please enter valid email";
+
 
 const USER_UNAUTHORISED = "User UnAuthorised";
 
@@ -34,4 +30,16 @@ const String enterPassword="Enter password";
 const String dontHaveAccount="Don't have an account";
 const String signup="Sign Up";
 const String forgetPassword="Forget Password?";
+const String forgetPasswordTitle="Forget Password";
+const String forgetPasswordMsg="A link to reset your password will be send to the registered email.";
 const String welcomeBack='Welcome back';
+const String submit='Submit';
+const String name='Name';
+const String mobileNumber='Mobile no.';
+const String confirmPassword='Confirm password';
+
+// erro messages
+const String passwordNotMatch="Entered Password not Matched";
+const String entertenDigitMobileNumber="Enter 10-digits number";
+const String enterYourName="Enter your full name";
+const enterValidEmail = "Please enter valid email";

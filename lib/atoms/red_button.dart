@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mechBazzar/core/app_colors.dart';
 import 'package:mechBazzar/core/text_extension.dart';
 import 'package:flutter/material.dart';
@@ -49,10 +50,9 @@ class RedButton extends StatelessWidget {
         ),
         child: Container(
        
-          padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
           width: double.infinity,
           alignment: Alignment.center,
-
+  height: 48.h,
           //decoration: BoxDecoration(borderRadius: ),
           child:
               text.h25(fontWeight: FontWeight.w600)

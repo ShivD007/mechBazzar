@@ -9,6 +9,8 @@ abstract class Routes {
   static const forgetPassword = '/forgetPassword';
   static const signup = '/signup';
   static const login = '/login';
+  static const profile = '/profile';
+  static const productDetail = '/productDetail';
 
 
 }

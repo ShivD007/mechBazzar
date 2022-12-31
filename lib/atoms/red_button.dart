@@ -19,13 +19,15 @@ class RedButton extends StatelessWidget {
 
   // Defining the background color
   final Color backgroundColor;
+  final double? width;
 
 
   const RedButton( this.text, this._onTapCallback,
       {this.isDisables = false,
       this.textColor = AppColors.COLOR_WHITE,
       this.backgroundColor = AppColors.COLOR_GREEN,
-     l});
+      this.width= double.infinity
+     });
 
 
 
@@ -50,12 +52,12 @@ class RedButton extends StatelessWidget {
         ),
         child: Container(
        
-          width: double.infinity,
+          width:width,
           alignment: Alignment.center,
   height: 48.h,
           //decoration: BoxDecoration(borderRadius: ),
           child:
-              text.h25(fontWeight: FontWeight.w600)
+              text.h25(fontWeight: FontWeight.w600, fontSize: 18.sp)
             
         ));
   }

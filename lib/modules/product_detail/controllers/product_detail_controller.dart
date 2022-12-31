@@ -1,10 +1,8 @@
 import 'package:get/get.dart';
-
 import '../../../core/helper_ui.dart';
 
-class ForgetPasswordController extends GetxController with HelperUI {
-  ForgetPasswordController();
-
+class ProductDetailController extends GetxController with HelperUI {
+ 
   @override
   Future<void> onInit() async {
     super.onInit();

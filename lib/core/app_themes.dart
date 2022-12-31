@@ -3,13 +3,14 @@ import 'app_colors.dart';
 
 class AppThemes {
   static final ligtTheme = ThemeData(
+     textSelectionTheme: TextSelectionThemeData(cursorColor: AppColors.COLOR_GREY_800),
       appBarTheme: const AppBarTheme(
           elevation: 0,
           backgroundColor: AppColors.COLOR_GREEN,
           foregroundColor: AppColors.COLOR_WHITE),
       scaffoldBackgroundColor: AppColors.COLOR_WHITE,
       colorScheme:
-          const ColorScheme.light().copyWith(primary: AppColors.COLOR_WHITE),
+          const ColorScheme.light().copyWith(primary: AppColors.COLOR_GREEN),
       fontFamily: 'OpenSansRegular',
       backgroundColor: AppColors.COLOR_WHITE_TRANSPARENT,
       primaryColor: AppColors.COLOR_GREEN,
@@ -48,5 +49,5 @@ class AppThemes {
             fontStyle:
                 FontStyle.normal), // Taken values as per Livspace project need
       ),
-      dividerColor: AppColors.COLOR_RED);
+      dividerColor: AppColors.COLOR_GREY_600);
 }

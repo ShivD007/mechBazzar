@@ -37,6 +37,10 @@ const String submit='Submit';
 const String name='Name';
 const String mobileNumber='Mobile no.';
 const String confirmPassword='Confirm password';
+const String address='Address';
+const String editProfile='Edit Profile';
+const String deleteAccount='delete Account';
+const String profile='Profile';
 
 // erro messages
 const String passwordNotMatch="Entered Password not Matched";

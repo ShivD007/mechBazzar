@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 
 import '../../../core/helper_ui.dart';
 
-class SignupController extends GetxController with HelperUI {
-  SignupController();
+class ProfileController extends GetxController with HelperUI {
+
   late TextEditingController emailController;
-  late TextEditingController password;
+  late TextEditingController addressController;
   late TextEditingController nameController;
   late TextEditingController phoneController;
   GlobalKey<FormState> formKey=GlobalKey<FormState>();
@@ -14,7 +14,7 @@ class SignupController extends GetxController with HelperUI {
   @override
   Future<void> onInit() async {
     emailController=TextEditingController();
-    password=TextEditingController();
+    addressController=TextEditingController();
     nameController=TextEditingController();
     phoneController=TextEditingController();
 
@@ -31,15 +31,19 @@ class SignupController extends GetxController with HelperUI {
   @override
   void onClose() {
     emailController.dispose(); 
-    password.dispose(); 
+    addressController.dispose(); 
     nameController.dispose(); 
     phoneController.dispose(); 
 
   }
 
-  void onSubmit(){
+  void onEdit(){
     if(!formKey.currentState!.validate()){
       return;
     }
+  }
+
+  void onDeleteUser(){
+  
   }
 }

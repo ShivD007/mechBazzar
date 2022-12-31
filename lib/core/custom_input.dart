@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mechBazzar/core/app_colors.dart';
 
 class CustomInput extends StatelessWidget {
   final bool isReadOnly;
@@ -108,6 +109,7 @@ class CustomInput extends StatelessWidget {
           minWidth: 32.w,
         ),
         prefixIcon: prefixIcon,
+        prefixIconColor: AppColors.COLOR_GREEN,
         suffixText: !showCounterInside!
             ? null
             : '${controller!.text.length.toString()}/${maxLength.toString()}',
@@ -140,12 +142,12 @@ class CustomInput extends StatelessWidget {
               color: Colors.red, width: 1.5, style: BorderStyle.solid),
         ),
         hintText: labelTextFlag ? null : placeholder,
-        contentPadding: EdgeInsets.only(
-            left: horizontalPadding != null ? horizontalPadding!.h : 16.h,
-            right:
-                horizontalPadding != null ? (horizontalPadding! - 2).h : 16.h,
-            top: verticalPadding ?? 12.h,
-            bottom: verticalPadding ?? 12.h),
+        // contentPadding: EdgeInsets.only(
+        //     left: horizontalPadding != null ? horizontalPadding!.h : 16.h,
+        //     right:
+        //         horizontalPadding != null ? (horizontalPadding! - 2).h : 16.h,
+        //     top: verticalPadding ?? 12.h,
+        //     bottom: verticalPadding ?? 12.h),
       ),
     );
   }

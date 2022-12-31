@@ -1,7 +1,9 @@
 import 'package:mechBazzar/modules/profile/bindings/forget_password_bindings.dart';
+import 'package:mechBazzar/modules/profile/bindings/profile_bindings.dart';
 import 'package:mechBazzar/modules/profile/bindings/signup_binding.dart';
 import 'package:mechBazzar/modules/profile/controllers/login_controller.dart';
 import 'package:mechBazzar/modules/profile/views/forget_password_view.dart';
+import 'package:mechBazzar/modules/profile/views/profile_view.dart';
 import 'package:mechBazzar/modules/profile/views/signup_view.dart';
 import 'package:mechBazzar/modules/splash/bindings/splash_binding.dart';
 import 'package:mechBazzar/modules/splash/views/splash_view.dart';
@@ -9,6 +11,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/product_detail/bindings/product_detail_binding.dart';
+import '../modules/product_detail/views/product_detail_view.dart';
 import '../modules/profile/bindings/login_bindings.dart';
 import '../modules/profile/views/login_view.dart';
 part 'app_routes.dart';
@@ -43,6 +47,16 @@ class AppPages {
       name: Routes.signup,
       binding: SignUpBinding(),
       page: () => SignUpView(),
+    ),
+    GetPage(
+      name: Routes.profile,
+      binding: ProfileBindings(),
+      page: () => ProfileView(),
+    ),
+    GetPage(
+      name: Routes.productDetail,
+      binding: ProductDetailBinding(),
+      page: () => ProductDetailView(),
     ),
   ];
 }

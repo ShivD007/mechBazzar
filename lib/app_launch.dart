@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:admin_jandhara/routes/app_pages.dart';
+import 'package:mechBazzar/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,7 +16,7 @@ class AppLaunch extends StatelessWidget {
       builder: (context, constraints) {
         return ScreenUtilInit(
           designSize: const Size(414, 896),
-          builder: (_) => GetMaterialApp(
+          builder: (_,child) => GetMaterialApp(
             debugShowCheckedModeBanner: false,
             title: "",
             translationsKeys: {},

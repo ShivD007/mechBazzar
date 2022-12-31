@@ -1,4 +1,4 @@
-import 'package:admin_jandhara/core/text_extension.dart';
+import 'package:mechBazzar/core/text_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:get/get.dart';

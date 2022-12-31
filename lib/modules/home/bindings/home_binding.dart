@@ -1,6 +1,4 @@
-import 'package:admin_jandhara/core/di/injection_container.dart';
 import 'package:get/get.dart';
-import '../../category_controller.dart';
 import '../controllers/home_controller.dart';
 
 class HomeBinding extends Bindings {

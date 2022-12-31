@@ -1,4 +1,4 @@
-import 'package:admin_jandhara/core/constants/image_constants.dart';
+import 'package:mechBazzar/core/constants/image_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 

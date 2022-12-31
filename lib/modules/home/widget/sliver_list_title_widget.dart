@@ -1,5 +1,5 @@
-import 'package:admin_jandhara/core/app_colors.dart';
-import 'package:admin_jandhara/core/text_extension.dart';
+import 'package:mechBazzar/core/app_colors.dart';
+import 'package:mechBazzar/core/text_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

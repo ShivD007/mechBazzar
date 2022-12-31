@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:admin_jandhara/core/shared_preference_util_impl.dart';
-import 'package:admin_jandhara/routes/custom_navigator.dart';
+import 'package:mechBazzar/core/shared_preference_util_impl.dart';
+import 'package:mechBazzar/routes/custom_navigator.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,9 +30,9 @@ class SplashController extends GetxController {
       int value = await SharedPreferenceUtils().getInt("isLoggedIn");
       print(value);
       if (value == 1) {
-        CustomNavigator.pushReplacement(Routes.HOME);
+        CustomNavigator.pushReplacement(Routes.home);
       } else {
-        CustomNavigator.pushReplacement(Routes.ENTER_PASSWORD);
+        CustomNavigator.pushReplacement(Routes.login);
       }
     });
   }

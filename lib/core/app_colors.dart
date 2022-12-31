@@ -15,7 +15,7 @@ class AppColors {
   static const Color COLOR_GREY_600 = Color(0xFF4B4B63);
   static const Color COLOR_GREY_800 = Color(0xFF1F1F37);
 
-  static const Color COLOR_GREY_900 = Color(0xFF14142B);
+  static const Color COLOR_GREY_900 = Color.fromARGB(255, 2, 2, 2);
 
   static const Color COLOR_YELLOW = Color(0xFFFFCC05);
   static const Color COLOR_RED = Color(0xFFDC2020);

@@ -1,10 +1,10 @@
-import 'package:admin_jandhara/atoms/custom_carousel.dart';
-import 'package:admin_jandhara/atoms/sliver_app_delegate.dart';
-import 'package:admin_jandhara/core/app_colors.dart';
-import 'package:admin_jandhara/core/custom_spacers.dart';
-import 'package:admin_jandhara/modules/home/widget/sliver_custom_app_bar.dart';
-import 'package:admin_jandhara/modules/home/widget/sliver_horizontal_list.dart';
-import 'package:admin_jandhara/modules/home/widget/sliver_list_title_widget.dart';
+import 'package:mechBazzar/atoms/custom_carousel.dart';
+import 'package:mechBazzar/atoms/sliver_app_delegate.dart';
+import 'package:mechBazzar/core/app_colors.dart';
+import 'package:mechBazzar/core/custom_spacers.dart';
+import 'package:mechBazzar/modules/home/widget/sliver_custom_app_bar.dart';
+import 'package:mechBazzar/modules/home/widget/sliver_horizontal_list.dart';
+import 'package:mechBazzar/modules/home/widget/sliver_list_title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

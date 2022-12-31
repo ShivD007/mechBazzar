@@ -1,25 +1,48 @@
-import 'package:admin_jandhara/modules/splash/bindings/splash_binding.dart';
-import 'package:admin_jandhara/modules/splash/views/splash_view.dart';
+import 'package:mechBazzar/modules/profile/bindings/forget_password_bindings.dart';
+import 'package:mechBazzar/modules/profile/bindings/signup_binding.dart';
+import 'package:mechBazzar/modules/profile/controllers/login_controller.dart';
+import 'package:mechBazzar/modules/profile/views/forget_password_view.dart';
+import 'package:mechBazzar/modules/profile/views/signup_view.dart';
+import 'package:mechBazzar/modules/splash/bindings/splash_binding.dart';
+import 'package:mechBazzar/modules/splash/views/splash_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/profile/bindings/login_bindings.dart';
+import '../modules/profile/views/login_view.dart';
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.HOME;
+  static const INITIAL = Routes.splash;
 
   static final routes = [
     GetPage(
-      name: _Paths.HOME,
+      name: Routes.home,
       binding: HomeBinding(),
       page: () => const HomeView(),
     ),
     GetPage(
-      name: _Paths.SPLASH,
+      name: Routes.splash,
       binding: SplashBinding(),
       page: () => const SplashView(),
+    ),
+    GetPage(
+      name: Routes.login,
+      binding: LoginBinding(),
+      page: () => LoginView(),
+    ),
+    GetPage(
+      name: Routes.forgetPassword,
+      binding: ForgetPasswordBinding(),
+      page: () => ForgetPasswordView(),
+    ),
+    GetPage(
+      name: Routes.signup,
+      binding: SignUpBinding(),
+      page: () => SignUpView(),
     ),
   ];
 }

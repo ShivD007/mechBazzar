@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.admin_jandhara">
+    package="com.app.mechBazar">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="admin_jandhara"
+        android:label="mechBazzar"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

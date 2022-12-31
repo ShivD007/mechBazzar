@@ -1,4 +1,4 @@
-package com.example.admin_jandhar.admin_jandhara
+package com.example.admin_jandhar.mechBazzar
 
 import io.flutter.embedding.android.FlutterActivity
 

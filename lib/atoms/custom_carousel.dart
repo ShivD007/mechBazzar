@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:admin_jandhara/core/app_colors.dart';
+import 'package:mechBazzar/core/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 

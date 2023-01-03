@@ -16,7 +16,7 @@ class CategoryView extends GetView<CategoryController> {
     return CustomTabBarView(
       appBar: CustomAppBarWithBack(title: "Categories"),
       controller: controller.tabController,
-      length: 8,
+      length: 3,
       tabs: [
         Tab(
           text: 'qwe',
@@ -27,21 +27,6 @@ class CategoryView extends GetView<CategoryController> {
         Tab(
           text: 'qwe',
         ),
-        Tab(
-          text: 'qwe',
-        ),
-        Tab(
-          text: 'qwe',
-        ),
-        Tab(
-          text: 'qwe',
-        ),
-        Tab(
-          text: 'qwe',
-        ),
-        Tab(
-          text: 'qwe',
-        )
       ],
       children: controller.category
           .map((e) => ItemListView(

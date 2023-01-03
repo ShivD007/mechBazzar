@@ -32,6 +32,7 @@ class CustomTabBarView extends StatelessWidget {
     return DefaultTabController(
       length: length,
       child: Scaffold(
+        backgroundColor: AppColors.COLOR_GREY_200,
         appBar: appBar,
         bottomNavigationBar: bottomWidget,
         body: Padding(
@@ -42,9 +43,10 @@ class CustomTabBarView extends StatelessWidget {
             children: [
               Container(
                 height: 45,
-                margin: EdgeInsets.symmetric(horizontal: 16),
+                margin: EdgeInsets.symmetric(horizontal: 16.h, vertical: 10.h),
                 decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(8.0)),
                 child: TabBar(
+                  controller: controller,
                   isScrollable: true,
                   indicator: BoxDecoration(color: Colors.green[300], borderRadius: BorderRadius.circular(8.0)),
                   labelColor: Colors.white,
@@ -52,7 +54,6 @@ class CustomTabBarView extends StatelessWidget {
                   tabs: tabs,
                 ),
               ),
-              SizedBox(height: 8.h),
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.h),

@@ -5,10 +5,10 @@ import 'dart:async';
 
 class CategoryController extends GetxController with GetSingleTickerProviderStateMixin {
   late TabController tabController;
-  List<String> category = ["a", "b", "c", "d", "e", "f", "g", "h"];
+  List<String> category = ["a", "b", "c"];
   @override
   Future<void> onInit() async {
-    tabController = TabController(length: 8, vsync: this);
+    tabController = TabController(length: 3, vsync: this);
     super.onInit();
   }
 

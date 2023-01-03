@@ -20,7 +20,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.productDetail;
+  static const INITIAL = Routes.splash;
 
   static final routes = [
     GetPage(

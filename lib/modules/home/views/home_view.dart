@@ -37,8 +37,10 @@ class HomeView extends GetView<HomeController> {
         shrinkWrap: true,
         slivers: [
           const SliverCustomAppBar(),
-          makeHeader(Container(color: AppColors.COLOR_GREY_200, child: CustomSpacers.height16), 16),
-          makeHeader(_crouselWidget(), 200),
+          // makeHeader(Container(color: AppColors.COLOR_GREY_200, child: CustomSpacers.height16), 16),
+          SliverToBoxAdapter(child: CustomSpacers.height12),
+          
+          SliverToBoxAdapter(child: _crouselWidget()),
           SliverToBoxAdapter(child: CustomSpacers.height12),
           const SliverListTitle(
             text: "Electric Tool & Equipment",

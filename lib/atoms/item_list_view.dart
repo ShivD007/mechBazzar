@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mechBazzar/atoms/horizontal_list.dart';
 import 'package:mechBazzar/atoms/item_card.dart';
 
 import '../core/custom_spacers.dart';
@@ -24,9 +25,7 @@ class ItemListView extends StatelessWidget {
             scrollDirection: scrollDirection,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return ItemCard(
-                isHome: scrollDirection != Axis.horizontal,
-              );
+              return HorizontalItemCard();
             },
             itemCount: 5,
             separatorBuilder: (BuildContext context, int index) => CustomSpacers.height10,

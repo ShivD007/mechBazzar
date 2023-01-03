@@ -21,15 +21,11 @@ class RedButton extends StatelessWidget {
   final Color backgroundColor;
   final double? width;
 
-
-  const RedButton( this.text, this._onTapCallback,
+  const RedButton(this.text, this._onTapCallback,
       {this.isDisables = false,
       this.textColor = AppColors.COLOR_WHITE,
       this.backgroundColor = AppColors.COLOR_GREEN,
-      this.width= double.infinity
-     });
-
-
+      this.width = double.infinity});
 
   //region: Overridden functions
   @override
@@ -45,21 +41,17 @@ class RedButton extends StatelessWidget {
           backgroundColor: MaterialStateProperty.all(
             isDisables ? AppColors.COLOR_GREY_400 : backgroundColor,
           ),
-       
           shape: MaterialStateProperty.all(const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5)),
           )),
         ),
         child: Container(
-       
-          width:width,
-          alignment: Alignment.center,
-  height: 48.h,
-          //decoration: BoxDecoration(borderRadius: ),
-          child:
-              text.h25(fontWeight: FontWeight.w600, fontSize: 18.sp)
-            
-        ));
+            width: width,
+            alignment: Alignment.center,
+            height: 48.h,
+            //decoration: BoxDecoration(borderRadius: ),
+            child:
+                text.h25(fontSize: 20.sp, textColor: AppColors.COLOR_WHITE)));
   }
   //endregion
 

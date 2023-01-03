@@ -1,55 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mechBazzar/atoms/currency.dart';
+import 'package:mechBazzar/core/Images/custom_network_image.dart';
+import 'package:mechBazzar/core/app_colors.dart';
+import 'package:mechBazzar/core/constants/string_constants.dart';
+import 'package:mechBazzar/core/constants/value_constants.dart';
 import 'package:mechBazzar/core/custom_spacers.dart';
 import 'package:mechBazzar/core/text_extension.dart';
 
 class ItemCard extends StatelessWidget {
-  const ItemCard({Key? key, this.isHome = false}) : super(key: key);
-
-  final bool isHome;
+  const ItemCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 260.h,
-      width: (MediaQuery.of(context).size.width - 32).w,
-      child: Material(
-        borderRadius: BorderRadius.circular(8),
-        color: isHome ? null : Colors.transparent,
-        child: Container(
-          height: 260.h,
-          width: (MediaQuery.of(context).size.width - 32).w,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CustomSpacers.height8,
-              Flexible(
-                child: Material(
-                  borderRadius: BorderRadius.circular(8),
-                  elevation: 0,
-                  child: Container(
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Image.network(
-                        "https://cdn.pixabay.com/photo/2016/11/19/09/44/antique-1838324__340.jpg",
-                        fit: BoxFit.fitWidth,
-                      ),
-                    ),
-                  ),
-                ),
+    return Material(
+      borderRadius: BorderRadius.circular(8),
+      
+      child: Container(
+        height: 220.h,
+        width: 270.w,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(VALUE_INPUT_BORDER_RADIUS),
+          border: Border.all(color: AppColors.COLOR_GREY_900,width: 0.5)
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomNetworkImageView.square(
+                fit: BoxFit.cover,
+                height: 156.h,
+                width: 270.w,
+                imagePath: DUMMY_NETWORK_IMAGE),
+            CustomSpacers.height8,
+            Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 8.w),
+              child: "abc dallklkfadfa"
+                  .h25(fontSize: 16.sp, textColor: AppColors.COLOR_GREY_900),
+            ),
+            Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 8.w),
+              child: CurrencyView(
+                currentPrice: 5454,
+                previousPrice: 455,
               ),
-              CustomSpacers.height8,
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: "abc dallklkfadfa".body16(),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("\$ 300 "),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

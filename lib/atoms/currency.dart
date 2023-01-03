@@ -17,7 +17,7 @@ class CurrencyView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
 
-        (currency+currentPrice.toStringAsFixed(2)).h25(fontSize: 20.sp,textColor: AppColors.COLOR_GREY_900),
+        (currency+currentPrice.toStringAsFixed(2)).h25(fontSize: 16.sp,textColor: AppColors.COLOR_GREY_900),
         if(previousPrice!=null)...[
           CustomSpacers.width8,
         (currency+ previousPrice!.toStringAsFixed(2)).body14(textColor: AppColors.COLOR_GREY_600,decoration: TextDecoration.lineThrough)

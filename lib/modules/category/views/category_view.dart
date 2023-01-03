@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:mechBazzar/atoms/item_card.dart';
 import 'package:mechBazzar/atoms/item_list_view.dart';
-import 'package:mechBazzar/core/app_colors.dart';
 import 'package:mechBazzar/core/custom_appbar_with_back_button.dart';
-import 'package:mechBazzar/core/text_extension.dart';
 import '../../../atoms/custom_tab_bar_view.dart';
 import '../controllers/category_controller.dart';
 
@@ -13,6 +10,7 @@ class CategoryView extends GetView<CategoryController> {
 
   @override
   Widget build(BuildContext context) {
+    
     return CustomTabBarView(
       appBar: CustomAppBarWithBack(title: "Categories"),
       controller: controller.tabController,
@@ -29,7 +27,9 @@ class CategoryView extends GetView<CategoryController> {
         ),
       ],
       children: controller.category
-          .map((e) => ItemListView(
+          .map((e) => 
+          
+          ItemListView(
                 topWidget: Text(e),
               ))
           .toList(),

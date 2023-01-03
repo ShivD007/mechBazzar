@@ -7,6 +7,7 @@ const ERROR = "Error";
 const APPLY = "Apply";
 const UPLOAD = "Upload";
 const CREATE = "Create";
+const currency="₹";
 
 
 const USER_UNAUTHORISED = "User UnAuthorised";
@@ -41,6 +42,8 @@ const String address='Address';
 const String editProfile='Edit Profile';
 const String deleteAccount='delete Account';
 const String profile='Profile';
+const price= "Price: ";
+const sku= "SKU: ";
 
 // erro messages
 const String passwordNotMatch="Entered Password not Matched";

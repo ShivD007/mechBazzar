@@ -33,9 +33,7 @@ extension ExtendedString on String {
           maxLines: maxLines,
           overflow: overflow,
           textAlign: textAlign,
-          style: textColor == AppColors.COLOR_BLACK
-              ? Style_OpenSans.bodyRegularGrey400_16px
-              : Style_OpenSans.bodyRegularGrey400_16px.copyWith(
+          style:  Style_OpenSans.bodyRegularGrey400_16px.copyWith(
                   color: textColor,
                   fontSize: fontSize,
                   height: height,
@@ -47,16 +45,16 @@ extension ExtendedString on String {
           double? fontSize,
           TextAlign? textAlign = TextAlign.center,
           int? maxLines,
+          TextDecoration? decoration,
           TextOverflow? overflow}) =>
       Text(this,
           maxLines: maxLines,
           overflow: overflow,
           textAlign: textAlign,
-          style: textColor == null
-              ? Style_OpenSans.bodySemiBoldGrey900_14px
-              : Style_OpenSans.bodySemiBoldGrey900_14px.copyWith(
+          style:  Style_OpenSans.bodySemiBoldGrey900_14px.copyWith(
                   color: textColor,
                   fontSize: fontSize,
+                  decoration: decoration,
                   fontWeight: fontWeight));
 
 }

@@ -5,7 +5,7 @@ import 'package:mechBazzar/routes/custom_navigator.dart';
 import '../../../core/helper_ui.dart';
 import '../../../routes/app_pages.dart';
 
-class LoginController extends GetxController with HelperUI {
+class LoginController extends GetxController with HelperUI, GetSingleTickerProviderStateMixin {
   late TextEditingController emailController;
   late TextEditingController passwordController;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -28,7 +28,7 @@ class LoginController extends GetxController with HelperUI {
     passwordController.dispose();
   }
 
-    void onSubmit(){
+  void onSubmit() {
     // if(!formKey.currentState!.validate()){
     //   return;
     // }

@@ -27,31 +27,32 @@ class SliverCustomAppBar extends StatelessWidget {
           onPressed: () {},
         )
       ],
-      expandedHeight: 150.0.h,
+      expandedHeight: (AppBar().preferredSize.height + 78).h,
       titleSpacing: 0,
       elevation: 1.0,
       flexibleSpace: FlexibleSpaceBar(
         background: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const SizedBox(
-              height: kToolbarHeight,
+            SizedBox(
+              height: (AppBar().preferredSize.height + 17).h,
             ),
             Padding(
               padding: EdgeInsets.all(16.0.h),
               child: SizedBox(
-                height: 36.0,
+                height: 55.0.h,
                 width: double.infinity,
                 child: CupertinoTextField(
                   readOnly: true,
                   keyboardType: TextInputType.text,
                   placeholder: 'Search...',
-                  placeholderStyle: const TextStyle(
+                  placeholderStyle: TextStyle(
                     color: AppColors.COLOR_LIGHT_GREEN,
-                    fontSize: 14.0,
+                    fontSize: 14.sp,
                   ),
-                  suffix: const Padding(
-                    padding: EdgeInsets.fromLTRB(9.0, 6.0, 9.0, 6.0),
+                  suffix: Padding(
+                    padding: EdgeInsets.fromLTRB(9.0.w, 6.0.h, 9.0.w, 6.0.h),
                     child: Icon(
                       Icons.search,
                       color: AppColors.COLOR_LIGHT_GREEN,

@@ -2,6 +2,9 @@ import 'package:mechBazzar/core/custom_spacers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../atoms/item_card.dart';
+import '../../../atoms/item_list_view.dart';
+
 class SliverHorizontalList extends StatelessWidget {
   const SliverHorizontalList({
     Key? key,
@@ -14,33 +17,8 @@ class SliverHorizontalList extends StatelessWidget {
       sliver: SliverToBoxAdapter(
         child: SizedBox(
           height: 250.h,
-          child: ListView.separated(
-            physics: const BouncingScrollPhysics(),
+          child: ItemListView(
             scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return SizedBox(
-                  height: 250.h,
-                  width: 400.h,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Flexible(
-                        child: Align(
-                          alignment: Alignment.topCenter,
-                          child: Image.network(
-                            "https://cdn.pixabay.com/photo/2016/11/19/09/44/antique-1838324__340.jpg",
-                            fit: BoxFit.fitWidth,
-                          ),
-                        ),
-                      ),
-                      Text("data")
-                    ],
-                  ));
-            },
-            itemCount: 5,
-            separatorBuilder: (BuildContext context, int index) => CustomSpacers.width10,
           ),
         ),
       ),

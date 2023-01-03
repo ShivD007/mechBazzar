@@ -1,3 +1,7 @@
+import 'package:mechBazzar/modules/brand/bindings/brand_binding.dart';
+import 'package:mechBazzar/modules/brand/views/brand_view.dart';
+import 'package:mechBazzar/modules/category/bindings/category_binding.dart';
+import 'package:mechBazzar/modules/category/views/category_view.dart';
 import 'package:mechBazzar/modules/profile/bindings/forget_password_bindings.dart';
 import 'package:mechBazzar/modules/profile/bindings/profile_bindings.dart';
 import 'package:mechBazzar/modules/profile/bindings/signup_binding.dart';
@@ -57,6 +61,16 @@ class AppPages {
       name: Routes.productDetail,
       binding: ProductDetailBinding(),
       page: () => ProductDetailView(),
+    ),
+    GetPage(
+      name: Routes.category,
+      binding: CategoryBinding(),
+      page: () => CategoryView(),
+    ),
+    GetPage(
+      name: Routes.brand,
+      binding: BrandBinding(),
+      page: () => BrandView(),
     ),
   ];
 }

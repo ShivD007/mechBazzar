@@ -11,7 +11,6 @@ abstract class Routes {
   static const login = '/login';
   static const profile = '/profile';
   static const productDetail = '/productDetail';
-
-
+  static const category = '/category';
+  static const brand = '/brand';
 }
-

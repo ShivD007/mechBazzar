@@ -30,13 +30,14 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.COLOR_GREY_200,
       key: home_key,
       drawer: DrawerWidget(),
       body: CustomScrollView(
         shrinkWrap: true,
         slivers: [
           const SliverCustomAppBar(),
-          makeHeader(Container(color: AppColors.COLOR_WHITE, child: CustomSpacers.height16), 16),
+          makeHeader(Container(color: AppColors.COLOR_GREY_200, child: CustomSpacers.height16), 16),
           makeHeader(_crouselWidget(), 200),
           SliverToBoxAdapter(child: CustomSpacers.height12),
           const SliverListTitle(
@@ -82,7 +83,7 @@ class HomeView extends GetView<HomeController> {
   Container _crouselWidget() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
-      color: AppColors.COLOR_WHITE,
+      color: AppColors.COLOR_GREY_200,
       child: CustomCarousel(
           height: 200.h,
           autoPlay: true,

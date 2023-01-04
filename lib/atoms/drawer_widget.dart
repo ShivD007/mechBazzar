@@ -53,13 +53,15 @@ class DrawerWidget extends StatelessWidget {
           ListTile(
             title: const Text('Categories'),
             onTap: () {
+              CustomNavigator.pop();
               CustomNavigator.pushTo(Routes.category);
             },
           ),
           ListTile(
             title: const Text('Brand List'),
             onTap: () {
-              Navigator.pop(context);
+              CustomNavigator.pop();
+              CustomNavigator.pushTo(Routes.brand);
             },
           ),
           ListTile(

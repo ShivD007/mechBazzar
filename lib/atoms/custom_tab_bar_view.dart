@@ -44,12 +44,13 @@ class CustomTabBarView extends StatelessWidget {
               Container(
                 height: 45,
                 margin: EdgeInsets.symmetric(horizontal: 16.h, vertical: 10.h),
-                decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(8.0)),
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8.0)),
                 child: TabBar(
                   controller: controller,
                   isScrollable: true,
-                  indicator: BoxDecoration(color: Colors.green[300], borderRadius: BorderRadius.circular(8.0)),
+                  indicator: BoxDecoration(color: AppColors.COLOR_GREEN, borderRadius: BorderRadius.circular(8.0)),
                   labelColor: Colors.white,
+                  labelStyle: TextStyle(fontSize: 14.sp),
                   unselectedLabelColor: Colors.black,
                   tabs: tabs,
                 ),

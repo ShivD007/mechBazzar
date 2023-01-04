@@ -6,9 +6,11 @@ import 'package:mechBazzar/atoms/item_card.dart';
 import '../core/custom_spacers.dart';
 
 class ItemListView extends StatelessWidget {
-  const ItemListView({Key? key, this.scrollDirection = Axis.vertical, this.topWidget}) : super(key: key);
+  const ItemListView({Key? key, this.scrollDirection = Axis.vertical, this.topWidget, required this.itemList})
+      : super(key: key);
   final Axis scrollDirection;
   final Widget? topWidget;
+  final List itemList;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -27,7 +29,7 @@ class ItemListView extends StatelessWidget {
             itemBuilder: (context, index) {
               return HorizontalItemCard();
             },
-            itemCount: 5,
+            itemCount: itemList.length,
             separatorBuilder: (BuildContext context, int index) => CustomSpacers.height10,
           ),
         )

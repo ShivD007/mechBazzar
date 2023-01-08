@@ -29,6 +29,7 @@ class BrandView extends GetView<BrandController> {
           .map(
             (e) => Obx(
               () => ItemListView(
+                isLoading: true,
                 itemList: controller.selectedList.value,
                 topWidget: SizedBox(
                   height: 50.h,
@@ -47,8 +48,6 @@ class BrandView extends GetView<BrandController> {
                           selected: controller.slectedSubCategory.value == controller.subCategory[index],
                           onSelected: (bool selected) {
                             controller.slectedSubCategory.value = controller.subCategory[index];
-                            controller.selectedList.value =
-                                controller.selectedList.contains(1) ? controller.temp2 : controller.temp1;
 
                             controller.selectedList.refresh();
                           },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/helper_ui.dart';
+import '../../../core/models/product_res_model.dart';
 
 class BrandController extends GetxController with HelperUI, GetSingleTickerProviderStateMixin {
   late TabController tabController;
@@ -15,7 +16,7 @@ class BrandController extends GetxController with HelperUI, GetSingleTickerProvi
 
   List<String> subCategory = ["Pumps", "Geysers & Heaters", "Fans", "wires & Cables"];
   RxString slectedSubCategory = RxString("");
-  RxList selectedList = RxList([8, 8, 3, 4, 5, 6, 5]);
+  RxList<Product?> selectedList = RxList<Product?>([]);
   @override
   Future<void> onInit() async {
     tabController = TabController(length: 3, vsync: this);

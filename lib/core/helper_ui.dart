@@ -36,8 +36,7 @@ class HelperUI {
   showSnackbar(String message) {
     ScaffoldMessenger.of(Get.context!).hideCurrentSnackBar();
     ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-      content: message.body14(
-          textColor: AppColors.COLOR_WHITE, textAlign: TextAlign.start),
+      content: message.body14(textColor: AppColors.COLOR_WHITE, textAlign: TextAlign.start),
       backgroundColor: AppColors.COLOR_GREY_600,
     ));
   }

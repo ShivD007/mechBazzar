@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mechBazzar/atoms/currency.dart';
-import 'package:mechBazzar/atoms/red_button.dart';
 import 'package:mechBazzar/core/constants/value_constants.dart';
 import 'package:mechBazzar/core/custom_spacers.dart';
-import 'package:mechBazzar/core/text_extension.dart';
 
-import '../core/Images/custom_network_image.dart';
-import '../core/app_colors.dart';
-import '../core/constants/string_constants.dart';
+import '../core/helper_ui.dart';
 
-class HorizontalItemCard extends StatelessWidget {
-  const HorizontalItemCard({Key? key, required this.itemName, required this.imagePath}) : super(key: key);
+class LoadingHorizontalItemCard extends StatelessWidget {
+  const LoadingHorizontalItemCard({Key? key}) : super(key: key);
 
-  final String itemName;
-  final String imagePath;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -29,7 +22,7 @@ class HorizontalItemCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            CustomNetworkImageView.square(fit: BoxFit.cover, height: 120.h, width: 150.w, imagePath: imagePath),
+            HelperUI.getProgressGhost(height: 120.h, width: 150.w),
             CustomSpacers.width8,
             Expanded(
               child: Padding(
@@ -41,36 +34,20 @@ class HorizontalItemCard extends StatelessWidget {
                     Flexible(
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.w),
-                        child: itemName.body16(
-                            textAlign: TextAlign.start,
-                            fontSize: 18.sp,
-                            maxLines: 2,
-                            textColor: AppColors.COLOR_GREY_900),
+                        child: HelperUI.getProgressGhost(height: 20.h, width: 200.w),
                       ),
                     ),
                     CustomSpacers.height10,
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
-                      child: CurrencyView(
-                        currentPrice: 5454,
-                        previousPrice: 455,
-                      ),
+                      child: HelperUI.getProgressGhost(height: 18.h, width: 80.w),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                       child: Align(
-                          alignment: Alignment.centerRight,
-                          child: Container(
-                            height: 30.w,
-                            width: 30.w,
-                            decoration: BoxDecoration(
-                                color: AppColors.COLOR_GREEN,
-                                borderRadius: BorderRadius.circular(VALUE_INPUT_BORDER_RADIUS)),
-                            child: Icon(
-                              Icons.chevron_right,
-                              color: AppColors.COLOR_WHITE,
-                            ),
-                          )),
+                        alignment: Alignment.centerRight,
+                        child: HelperUI.getProgressGhost(height: 30.h, width: 30.w),
+                      ),
                     ),
                   ],
                 ),

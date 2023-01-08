@@ -1,35 +1,86 @@
-class CategoryResModel {
-  CategoryResModel({
-    required this.id,
-    required this.count,
-    required this.name,
-    required this.slug,
-    required this.code,
-    required this.msg,
+// To parse this JSON data, do
+//
+//     final categoryModel = categoryModelFromJson(jsonString);
+
+import 'dart:convert';
+
+CategoryModels? categoryModelFromJson(String str) => CategoryModels.fromJson(json.decode(str));
+
+String categoryModelToJson(CategoryModels? data) => json.encode(data!.toJson());
+
+class CategoryModels {
+  CategoryModels({
+    this.errorCode,
+    this.errorMsg,
+    this.data,
   });
 
-  final int? id;
-  final int? count;
-  final String? name;
-  final String slug;
-  final String? code;
-  final String? msg;
+  String? errorCode;
+  String? errorMsg;
+  List<CategoryModel?>? data;
 
-  factory CategoryResModel.fromJson(Map<String, dynamic> json) =>
-      CategoryResModel(
-          id: json["id"],
-          count: json["count"],
-          name: json["name"],
-          slug: json["slug"],
-          code: json["code"],
-          msg: json["message"]);
+  factory CategoryModels.fromJson(Map<String, dynamic> json) => CategoryModels(
+        errorCode: json["errorCode"],
+        errorMsg: json["errorMsg"],
+        data:
+            json["data"] == null ? [] : List<CategoryModel?>.from(json["data"]!.map((x) => CategoryModel.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "errorCode": errorCode,
+        "errorMsg": errorMsg,
+        "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x!.toJson())),
+      };
+}
+
+class CategoryModel {
+  CategoryModel({
+    this.id,
+    this.categoryId,
+    this.name,
+    this.slug,
+    this.status,
+    this.scrapUrl,
+    this.scrapStatus,
+    this.photo,
+    this.isFeatured,
+    this.image,
+  });
+
+  int? id;
+  int? categoryId;
+  String? name;
+  String? slug;
+  int? status;
+  String? scrapUrl;
+  int? scrapStatus;
+  dynamic photo;
+  int? isFeatured;
+  dynamic image;
+
+  factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
+        id: json["id"],
+        categoryId: json["category_id"],
+        name: json["name"],
+        slug: json["slug"],
+        status: json["status"],
+        scrapUrl: json["scrap_url"],
+        scrapStatus: json["scrap_status"],
+        photo: json["photo"],
+        isFeatured: json["is_featured"],
+        image: json["image"],
+      );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "count": count,
+        "category_id": categoryId,
         "name": name,
         "slug": slug,
-        "message": msg,
-        "code": code
+        "status": status,
+        "scrap_url": scrapUrl,
+        "scrap_status": scrapStatus,
+        "photo": photo,
+        "is_featured": isFeatured,
+        "image": image,
       };
 }

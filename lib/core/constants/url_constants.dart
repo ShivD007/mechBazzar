@@ -10,4 +10,6 @@ class AppUrls {
   static const editProfile = "edit_profile";
   static const deleteProfile = "delete_user";
   static const getProfile = "get_profile";
+  static const getBrandList = "get_brand_list";
+  static const brandProduct = "brand_product";
 }

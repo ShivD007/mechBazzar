@@ -16,53 +16,33 @@ class BrandView extends GetView<BrandController> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTabBarView(
-      appBar: CustomAppBarWithBack(title: "Brands"),
-      controller: controller.tabController,
-      length: 3,
-      tabs: controller.category
-          .map((e) => Tab(
-                text: e,
-              ))
-          .toList(),
-      children: controller.category
-          .map(
-            (e) => Obx(
-              () => BrandCategoryListView(
-                isLoading: true,
-                itemList: controller.selectedList.value,
-                topWidget: SizedBox(
-                  height: 50.h,
-                  child: ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return Obx(
-                        () => ChoiceChip(
-                          padding: EdgeInsets.all(8),
-                          label:
-                              controller.subCategory[index].body16(fontSize: 14.sp, textColor: AppColors.COLOR_BLACK),
-                          selectedColor: AppColors.COLOR_LIGHT_GREEN,
-                          backgroundColor: AppColors.COLOR_GREY_300,
-                          selected: controller.slectedSubCategory.value == controller.subCategory[index],
-                          onSelected: (bool selected) {
-                            controller.slectedSubCategory.value = controller.subCategory[index];
-
-                            controller.selectedList.refresh();
-                          },
-                        ),
-                      );
-                    },
-                    itemCount: controller.subCategory.length,
-                    separatorBuilder: (BuildContext context, int index) => CustomSpacers.width10,
-                  ),
-                ),
-              ),
+    return Obx(() => controller.isInitialLoading.value
+        ? Scaffold(
+            appBar: CustomAppBarWithBack(title: "Brands"),
+            body: Center(
+              child: CircularProgressIndicator(),
             ),
           )
-          .toList(),
-    );
+        : CustomTabBarView(
+            appBar: CustomAppBarWithBack(title: "Brands"),
+            controller: controller.tabController!,
+            length: 3,
+            tabs: controller.brands
+                .map((e) => Tab(
+                      text: e.name,
+                    ))
+                .toList(),
+            children: controller.brands
+                .map(
+                  (e) => Obx(
+                    () => BrandCategoryListView(
+                      isLoading: controller.isListLoading.value,
+                      itemList: controller.selectedList,
+                    ),
+                  ),
+                )
+                .toList(),
+          ));
     ;
   }
 }

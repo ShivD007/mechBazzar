@@ -4,7 +4,7 @@ import '../../../core/constants/url_constants.dart';
 import '../../../network/api_base_helper.dart';
 
 class CategoryRepo {
-  static getShopCategory({required Function(String) onError, required Function(dynamic) onSuccess}) async {
+  static Future getShopCategory({required Function(String) onError, required Function(dynamic) onSuccess}) async {
     try {
       final response = await BaseApiCallHelper.get(AppUrls.getShopCategory);
       onSuccess(response);
@@ -14,7 +14,7 @@ class CategoryRepo {
     }
   }
 
-  static getShopSubCategory(
+  static Future getShopSubCategory(
       {required int categoryId, required Function(String) onError, required Function(dynamic) onSuccess}) async {
     var body = {'category_id': categoryId};
 
@@ -27,7 +27,7 @@ class CategoryRepo {
     }
   }
 
-  static getProductList(
+  static Future getProductList(
       {required int categoryId,
       required int subcategoryId,
       required int page,

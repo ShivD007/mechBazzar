@@ -6,7 +6,7 @@ import 'package:mechBazzar/modules/category/repository/category_repo.dart';
 import 'dart:async';
 
 class CategoryController extends GetxController with GetSingleTickerProviderStateMixin {
-  late TabController tabController;
+  TabController? tabController;
   RxBool isInitialLoading = false.obs;
   RxBool isSubCategoryLoading = false.obs;
   RxBool isListLoading = false.obs;
@@ -23,47 +23,49 @@ class CategoryController extends GetxController with GetSingleTickerProviderStat
     isInitialLoading.value = true;
     isSubCategoryLoading.value = true;
     isListLoading.value = true;
-    getCategory();
+    await getCategory();
 
     super.onInit();
   }
 
-  void getCategory() {
-    CategoryRepo.getShopCategory(
+  Future<void> getCategory() async {
+    await CategoryRepo.getShopCategory(
         onError: (onError) {},
-        onSuccess: (response) {
+        onSuccess: (response) async {
           CategoryModels.fromJson(response).data?.forEach((item) {
             category.add(item!.name!);
           });
 
-          getSubCategory(1);
-
           tabController = TabController(length: category.length, vsync: this);
-          tabController.addListener(() {
+          tabController!.addListener(() async {
+            selectedList.clear();
+            isListLoading.value = true;
             isSubCategoryLoading.value = true;
-            getSubCategory(tabController.index + 1);
+
+            await getSubCategory(tabController!.index + 1);
           });
+          await getSubCategory(1);
           isInitialLoading.value = false;
         });
   }
 
-  void getSubCategory(int id) {
-    CategoryRepo.getShopSubCategory(
+  Future<void> getSubCategory(int id) async {
+    await CategoryRepo.getShopSubCategory(
         categoryId: id,
         onError: (onError) {},
-        onSuccess: (response) {
+        onSuccess: (response) async {
           subCategory.clear();
           CategoryModels.fromJson(response).data?.forEach((item) {
             subCategory.add(item!.name!);
           });
           slectedSubCategory.value = subCategory.first;
           isSubCategoryLoading.value = false;
-          getProductList((tabController.index + 1), (subCategory.indexOf(subCategory.first) + 1), 1, 1);
+          await getProductList((tabController!.index + 1), (subCategory.indexOf(subCategory.first) + 1), 1, 1);
         });
   }
 
-  void getProductList(int id, int subId, int page, int sortBy) {
-    CategoryRepo.getProductList(
+  Future<void> getProductList(int id, int subId, int page, int sortBy) async {
+    await CategoryRepo.getProductList(
         categoryId: id,
         subcategoryId: subId,
         page: page,

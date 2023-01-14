@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mechBazzar/core/models/category_res_model.dart';
@@ -10,12 +12,12 @@ class CategoryController extends GetxController with GetSingleTickerProviderStat
   RxBool isInitialLoading = false.obs;
   RxBool isSubCategoryLoading = false.obs;
   RxBool isListLoading = false.obs;
-  RxList<String> category = RxList([]);
+  RxList<CategoryModel> category = RxList([]);
 
   List temp1 = [1, 2, 3, 4];
   List temp2 = [5, 4];
 
-  RxList<String> subCategory = RxList([]);
+  RxList<CategoryModel> subCategory = RxList([]);
   RxString slectedSubCategory = RxString("");
   RxList<Product?> selectedList = RxList<Product?>([]);
   @override
@@ -32,8 +34,8 @@ class CategoryController extends GetxController with GetSingleTickerProviderStat
     await CategoryRepo.getShopCategory(
         onError: (onError) {},
         onSuccess: (response) async {
-          CategoryModels.fromJson(response).data?.forEach((item) {
-            category.add(item!.name!);
+          CategoryModels.fromJson(response).data.forEach((item) {
+            category.add(item);
           });
 
           tabController = TabController(length: category.length, vsync: this);
@@ -42,9 +44,9 @@ class CategoryController extends GetxController with GetSingleTickerProviderStat
             isListLoading.value = true;
             isSubCategoryLoading.value = true;
 
-            await getSubCategory(tabController!.index + 1);
+            await getSubCategory(category[tabController!.index].id);
           });
-          await getSubCategory(1);
+          await getSubCategory(category.first.id);
           isInitialLoading.value = false;
         });
   }
@@ -55,12 +57,12 @@ class CategoryController extends GetxController with GetSingleTickerProviderStat
         onError: (onError) {},
         onSuccess: (response) async {
           subCategory.clear();
-          CategoryModels.fromJson(response).data?.forEach((item) {
-            subCategory.add(item!.name!);
+          CategoryModels.fromJson(response).data.forEach((item) {
+            subCategory.add(item);
           });
-          slectedSubCategory.value = subCategory.first;
+          slectedSubCategory.value = subCategory.first.name;
           isSubCategoryLoading.value = false;
-          await getProductList((tabController!.index + 1), (subCategory.indexOf(subCategory.first) + 1), 1, 1);
+          await getProductList(category[tabController!.index].id, (subCategory.first.id), 1, 1);
         });
   }
 

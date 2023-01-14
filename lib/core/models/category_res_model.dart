@@ -12,32 +12,31 @@ class CategoryModels {
   CategoryModels({
     this.errorCode,
     this.errorMsg,
-    this.data,
+    required this.data,
   });
 
   String? errorCode;
   String? errorMsg;
-  List<CategoryModel?>? data;
+  List<CategoryModel> data;
 
   factory CategoryModels.fromJson(Map<String, dynamic> json) => CategoryModels(
         errorCode: json["errorCode"],
         errorMsg: json["errorMsg"],
-        data:
-            json["data"] == null ? [] : List<CategoryModel?>.from(json["data"]!.map((x) => CategoryModel.fromJson(x))),
+        data: json["data"] == null ? [] : List<CategoryModel>.from(json["data"]!.map((x) => CategoryModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "errorCode": errorCode,
         "errorMsg": errorMsg,
-        "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x!.toJson())),
+        "data": data == null ? [] : List<dynamic>.from(data.map((x) => x.toJson())),
       };
 }
 
 class CategoryModel {
   CategoryModel({
-    this.id,
-    this.categoryId,
-    this.name,
+    required this.id,
+    required this.categoryId,
+    required this.name,
     this.slug,
     this.status,
     this.scrapUrl,
@@ -47,9 +46,9 @@ class CategoryModel {
     this.image,
   });
 
-  int? id;
-  int? categoryId;
-  String? name;
+  int id;
+  int categoryId;
+  String name;
   String? slug;
   int? status;
   String? scrapUrl;
@@ -59,9 +58,9 @@ class CategoryModel {
   dynamic image;
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
-        id: json["id"],
-        categoryId: json["category_id"],
-        name: json["name"],
+        id: json["id"] ?? 1,
+        categoryId: json["category_id"] ?? 1,
+        name: json["name"] ?? "",
         slug: json["slug"],
         status: json["status"],
         scrapUrl: json["scrap_url"],

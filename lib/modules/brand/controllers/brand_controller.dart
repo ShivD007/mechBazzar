@@ -1,26 +1,26 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/helper_ui.dart';
+import '../../../core/models/category_res_model.dart';
 import '../../../core/models/product_res_model.dart';
+import '../../category/repository/category_repo.dart';
+import '../repository/brand_repo.dart';
 
 class BrandController extends GetxController with HelperUI, GetSingleTickerProviderStateMixin {
-  late TabController tabController;
-  List<String> category = [
-    "Electrical Tools & Equipment",
-    "Office Stationery & Supplies",
-    "Industrial Tools&construction"
-  ];
+  TabController? tabController;
+  RxBool isInitialLoading = false.obs;
+  RxBool isListLoading = false.obs;
+  RxList<CategoryModel> brands = RxList([]);
 
-  List temp1 = [1, 2, 3, 4];
-  List temp2 = [5, 4];
-
-  List<String> subCategory = ["Pumps", "Geysers & Heaters", "Fans", "wires & Cables"];
-  RxString slectedSubCategory = RxString("");
   RxList<Product?> selectedList = RxList<Product?>([]);
   @override
   Future<void> onInit() async {
-    tabController = TabController(length: 3, vsync: this);
-    slectedSubCategory.value = subCategory.first;
+    isInitialLoading.value = true;
+
+    isListLoading.value = true;
+    await getBrands();
     super.onInit();
   }
 
@@ -31,4 +31,35 @@ class BrandController extends GetxController with HelperUI, GetSingleTickerProvi
 
   @override
   void onClose() {}
+
+  Future<void> getBrands() async {
+    await BrandRepo.getBrands(
+        onError: (onError) {},
+        onSuccess: (response) async {
+          CategoryModels.fromJson(response).data.forEach((item) {
+            brands.add(item);
+          });
+
+          tabController = TabController(length: brands.length, vsync: this);
+          tabController!.addListener(() async {
+            selectedList.clear();
+            isListLoading.value = true;
+            await getProductList(brands[tabController!.index].id, 1);
+          });
+          await getProductList(brands.first.id, 1);
+          isInitialLoading.value = false;
+        });
+  }
+
+  Future<void> getProductList(int id, int page) async {
+    await BrandRepo.getProductList(
+        brandId: id,
+        page: page,
+        onError: (onError) {},
+        onSuccess: (response) {
+          selectedList.addAll(ProductList.fromJson(response).data ?? []);
+
+          isListLoading.value = false;
+        });
+  }
 }

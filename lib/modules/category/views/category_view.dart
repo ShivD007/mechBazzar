@@ -25,7 +25,7 @@ class CategoryView extends GetView<CategoryController> {
             )
           : CustomTabBarView(
               appBar: CustomAppBarWithBack(title: "Categories"),
-              controller: controller.tabController,
+              controller: controller.tabController!,
               length: controller.category.length,
               tabs: controller.category
                   .map((e) => Tab(
@@ -50,6 +50,10 @@ class CategoryView extends GetView<CategoryController> {
                                     selectedChip: controller.slectedSubCategory.value,
                                     onSelect: (index) {
                                       controller.slectedSubCategory.value = controller.subCategory[index];
+                                      controller.isListLoading.value = true;
+                                      controller.selectedList.clear();
+                                      controller.getProductList(
+                                          (controller.tabController!.index + 1), (index + 1), 1, 1);
                                     },
                                   ),
                                 ),

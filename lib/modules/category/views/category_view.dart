@@ -8,6 +8,7 @@ import 'package:mechBazzar/core/custom_appbar_with_back_button.dart';
 import 'package:mechBazzar/core/text_extension.dart';
 import '../../../atoms/custom_tab_bar_view.dart';
 import '../../../core/custom_spacers.dart';
+import '../../../core/models/category_res_model.dart';
 import '../controllers/category_controller.dart';
 
 class CategoryView extends GetView<CategoryController> {
@@ -29,7 +30,7 @@ class CategoryView extends GetView<CategoryController> {
               length: controller.category.length,
               tabs: controller.category
                   .map((e) => Tab(
-                        text: e,
+                        text: e.name,
                       ))
                   .toList(),
               children: controller.category
@@ -49,11 +50,11 @@ class CategoryView extends GetView<CategoryController> {
                                     chipList: controller.subCategory,
                                     selectedChip: controller.slectedSubCategory.value,
                                     onSelect: (index) {
-                                      controller.slectedSubCategory.value = controller.subCategory[index];
+                                      controller.slectedSubCategory.value = controller.subCategory[index].name;
                                       controller.isListLoading.value = true;
                                       controller.selectedList.clear();
-                                      controller.getProductList(
-                                          (controller.tabController!.index + 1), (index + 1), 1, 1);
+                                      controller.getProductList(controller.category[controller.tabController!.index].id,
+                                          controller.subCategory[index].id, 1, 1);
                                     },
                                   ),
                                 ),
@@ -75,7 +76,7 @@ class ChoiceChipList extends StatelessWidget {
     required this.onSelect,
   }) : super(key: key);
 
-  final List<String> chipList;
+  final List<CategoryModel> chipList;
   final String selectedChip;
   final Function(int) onSelect;
 
@@ -88,16 +89,13 @@ class ChoiceChipList extends StatelessWidget {
       itemBuilder: (context, index) {
         return ChoiceChip(
           padding: EdgeInsets.all(8),
-          label: chipList[index].body16(fontSize: 14.sp, textColor: AppColors.COLOR_BLACK),
+          label: chipList[index].name.body16(fontSize: 14.sp, textColor: AppColors.COLOR_BLACK),
           //  controller.subCategory[index].body16(fontSize: 14.sp, textColor: AppColors.COLOR_BLACK),
           selectedColor: AppColors.COLOR_LIGHT_GREEN,
           backgroundColor: AppColors.COLOR_GREY_300,
-          selected: selectedChip == chipList[index],
+          selected: selectedChip == chipList[index].name,
           onSelected: (bool selected) {
             onSelect(index);
-            // controller.slectedSubCategory.value = controller.subCategory[index];
-
-            // controller.selectedList.refresh();
           },
         );
       },

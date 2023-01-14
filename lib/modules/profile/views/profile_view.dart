@@ -51,6 +51,7 @@ class ProfileView extends GetView<ProfileController> {
                   CustomSpacers.height12,
                   CustomInput(
                     controller: controller.emailController,
+                    isReadOnly: true,
                     prefixIcon: Icon(Icons.email),
                     placeholder: email,
                     validator: (val) {

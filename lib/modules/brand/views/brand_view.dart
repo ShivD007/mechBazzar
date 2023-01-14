@@ -28,7 +28,7 @@ class BrandView extends GetView<BrandController> {
       children: controller.category
           .map(
             (e) => Obx(
-              () => ItemListView(
+              () => BrandCategoryListView(
                 isLoading: true,
                 itemList: controller.selectedList.value,
                 topWidget: SizedBox(

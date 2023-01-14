@@ -1,8 +1,10 @@
+import 'package:mechBazzar/atoms/save_shared_pref.dart';
 import 'package:mechBazzar/core/text_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:get/get.dart';
-
+import '../routes/app_pages.dart';
+import '../routes/custom_navigator.dart';
 import 'app_colors.dart';
 
 class HelperUI {
@@ -36,7 +38,7 @@ class HelperUI {
     ScaffoldMessenger.of(Get.context!).hideCurrentSnackBar();
     ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
       content: message.body14(textColor: AppColors.COLOR_WHITE, textAlign: TextAlign.start),
-      backgroundColor: AppColors.COLOR_GREY_600,
+      backgroundColor: AppColors.COLOR_RED,
     ));
   }
 
@@ -52,5 +54,12 @@ class HelperUI {
       ),
       barrierDismissible: barrierDismissible!,
     );
+  }
+
+   logout() async {
+  
+      await SavePreferences.clearAll();
+      CustomNavigator.pushAndPopUntil(Routes.login, "\\");
+    
   }
 }

@@ -7,8 +7,8 @@ import 'package:mechBazzar/core/models/product_res_model.dart';
 import '../core/custom_spacers.dart';
 import 'loading_horizontal_list.dart';
 
-class ItemListView extends StatelessWidget {
-  const ItemListView(
+class BrandCategoryListView extends StatelessWidget {
+  const BrandCategoryListView(
       {Key? key, this.scrollDirection = Axis.vertical, this.topWidget, required this.itemList, required this.isLoading})
       : super(key: key);
   final Axis scrollDirection;

@@ -55,6 +55,7 @@ class SignUpView extends GetView<SignupController> {
                 CustomSpacers.height12,
                 CustomInput(
                   controller: controller.emailController,
+                  keyboardType: TextInputType.emailAddress,
                   prefixIcon: Icon(Icons.email),
                   placeholder: email,
                   validator: (val) {
@@ -80,6 +81,22 @@ class SignUpView extends GetView<SignupController> {
                   },
                 ),
                 CustomSpacers.height12,
+          
+                  CustomInput(
+                    prefixIcon: Icon(Icons.location_city),
+                    placeholder: address,
+                    minLine: 1,
+                    maxLines: 4,
+                    maxLength: 200,
+                       validator: (val) {
+                    if (val!.isEmpty) {
+                      return enterAddress;
+                    }
+                    return null;
+                  },
+                    controller: controller.addressController,
+                  ),
+                          CustomSpacers.height12,
                 CustomInput(
                   controller: controller.password,
                   prefixIcon: Icon(Icons.lock),
@@ -100,7 +117,7 @@ class SignUpView extends GetView<SignupController> {
                   validator: (val) {
                     if (val!.isEmpty) {
                       return enterPassword;
-                    } else if (controller.password.text == val) {
+                    } else if (controller.password.text != val) {
                       return passwordNotMatch;
                     }
                     return null;

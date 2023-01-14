@@ -1,13 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mechBazzar/atoms/save_shared_pref.dart';
+import 'package:mechBazzar/modules/profile/models/users_model.dart';
 import 'package:mechBazzar/network/api_base_helper.dart';
 import 'package:mechBazzar/routes/custom_navigator.dart';
-
 import '../../../core/constants/url_constants.dart';
 import '../../../core/helper_ui.dart';
 import '../../../routes/app_pages.dart';
 
-class LoginController extends GetxController with HelperUI, GetSingleTickerProviderStateMixin {
+class LoginController extends GetxController with HelperUI {
   late TextEditingController emailController;
   late TextEditingController passwordController;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -31,23 +34,27 @@ class LoginController extends GetxController with HelperUI, GetSingleTickerProvi
   }
 
   Future<void> onSubmit() async {
-    if(!formKey.currentState!.validate()){
+    if (!formKey.currentState!.validate()) {
       return;
     }
 
-    Map<String,dynamic> _body={
-      "email":emailController.text,
-      "password":passwordController.text
+    Map<String, dynamic> _body = {
+      "email": emailController.text,
+      "password": passwordController.text
     };
-
-      try {
+    showLoadingDialog();
+    try {
       final response = await BaseApiCallHelper.post(AppUrls.login, _body);
-      CustomNavigator.pushTo(Routes.home);
+
+      UserModel userModel = UserModel.fromJson(response);
+      //saveToPreference
+      await SavePreferences.saveStringPreferences(
+          "user", json.encode(userModel));
+      hideLoadingDialog();
+      CustomNavigator.pushReplacement(Routes.home);
     } catch (e) {
-      
+      hideLoadingDialog();
+      HelperUI().showSnackbar(e.toString());
     }
   }
-
-
- 
 }

@@ -101,6 +101,7 @@ class CustomInput extends StatelessWidget {
         errorMaxLines: 2,
         counter: showCounter! ? null : Offstage(),
         filled: true,
+        fillColor:isReadOnly||!isEnable?null: AppColors.COLOR_WHITE,
         suffix: suffix,
         isDense: isdense,
         suffixIcon: suffixIcon,

@@ -40,7 +40,7 @@ class CategoryView extends GetView<CategoryController> {
                           ? Center(
                               child: CircularProgressIndicator(),
                             )
-                          : ItemListView(
+                          : BrandCategoryListView(
                               itemList: controller.selectedList,
                               isLoading: controller.isListLoading.value,
                               topWidget: SizedBox(

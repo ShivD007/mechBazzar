@@ -8,7 +8,6 @@ import 'package:mechBazzar/core/text_extension.dart';
 
 import '../core/Images/custom_network_image.dart';
 import '../core/app_colors.dart';
-import '../core/constants/string_constants.dart';
 
 class HorizontalItemCard extends StatelessWidget {
   const HorizontalItemCard({Key? key, required this.itemName, required this.imagePath}) : super(key: key);

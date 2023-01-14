@@ -13,6 +13,7 @@ class SignupController extends GetxController with HelperUI {
   late TextEditingController password;
   late TextEditingController nameController;
   late TextEditingController phoneController;
+  late TextEditingController addressController;
   GlobalKey<FormState> formKey=GlobalKey<FormState>();
   
   @override
@@ -21,9 +22,7 @@ class SignupController extends GetxController with HelperUI {
     password=TextEditingController();
     nameController=TextEditingController();
     phoneController=TextEditingController();
-
-
-
+    addressController=TextEditingController();
     super.onInit();
   }
 
@@ -38,6 +37,7 @@ class SignupController extends GetxController with HelperUI {
     password.dispose(); 
     nameController.dispose(); 
     phoneController.dispose(); 
+    addressController.dispose(); 
 
   }
 
@@ -50,14 +50,19 @@ class SignupController extends GetxController with HelperUI {
       "email":emailController.text,
       "password":password.text,
       "name":nameController.text,
-      "phone":phoneController.text
+      "phone":phoneController.text,
+      "address":addressController.text
     };
-
+showLoadingDialog();
       try {
       final response = await BaseApiCallHelper.post(AppUrls.signup, _body);
-      CustomNavigator.pushTo(Routes.login);
+         hideLoadingDialog();
+
+      CustomNavigator.pop();
     } catch (e) {
-      
+         hideLoadingDialog();
+
+        HelperUI().showSnackbar(e.toString());
     }
   }
 }

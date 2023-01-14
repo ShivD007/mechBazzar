@@ -9,4 +9,5 @@ class AppUrls {
   static const forgetPass = "forgot_password";
   static const editProfile = "edit_profile";
   static const deleteProfile = "delete_user";
+  static const getProfile = "get_profile";
 }

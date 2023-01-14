@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mechBazzar/atoms/save_shared_pref.dart';
+import 'package:mechBazzar/core/constants/string_constants.dart';
 import 'package:mechBazzar/core/constants/url_constants.dart';
+import 'package:mechBazzar/modules/profile/models/users_model.dart';
 import '../../../core/helper_ui.dart';
 import '../../../network/api_base_helper.dart';
 
@@ -9,8 +14,8 @@ class ProfileController extends GetxController with HelperUI {
   late TextEditingController addressController;
   late TextEditingController nameController;
   late TextEditingController phoneController;
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+  GlobalKey<FormState> formKey1 = GlobalKey<FormState>();
+  UserModel user = UserModel();
   @override
   Future<void> onInit() async {
     emailController = TextEditingController();
@@ -19,6 +24,17 @@ class ProfileController extends GetxController with HelperUI {
     phoneController = TextEditingController();
 
     super.onInit();
+    initValues();
+  }
+
+  initValues() {
+    user = json.decode(SavePreferences.getStringPreferences("user")!);
+
+    emailController.text = user.email ?? "";
+    addressController.text = user.address ?? "";
+    nameController.text = user.name ?? "";
+    phoneController.text = user.phone ?? "";
+    update(["updateUI"]);
   }
 
   @override
@@ -35,7 +51,7 @@ class ProfileController extends GetxController with HelperUI {
   }
 
   Future<void> onEdit() async {
-    if (!formKey.currentState!.validate()) {
+    if (!formKey1.currentState!.validate()) {
       return;
     }
     Map<String, dynamic> _body = {
@@ -44,19 +60,34 @@ class ProfileController extends GetxController with HelperUI {
       "phone": phoneController.text,
       "user_id": 31
     };
+    showLoadingDialog();
 
     try {
-      final response = await BaseApiCallHelper.post(AppUrls.editProfile, _body);
-    } catch (e) {}
+      await BaseApiCallHelper.post(AppUrls.editProfile, _body);
+      hideLoadingDialog();
+      user.name = nameController.text;
+      user.address = addressController.text;
+      user.phone = phoneController.text;
+      //saveToPreference
+      await SavePreferences.saveStringPreferences("user", json.encode(user));
+      HelperUI().showSnackbar("Successfully edited!");
+    } catch (e) {
+      hideLoadingDialog();
+      HelperUI().showSnackbar(e.toString());
+    }
   }
-
 
   Future<void> onDeleteUser() async {
     Map<String, dynamic> _body = {"user_id": 31};
+    showLoadingDialog();
 
     try {
-      final response =
-          await BaseApiCallHelper.post(AppUrls.deleteProfile, _body);
-    } catch (e) {}
+      await BaseApiCallHelper.post(AppUrls.deleteProfile, _body);
+      hideLoadingDialog();
+      logout();
+    } catch (e) {
+      hideLoadingDialog();
+      HelperUI().showSnackbar(e.toString());
+    }
   }
 }

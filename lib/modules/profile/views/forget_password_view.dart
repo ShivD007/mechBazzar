@@ -20,7 +20,7 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
       bottomNavigationBar: Padding(
         padding: EdgeInsets.fromLTRB(
             22.w, 2.h, 22.w, 16.w + MediaQuery.of(context).viewInsets.bottom),
-        child: RedButton(submit, () {
+        child: RedButton(sendEmail, () {
           controller.onSubmit();
         }),
       ),
@@ -51,6 +51,7 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
                   controller: controller.emailController,
                   prefixIcon: Icon(Icons.email),
                   placeholder: email,
+                  keyboardType: TextInputType.emailAddress,
                   validator: (val) {
                     if (val!.isEmpty) {
                       return enterEmail;

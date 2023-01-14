@@ -5,6 +5,7 @@ import 'package:mechBazzar/network/api_base_helper.dart';
 import 'package:mechBazzar/routes/app_pages.dart';
 import 'package:mechBazzar/routes/custom_navigator.dart';
 
+import '../../../core/constants/string_constants.dart';
 import '../../../core/helper_ui.dart';
 
 class ForgetPasswordController extends GetxController with HelperUI {
@@ -36,12 +37,15 @@ class ForgetPasswordController extends GetxController with HelperUI {
     Map<String,dynamic> _body={
       "email":emailController.text,
     };
-
+showLoadingDialog();
       try {
       final response = await BaseApiCallHelper.post(AppUrls.forgetPass, _body);
+      hideLoadingDialog();
+      showSnackbar(forgetPasswordLinkSend);
       CustomNavigator.pushTo(Routes.login);
     } catch (e) {
-      
+      hideLoadingDialog();
+      showSnackbar(e.toString());
     }
   }
 }

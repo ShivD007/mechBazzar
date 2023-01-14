@@ -9,13 +9,9 @@ class BaseApiCallHelper {
   static final String _baseUrl = AppUrls.baseUrl;
 
   static Map<String, String> getHeaders() {
-    // final String? _accessToken = SavePreferences.getStringPreferences(
-    //     SharedPreferenceKeys.accessTokenKey);
     Map<String, String> _header = {
       'Content-Type': 'application/json',
-      // 'Authorization': 'Bearer ${_accessToken}'
     };
-    // if (_accessToken == null) _header.remove("Authorization");
     return _header;
   }
 
@@ -30,6 +26,7 @@ class BaseApiCallHelper {
       final response =
           await http.get(Uri.parse(_baseUrl + url), headers: _tempHeader);
       responseJson = _returnResponse(response);
+
     } on SocketException {
       throw FetchDataException('No internet connection');
     }
@@ -82,6 +79,11 @@ class BaseApiCallHelper {
 
   static dynamic _returnResponse(
       http.Response response) {
+
+      if(jsonDecode(response.body)["errorCode"]=="1"){
+          throw BadRequestException(jsonDecode(response.body)["errorMsg"]);
+      }
+
     switch (response.statusCode) {
       case 200:
         var responseJson = json.decode(response.body);
@@ -90,21 +92,21 @@ class BaseApiCallHelper {
         return responseJson;
       case 400:
       case 406:
-        throw BadRequestException(jsonDecode(response.body)["message"]);
+        throw BadRequestException(jsonDecode(response.body)["errorMsg"]);
       case 401:
      
-        throw UnauthorisedException(jsonDecode(response.body)["message"]);
+        throw UnauthorisedException(jsonDecode(response.body)["errorMsg"]);
       case 403:
-        throw UnauthorisedException(jsonDecode(response.body)["message"]);
+        throw UnauthorisedException(jsonDecode(response.body)["errorMsg"]);
 
       case 404:
-        throw NotFoundException(jsonDecode(response.body)["message"]);
+        throw NotFoundException(jsonDecode(response.body)["errorMsg"]);
       case 408:
-        throw LimitExceededException(jsonDecode(response.body)["message"]);
+        throw LimitExceededException(jsonDecode(response.body)["errorMsg"]);
       case 500:
       default:
         throw FetchDataException(
-            '${response.statusCode}: ${jsonDecode(response.body)["message"]}');
+            '${response.statusCode}: ${jsonDecode(response.body)["errorMsg"]}');
     }
   }
 }

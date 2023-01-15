@@ -13,6 +13,8 @@ class BrandController extends GetxController with HelperUI, GetSingleTickerProvi
   RxBool isInitialLoading = false.obs;
   RxBool isListLoading = false.obs;
   RxList<CategoryModel> brands = RxList([]);
+  ScrollController scrollController = ScrollController();
+  int pagination = 1;
 
   RxList<Product> selectedList = RxList<Product>([]);
   @override
@@ -21,6 +23,13 @@ class BrandController extends GetxController with HelperUI, GetSingleTickerProvi
 
     isListLoading.value = true;
     await getBrands();
+    scrollController.addListener(() async {
+      if (scrollController.offset >= scrollController.position.maxScrollExtent &&
+          !scrollController.position.outOfRange) {
+        await getProductList(brands[tabController!.index].id, pagination);
+      }
+    });
+
     super.onInit();
   }
 
@@ -62,6 +71,7 @@ class BrandController extends GetxController with HelperUI, GetSingleTickerProvi
           HelperUI().showSnackbar(e.toString());
         },
         onSuccess: (response) {
+          pagination++;
           selectedList.addAll(
               response["data"] == null ? [] : List<Product>.from(response["data"]!.map((x) => Product.fromJson(x))));
 

@@ -41,6 +41,7 @@ class CategoryView extends GetView<CategoryController> {
                               child: CircularProgressIndicator(),
                             )
                           : BrandCategoryListView(
+                              scrollController: controller.scrollController,
                               itemList: controller.selectedList,
                               isLoading: controller.isListLoading.value,
                               topWidget: SizedBox(

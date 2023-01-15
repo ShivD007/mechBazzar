@@ -15,9 +15,8 @@ class CategoryController extends GetxController with GetSingleTickerProviderStat
   RxBool isSubCategoryLoading = false.obs;
   RxBool isListLoading = false.obs;
   RxList<CategoryModel> category = RxList([]);
-
-  List temp1 = [1, 2, 3, 4];
-  List temp2 = [5, 4];
+  ScrollController scrollController = ScrollController();
+  int pagination = 1;
 
   RxList<CategoryModel> subCategory = RxList([]);
   RxString slectedSubCategory = RxString("");
@@ -28,6 +27,12 @@ class CategoryController extends GetxController with GetSingleTickerProviderStat
     isSubCategoryLoading.value = true;
     isListLoading.value = true;
     await getCategory();
+    scrollController.addListener(() async {
+      if (scrollController.offset >= scrollController.position.maxScrollExtent &&
+          !scrollController.position.outOfRange) {
+        await getProductList(category[tabController!.index].id, selectedList.first.id, pagination, 1);
+      }
+    });
 
     super.onInit();
   }
@@ -88,7 +93,7 @@ class CategoryController extends GetxController with GetSingleTickerProviderStat
         onSuccess: (response) {
           selectedList.addAll(
               response["data"] == null ? [] : List<Product>.from(response["data"]!.map((x) => Product.fromJson(x))));
-
+          pagination++;
           isListLoading.value = false;
         });
   }

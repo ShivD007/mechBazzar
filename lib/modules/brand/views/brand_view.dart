@@ -36,6 +36,7 @@ class BrandView extends GetView<BrandController> {
                 .map(
                   (e) => Obx(
                     () => BrandCategoryListView(
+                      scrollController: controller.scrollController,
                       isLoading: controller.isListLoading.value,
                       itemList: controller.selectedList,
                     ),

@@ -11,12 +11,18 @@ import 'loading_horizontal_list.dart';
 
 class BrandCategoryListView extends StatelessWidget {
   const BrandCategoryListView(
-      {Key? key, this.scrollDirection = Axis.vertical, this.topWidget, required this.itemList, required this.isLoading})
+      {Key? key,
+      this.scrollDirection = Axis.vertical,
+      this.topWidget,
+      required this.itemList,
+      required this.isLoading,
+      required this.scrollController})
       : super(key: key);
   final Axis scrollDirection;
   final Widget? topWidget;
   final List<Product> itemList;
   final bool isLoading;
+  final ScrollController scrollController;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,6 +35,7 @@ class BrandCategoryListView extends StatelessWidget {
           ),
         Expanded(
           child: ListView.separated(
+            controller: scrollController,
             physics: const BouncingScrollPhysics(),
             scrollDirection: scrollDirection,
             shrinkWrap: true,

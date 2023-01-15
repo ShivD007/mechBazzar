@@ -40,7 +40,8 @@ class BrandCategoryListView extends StatelessWidget {
                       imagePath: "https:" + itemList[index].photo.toString(),
                       onTap: () {
                         CustomNavigator.pushTo(Routes.productDetail, arguments: itemList[index].id);
-                      },
+                      }, cPrice: itemList[index].price,
+                      prevPrice: itemList[index].previousPrice,
                     );
             },
             itemCount: isLoading ? 8 : itemList.length,

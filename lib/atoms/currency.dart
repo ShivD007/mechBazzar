@@ -9,15 +9,14 @@ import '../core/constants/string_constants.dart';
 class CurrencyView extends StatelessWidget {
   const CurrencyView({Key? key, required this.currentPrice, this.previousPrice})
       : super(key: key);
-  final double currentPrice;
-  final double? previousPrice;
+  final num? currentPrice;
+  final num? previousPrice;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+    return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-
-        (currency+currentPrice.toStringAsFixed(2)).h25(fontSize: 16.sp,textColor: AppColors.COLOR_GREY_900),
+        (currency+(currentPrice??0).toStringAsFixed(2)).h25(fontSize: 16.sp,textColor: AppColors.COLOR_GREY_900),
         if(previousPrice!=null)...[
           CustomSpacers.width8,
         (currency+ previousPrice!.toStringAsFixed(2)).body14(textColor: AppColors.COLOR_GREY_600,decoration: TextDecoration.lineThrough)

@@ -16,7 +16,7 @@ class HorizontalItemCard extends StatelessWidget {
       this.qty,
       this.showTap = true,
       this.onDelete,
-      this.onUpdateCart})
+      this.onUpdateCart, required this.cPrice, required this.prevPrice})
       : super(key: key);
 
   final String itemName;
@@ -26,13 +26,14 @@ class HorizontalItemCard extends StatelessWidget {
   final bool? showTap;
   final VoidCallback? onDelete;
   final Function(int val)? onUpdateCart;
+  final num? cPrice, prevPrice;
   @override
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(8.r),
      
       child: Container(
-        height: 130.h,
+        height: 145.h,
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(VALUE_INPUT_BORDER_RADIUS),
@@ -79,12 +80,11 @@ class HorizontalItemCard extends StatelessWidget {
                         ],
                       ),
                     ),
-                    CustomSpacers.height10,
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
                       child: CurrencyView(
-                        currentPrice: 5454,
-                        previousPrice: 455,
+                        currentPrice: cPrice,
+                        previousPrice: prevPrice,
                       ),
                     ),
                       CustomSpacers.height10,

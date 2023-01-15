@@ -13,6 +13,7 @@ class CartController extends GetxController with HelperUI {
   RxBool isListLoading = false.obs;
   late UserModel user;
   RxList<Product?> cartList = RxList<Product?>([]);
+  RxNum total=RxNum(0);
   @override
   void onInit() {
     isListLoading.value = true;
@@ -20,7 +21,6 @@ class CartController extends GetxController with HelperUI {
     user = UserModel.fromJson(
         json.decode(SavePreferences.getStringPreferences("user")!));
 
-    getCart(true);
   }
 
   @override
@@ -31,7 +31,7 @@ class CartController extends GetxController with HelperUI {
   @override
   void onClose() {}
 
-  Future<void> getCart([bool isLoading = false]) async {
+  Future<void> getCart( {required VoidCallback onSuccess,bool isLoading = false,})async {
     Map<String, dynamic> _body = {"user_id": user.id};
     if (isLoading) isListLoading.value = true;
     
@@ -40,6 +40,8 @@ class CartController extends GetxController with HelperUI {
       cartList.clear();
       cartList.addAll(ProductList.fromJson(response).data );
       if (isLoading) isListLoading.value = false;
+      onSuccess();
+      findTotal();
     } catch (e) {
       if (isLoading) isListLoading.value = false;
       HelperUI().showSnackbar(e.toString());
@@ -51,8 +53,7 @@ class CartController extends GetxController with HelperUI {
     showLoadingDialog();
     try {
       final response = await BaseApiCallHelper.post(AppUrls.removeCart, _body);
-      onSuccess();
-      hideLoadingDialog();
+        onSuccess();
 
     } catch (e) {
       hideLoadingDialog();
@@ -70,10 +71,15 @@ class CartController extends GetxController with HelperUI {
     try {
       final response = await BaseApiCallHelper.post(AppUrls.addcart, _body);
       onSuccess();
-      hideLoadingDialog();
     } catch (e) {
       hideLoadingDialog();
       HelperUI().showSnackbar(e.toString());
     }
+  }
+
+  void findTotal(){
+   total.value=0;
+   cartList.forEach((element) {total.value+=element!.price*element.qty!;});
+    
   }
 }

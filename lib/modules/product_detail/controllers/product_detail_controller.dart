@@ -7,7 +7,7 @@ import '../repository/product_repo.dart';
 
 class ProductDetailController extends GetxController with HelperUI {
   RxBool isInitialLoading = false.obs;
-  late Product product;
+   Product? product;
   late int productId;
 
   @override

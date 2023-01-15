@@ -34,11 +34,11 @@ class HelperUI {
         ));
   }
 
-  showSnackbar(String message) {
+  showSnackbar(String message, [bool error=true]) {
     ScaffoldMessenger.of(Get.context!).hideCurrentSnackBar();
     ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
       content: message.body14(textColor: AppColors.COLOR_WHITE, textAlign: TextAlign.start),
-      backgroundColor: AppColors.COLOR_RED,
+      backgroundColor: error?AppColors.COLOR_RED:AppColors.COLOR_GREEN,
     ));
   }
 
@@ -59,7 +59,7 @@ class HelperUI {
    logout() async {
   
       await SavePreferences.clearAll();
-      CustomNavigator.pushAndPopUntil(Routes.login, "\\");
+      CustomNavigator.pushAndPopAll(Routes.login);
     
   }
 }

@@ -49,6 +49,7 @@ const sku= "SKU: ";
 const sendEmail= "Send email";
 const cart= "Cart";
 const mechBazzar= "Mechbazzar";
+const proceed= "Proceed";
 
 
 // erro messages

@@ -4,17 +4,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../core/constants/string_constants.dart';
+import '../../../routes/app_pages.dart';
+import '../../../routes/custom_navigator.dart';
+
 class SliverCustomAppBar extends StatelessWidget {
   const SliverCustomAppBar({
     Key? key,
   }) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
       automaticallyImplyLeading: false,
       pinned: true,
-      title: Text("Mechabazzar"),
+      title: Text(mechBazzar),
       leading: IconButton(
         icon: const Icon(Icons.menu),
         onPressed: () {
@@ -24,7 +29,10 @@ class SliverCustomAppBar extends StatelessWidget {
       actions: [
         IconButton(
           icon: const Icon(Icons.shopping_cart_rounded),
-          onPressed: () {},
+          onPressed: () {
+            CustomNavigator.pushTo(Routes.cart);
+            
+          },
         )
       ],
       expandedHeight: (AppBar().preferredSize.height + 78).h,

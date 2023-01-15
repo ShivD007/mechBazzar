@@ -47,6 +47,9 @@ const String profile='Profile';
 const price= "Price: ";
 const sku= "SKU: ";
 const sendEmail= "Send email";
+const cart= "Cart";
+const mechBazzar= "Mechbazzar";
+
 
 // erro messages
 const String passwordNotMatch="Entered Password not Matched";

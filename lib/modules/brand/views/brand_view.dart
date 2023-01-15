@@ -43,6 +43,5 @@ class BrandView extends GetView<BrandController> {
                 )
                 .toList(),
           ));
-    ;
   }
 }

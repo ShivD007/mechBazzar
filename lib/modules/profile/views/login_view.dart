@@ -42,6 +42,7 @@ class LoginView extends GetView<LoginController> {
                   controller: controller.emailController,
                   prefixIcon: Icon(Icons.email),
                   placeholder: email,
+                  keyboardType: TextInputType.emailAddress,
                   validator: (val) {
                     if (val!.isEmpty) {
                       return enterEmail;

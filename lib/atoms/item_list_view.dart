@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mechBazzar/atoms/horizontal_list.dart';
+import 'package:mechBazzar/atoms/horizontal_item.dart';
 import 'package:mechBazzar/atoms/item_card.dart';
 import 'package:mechBazzar/core/models/product_res_model.dart';
 import 'package:mechBazzar/routes/app_pages.dart';

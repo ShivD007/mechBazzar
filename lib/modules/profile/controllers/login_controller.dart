@@ -45,11 +45,12 @@ class LoginController extends GetxController with HelperUI {
     showLoadingDialog();
     try {
       final response = await BaseApiCallHelper.post(AppUrls.login, _body);
-
-      UserModel userModel = UserModel.fromJson(response);
+      print(response);
+      UserModel userModel = UserModel.fromJson(response["data"][0]);
       //saveToPreference
       await SavePreferences.saveStringPreferences(
           "user", json.encode(userModel));
+          print(userModel.toJson());
       hideLoadingDialog();
       CustomNavigator.pushReplacement(Routes.home);
     } catch (e) {

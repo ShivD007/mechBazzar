@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:mechBazzar/atoms/save_shared_pref.dart';
 import 'package:mechBazzar/core/shared_preference_util_impl.dart';
+import 'package:mechBazzar/modules/profile/models/users_model.dart';
 import 'package:mechBazzar/routes/custom_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,6 +16,7 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    routing();
   }
 
   @override
@@ -22,13 +25,12 @@ class SplashController extends GetxController {
   @override
   void onClose() {}
 
-  Future<void> setSplashTimer() async {
+  Future<void> routing() async {
     int nSplashTimer = 2;
 
     await Future.delayed(Duration(seconds: nSplashTimer)).then((value) async {
-      int value = await SharedPreferenceUtils().getInt("isLoggedIn");
-      print(value);
-      if (value == 1) {
+        final   String? user = SavePreferences.getStringPreferences("user");
+      if (user !=null) {
         CustomNavigator.pushReplacement(Routes.home);
       } else {
         CustomNavigator.pushReplacement(Routes.login);

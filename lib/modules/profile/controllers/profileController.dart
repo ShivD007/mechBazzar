@@ -28,7 +28,7 @@ class ProfileController extends GetxController with HelperUI {
   }
 
   initValues() {
-    user = json.decode(SavePreferences.getStringPreferences("user")!);
+    user =UserModel.fromJson( json.decode(SavePreferences.getStringPreferences("user")!));
 
     emailController.text = user.email ?? "";
     addressController.text = user.address ?? "";

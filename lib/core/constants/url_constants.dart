@@ -13,4 +13,7 @@ class AppUrls {
   static const getBrandList = "get_brand_list";
   static const brandProduct = "brand_product";
   static const getProductDetail = "get_product_detail";
+  static const addcart = "add_cart";
+  static const getcart = "get_cart";
+  static const removeCart = "remove_cart";
 }

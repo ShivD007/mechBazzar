@@ -1,12 +1,11 @@
 import 'package:get/get.dart';
 import 'package:mechBazzar/modules/cart/controller/cart_controller.dart';
-import '../controllers/home_controller.dart';
 
-class HomeBinding extends Bindings {
+class CartBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<HomeController>(
-      () => HomeController(),
+    Get.lazyPut<CartController>(
+      () => CartController(),
     );
   }
 }

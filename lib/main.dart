@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'dart:io';
 
+import 'package:mechBazzar/atoms/save_shared_pref.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
-  await GetStorage.init();
+  await SavePreferences.init();
   runApp(const AppLaunch());
 }
 

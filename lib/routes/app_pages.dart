@@ -1,5 +1,7 @@
 import 'package:mechBazzar/modules/brand/bindings/brand_binding.dart';
 import 'package:mechBazzar/modules/brand/views/brand_view.dart';
+import 'package:mechBazzar/modules/cart/bindings/cart_binding.dart';
+import 'package:mechBazzar/modules/cart/views/cart_view.dart';
 import 'package:mechBazzar/modules/category/bindings/category_binding.dart';
 import 'package:mechBazzar/modules/category/views/category_view.dart';
 import 'package:mechBazzar/modules/profile/bindings/forget_password_bindings.dart';
@@ -71,6 +73,11 @@ class AppPages {
       name: Routes.brand,
       binding: BrandBinding(),
       page: () => BrandView(),
+    ),
+    GetPage(
+      name: Routes.cart,
+      binding: CartBinding(),
+      page: () => CartView(),
     ),
   ];
 }

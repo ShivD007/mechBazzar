@@ -17,7 +17,7 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   void initState() {
-    controller.setSplashTimer();
+    // controller.setSplashTimer();
     super.initState();
   }
 

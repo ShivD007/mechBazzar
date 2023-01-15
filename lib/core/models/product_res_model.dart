@@ -98,6 +98,7 @@ class Product {
     this.showFront,
     this.brandId,
     this.gallery,
+    this. qty
   });
 
   int id;
@@ -164,6 +165,7 @@ class Product {
   int? showFront;
   String? brandId;
   List<String?>? gallery;
+  int? qty;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         id: json["id"] ?? 0,
@@ -228,6 +230,7 @@ class Product {
         tax: json["tax"],
         showFront: json["show_front"],
         brandId: json["brand_id"],
+        qty: json["qty"],
         gallery: json["gallery"] == null ? [] : List<String?>.from(json["gallery"]!.map((x) => x)),
       );
 
@@ -294,7 +297,8 @@ class Product {
         "catalog_id": catalogId,
         "tax": tax,
         "show_front": showFront,
-        "brand_id": brandId,
+        "brand_id": brandId, 
+        "qty": qty, 
         "gallery": gallery == null ? [] : List<dynamic>.from(gallery!.map((x) => x)),
       };
 }

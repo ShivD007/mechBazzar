@@ -1,16 +1,34 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mechBazzar/atoms/save_shared_pref.dart';
 import 'package:mechBazzar/core/app_colors.dart';
 import 'package:mechBazzar/core/custom_spacers.dart';
+import 'package:mechBazzar/core/helper_ui.dart';
 import 'package:mechBazzar/core/text_extension.dart';
+import 'package:mechBazzar/modules/profile/models/users_model.dart';
 import 'package:mechBazzar/routes/custom_navigator.dart';
 
 import '../routes/app_pages.dart';
 
-class DrawerWidget extends StatelessWidget {
+class DrawerWidget extends StatefulWidget {
   const DrawerWidget({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<DrawerWidget> createState() => _DrawerWidgetState();
+}
+
+class _DrawerWidgetState extends State<DrawerWidget> {
+  UserModel? user;
+  @override
+  void didChangeDependencies() {
+    user = UserModel.fromJson(
+        json.decode(SavePreferences.getStringPreferences("user")!));
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +40,12 @@ class DrawerWidget extends StatelessWidget {
           DrawerHeader(
               decoration: BoxDecoration(color: AppColors.COLOR_GREEN),
               child: GestureDetector(
-                onTap: () {
-                  CustomNavigator.pushTo(Routes.profile);
+                onTap: () async {
+                  await CustomNavigator.pushTo(Routes.profile);
+                  setState(() {
+                    user = UserModel.fromJson(json
+                        .decode(SavePreferences.getStringPreferences("user")!));
+                  });
                 },
                 child: Row(
                   children: [
@@ -41,9 +63,11 @@ class DrawerWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          "name...dsfhksdhflhdsf".h25(maxLines: 1, textColor: AppColors.COLOR_WHITE),
+                          (user?.name ?? "").h25(
+                              maxLines: 1, textColor: AppColors.COLOR_WHITE),
                           CustomSpacers.height12,
-                          "avnish.nishad@gmail.com".body16(maxLines: 1, textColor: AppColors.COLOR_WHITE),
+                          (user?.email ?? "").body16(
+                              maxLines: 1, textColor: AppColors.COLOR_WHITE),
                         ],
                       ),
                     ),
@@ -74,7 +98,7 @@ class DrawerWidget extends StatelessWidget {
             leading: const Icon(Icons.power_settings_new),
             title: const Text('Logout'),
             onTap: () {
-              Navigator.pop(context);
+              HelperUI().logout();
             },
           ),
         ],

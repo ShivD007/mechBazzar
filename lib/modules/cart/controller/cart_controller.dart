@@ -31,6 +31,8 @@ class CartController extends GetxController with HelperUI {
   void onClose() {}
 
   Future<void> getCart( {required VoidCallback onSuccess,bool isLoading = false,})async {
+   
+   total.value=0;
     Map<String, dynamic> _body = {"user_id": user.id};
     if (isLoading) isListLoading.value = true;
 

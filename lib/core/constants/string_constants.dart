@@ -55,6 +55,7 @@ const city= "City";
 const zipcode= "Zipcode";
 const country= "Country";
 const orderNote="Order Note(optional)";
+const deliveryDetails="Delivery Details";
 
 // erro messages
 const String passwordNotMatch="Entered Password not Matched";

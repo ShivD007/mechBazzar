@@ -50,10 +50,16 @@ const sendEmail= "Send email";
 const cart= "Cart";
 const mechBazzar= "Mechbazzar";
 const proceed= "Proceed";
-
+const payment= "Payment";
+const city= "City";
+const zipcode= "Zipcode";
+const country= "Country";
+const orderNote="Order Note(optional)";
 
 // erro messages
 const String passwordNotMatch="Entered Password not Matched";
 const String entertenDigitMobileNumber="Enter 10-digits number";
 const String enterYourName="Enter your full name";
 const enterValidEmail = "Please enter valid email";
+const enterCity = "Please enter valid city name";
+const enterValidZipcode = "Please enter valid zipcode";

@@ -4,6 +4,8 @@ import 'package:mechBazzar/modules/cart/bindings/cart_binding.dart';
 import 'package:mechBazzar/modules/cart/views/cart_view.dart';
 import 'package:mechBazzar/modules/category/bindings/category_binding.dart';
 import 'package:mechBazzar/modules/category/views/category_view.dart';
+import 'package:mechBazzar/modules/place_order/bindings/place_order_bindings.dart';
+import 'package:mechBazzar/modules/place_order/views/place_order_view.dart';
 import 'package:mechBazzar/modules/profile/bindings/forget_password_bindings.dart';
 import 'package:mechBazzar/modules/profile/bindings/profile_bindings.dart';
 import 'package:mechBazzar/modules/profile/bindings/signup_binding.dart';
@@ -78,6 +80,11 @@ class AppPages {
       name: Routes.cart,
       binding: CartBinding(),
       page: () => CartView(),
+    ),
+    GetPage(
+      name: Routes.placeOrder,
+      binding: PlaceOrderBinding(),
+      page: () => PlaceOrderView(),
     ),
   ];
 }

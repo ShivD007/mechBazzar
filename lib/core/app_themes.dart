@@ -8,7 +8,7 @@ class AppThemes {
           elevation: 0,
           backgroundColor: AppColors.COLOR_GREEN,
           foregroundColor: AppColors.COLOR_WHITE),
-      scaffoldBackgroundColor: AppColors.COLOR_GREY_200,
+      scaffoldBackgroundColor: AppColors.COLOR_GREY_100,
       colorScheme:
           const ColorScheme.light().copyWith(primary: AppColors.COLOR_GREEN),
       fontFamily: 'OpenSansRegular',

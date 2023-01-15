@@ -40,7 +40,7 @@ class _CartViewState extends State<CartView> {
         child: Obx(
           () => RedButton(
             proceed + " $currency ${controller.total.value}",
-            () => CustomNavigator.pushTo(Routes.cart),
+            () => CustomNavigator.pushTo(Routes.placeOrder),
           isDisables: controller.total.value==0,
           ),
         ),

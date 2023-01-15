@@ -14,7 +14,7 @@ class HelperUI {
         width: 30,
         height: 30,
         child: CircularProgressIndicator(
-          color: AppColors.COLOR_WHITE,
+          color: AppColors.COLOR_GREEN,
         ),
       ),
     );

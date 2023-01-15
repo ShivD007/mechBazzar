@@ -74,7 +74,7 @@ class CategoryController extends GetxController with GetSingleTickerProviderStat
         sortBy: sortBy,
         onError: (onError) {},
         onSuccess: (response) {
-          selectedList.addAll(ProductList.fromJson(response).data ?? []);
+          selectedList.addAll(ProductList.fromJson(response).data );
 
           isListLoading.value = false;
         });

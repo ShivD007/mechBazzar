@@ -30,7 +30,6 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.COLOR_GREY_200,
       key: home_key,
       drawer: DrawerWidget(),
       body: CustomScrollView(

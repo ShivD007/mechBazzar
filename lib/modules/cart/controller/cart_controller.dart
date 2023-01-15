@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:mechBazzar/atoms/save_shared_pref.dart';
 import 'package:mechBazzar/modules/profile/models/users_model.dart';
@@ -16,9 +17,10 @@ class CartController extends GetxController with HelperUI {
   void onInit() {
     isListLoading.value = true;
     super.onInit();
-    user = UserModel.fromJson(json.decode(SavePreferences.getStringPreferences("user")!));
+    user = UserModel.fromJson(
+        json.decode(SavePreferences.getStringPreferences("user")!));
 
-    getCart();
+    getCart(true);
   }
 
   @override
@@ -29,37 +31,45 @@ class CartController extends GetxController with HelperUI {
   @override
   void onClose() {}
 
-  Future<void> getCart() async {
+  Future<void> getCart([bool isLoading = false]) async {
     Map<String, dynamic> _body = {"user_id": user.id};
-    isListLoading.value = true;
-    cartList.clear();
+    if (isLoading) isListLoading.value = true;
+    
     try {
       final response = await BaseApiCallHelper.post(AppUrls.getcart, _body);
-      cartList.addAll(ProductList.fromJson(response).data ?? []);
-      isListLoading.value = false;
+      cartList.clear();
+      cartList.addAll(ProductList.fromJson(response).data );
+      if (isLoading) isListLoading.value = false;
     } catch (e) {
-      isListLoading.value = false;
+      if (isLoading) isListLoading.value = false;
       HelperUI().showSnackbar(e.toString());
     }
   }
 
-  Future<void> removeCart() async {
-    Map<String, dynamic> _body = {"user_id": user.id, "product_id": 3};
+  Future<void> removeCart(VoidCallback onSuccess, int productId) async {
+    Map<String, dynamic> _body = {"user_id": user.id, "product_id": productId};
     showLoadingDialog();
     try {
       final response = await BaseApiCallHelper.post(AppUrls.removeCart, _body);
+      onSuccess();
       hideLoadingDialog();
+
     } catch (e) {
       hideLoadingDialog();
       HelperUI().showSnackbar(e.toString());
     }
   }
 
-  Future<void> addCart() async {
-    Map<String, dynamic> _body = {"user_id": user.id, "product_id": 3, "qty": 3};
+  Future<void> addCart(VoidCallback onSuccess, {required int qty, required int productId}) async {
+    Map<String, dynamic> _body = {
+      "user_id": user.id,
+      "product_id": productId,
+      "qty": qty
+    };
     showLoadingDialog();
     try {
       final response = await BaseApiCallHelper.post(AppUrls.addcart, _body);
+      onSuccess();
       hideLoadingDialog();
     } catch (e) {
       hideLoadingDialog();

@@ -8,7 +8,15 @@ import '../core/Images/custom_network_image.dart';
 import '../core/app_colors.dart';
 
 class HorizontalItemCard extends StatelessWidget {
-  const HorizontalItemCard({Key? key, required this.itemName, required this.imagePath, required this.onTap,  this.qty, this.showTap=true,  this.onDelete})
+  const HorizontalItemCard(
+      {Key? key,
+      required this.itemName,
+      required this.imagePath,
+      required this.onTap,
+      this.qty,
+      this.showTap = true,
+      this.onDelete,
+      this.onUpdateCart})
       : super(key: key);
 
   final String itemName;
@@ -17,12 +25,14 @@ class HorizontalItemCard extends StatelessWidget {
   final int? qty;
   final bool? showTap;
   final VoidCallback? onDelete;
+  final Function(int val)? onUpdateCart;
   @override
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(8.r),
+     
       child: Container(
-        height: 120.h,
+        height: 130.h,
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(VALUE_INPUT_BORDER_RADIUS),
@@ -31,7 +41,11 @@ class HorizontalItemCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            CustomNetworkImageView.square(fit: BoxFit.cover, height: 120.h, width: 150.w, imagePath: imagePath),
+            CustomNetworkImageView.square(
+                fit: BoxFit.cover,
+                height: 130.h,
+                width: onDelete==null?150.w:120.w,
+                imagePath: imagePath),
             CustomSpacers.width8,
             Expanded(
               child: Padding(
@@ -41,24 +55,28 @@ class HorizontalItemCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Flexible(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.w),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Flexible(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 8.w),
                               child: itemName.body16(
                                   textAlign: TextAlign.start,
                                   fontSize: 18.sp,
                                   maxLines: 2,
                                   textColor: AppColors.COLOR_GREY_900),
                             ),
-                            if(onDelete!=null)
-                                GestureDetector(
-                                  onTap: onDelete,
-                                  child: Icon(Icons.delete,color: AppColors.COLOR_RED,))
-                          ],
-                        ),
+                          ),
+                          if (onDelete != null)
+                            IconButton(
+                                onPressed: onDelete,
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: AppColors.COLOR_RED,
+                                ))
+                        ],
                       ),
                     ),
                     CustomSpacers.height10,
@@ -69,33 +87,42 @@ class HorizontalItemCard extends StatelessWidget {
                         previousPrice: 455,
                       ),
                     ),
-                    if(qty!=null)...[
-                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.w),
-                       child: "Qty: $qty".h25(fontSize: 16.sp,textColor: AppColors.COLOR_GREY_900),
-                     ),
-                     CustomSpacers.height10,
-                    ],
-                    if(showTap!)
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
-                      child: InkWell(
-                        onTap: onTap,
-                        child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Container(
-                              height: 30.w,
-                              width: 30.w,
-                              decoration: BoxDecoration(
-                                  color: AppColors.COLOR_GREEN,
-                                  borderRadius: BorderRadius.circular(VALUE_INPUT_BORDER_RADIUS)),
-                              child: Icon(
-                                Icons.chevron_right,
-                                color: AppColors.COLOR_WHITE,
-                              ),
-                            )),
+                      CustomSpacers.height10,
+
+                    if (qty != null && onUpdateCart != null) ...[
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
+                        child: Row(
+                          children: [
+                            cta(()=>onUpdateCart!(qty! - 1), Icons.remove),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16.w),
+                              child: "$qty".h25(
+                                  fontSize: 16.sp,
+                                  textColor: AppColors.COLOR_GREY_900),
+                            ),
+                            cta(()=>onUpdateCart!(qty! + 1), Icons.add),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
+                    if (qty != null && onUpdateCart == null) ...[
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
+                        child: "Qty: $qty".h25(
+                            fontSize: 16.sp,
+                            textColor: AppColors.COLOR_GREY_900),
+                      ),
+                     
+                    ],
+                    if (showTap!)
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 8.w),
+                        child: cta(onTap, Icons.chevron_right),
+                      ),
+                      CustomSpacers.height10,
+
                   ],
                 ),
               ),
@@ -104,6 +131,24 @@ class HorizontalItemCard extends StatelessWidget {
         ),
       ),
     );
-    ;
+  }
+
+  Widget cta(dynamic tap, IconData icon) {
+    return GestureDetector(
+      onTap:tap,
+      child: Align(
+          alignment: Alignment.centerRight,
+          child: Container(
+            height: 30.w,
+            width: 30.w,
+            decoration: BoxDecoration(
+                color: AppColors.COLOR_GREEN,
+                borderRadius: BorderRadius.circular(VALUE_INPUT_BORDER_RADIUS)),
+            child: Icon(
+              icon,
+              color: AppColors.COLOR_WHITE,
+            ),
+          )),
+    );
   }
 }

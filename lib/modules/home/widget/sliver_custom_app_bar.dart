@@ -12,7 +12,6 @@ class SliverCustomAppBar extends StatelessWidget {
   const SliverCustomAppBar({
     Key? key,
   }) : super(key: key);
-  
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +30,6 @@ class SliverCustomAppBar extends StatelessWidget {
           icon: const Icon(Icons.shopping_cart_rounded),
           onPressed: () {
             CustomNavigator.pushTo(Routes.cart);
-            
           },
         )
       ],

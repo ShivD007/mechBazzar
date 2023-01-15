@@ -33,31 +33,37 @@ class BrandController extends GetxController with HelperUI, GetSingleTickerProvi
   void onClose() {}
 
   Future<void> getBrands() async {
-    await BrandRepo.getBrands(
-        onError: (onError) {},
-        onSuccess: (response) async {
-          CategoryModels.fromJson(response).data.forEach((item) {
-            brands.add(item);
-          });
+    await BrandRepo.getBrands(onError: (e) {
+      isInitialLoading.value = false;
+      isListLoading.value = false;
+      HelperUI().showSnackbar(e.toString());
+    }, onSuccess: (response) async {
+      CategoryModels.fromJson(response).data.forEach((item) {
+        brands.add(item);
+      });
 
-          tabController = TabController(length: brands.length, vsync: this);
-          tabController!.addListener(() async {
-            selectedList.clear();
-            isListLoading.value = true;
-            await getProductList(brands[tabController!.index].id, 1);
-          });
-          await getProductList(brands.first.id, 1);
-          isInitialLoading.value = false;
-        });
+      tabController = TabController(length: brands.length, vsync: this);
+      tabController!.addListener(() async {
+        selectedList.clear();
+        isListLoading.value = true;
+        await getProductList(brands[tabController!.index].id, 1);
+      });
+      await getProductList(brands.first.id, 1);
+      isInitialLoading.value = false;
+    });
   }
 
   Future<void> getProductList(int id, int page) async {
     await BrandRepo.getProductList(
         brandId: id,
         page: page,
-        onError: (onError) {},
+        onError: (e) {
+          isListLoading.value = false;
+          HelperUI().showSnackbar(e.toString());
+        },
         onSuccess: (response) {
-          selectedList.addAll(ProductList.fromJson(response).data);
+          selectedList.addAll(
+              response["data"] == null ? [] : List<Product>.from(response["data"]!.map((x) => Product.fromJson(x))));
 
           isListLoading.value = false;
         });

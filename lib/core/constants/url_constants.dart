@@ -16,4 +16,5 @@ class AppUrls {
   static const addcart = "add_cart";
   static const getcart = "get_cart";
   static const removeCart = "remove_cart";
+  static const getHomepageList = "get_homepage_list";
 }

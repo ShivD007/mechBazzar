@@ -18,8 +18,7 @@ class CartController extends GetxController with HelperUI {
   void onInit() {
     isListLoading.value = true;
     super.onInit();
-    user = UserModel.fromJson(
-        json.decode(SavePreferences.getStringPreferences("user")!));
+    user = UserModel.fromJson(json.decode(SavePreferences.getStringPreferences("user")!));
 
   }
 
@@ -34,11 +33,12 @@ class CartController extends GetxController with HelperUI {
   Future<void> getCart( {required VoidCallback onSuccess,bool isLoading = false,})async {
     Map<String, dynamic> _body = {"user_id": user.id};
     if (isLoading) isListLoading.value = true;
-    
+
     try {
       final response = await BaseApiCallHelper.post(AppUrls.getcart, _body);
       cartList.clear();
-      cartList.addAll(ProductList.fromJson(response).data );
+      cartList.addAll(
+          response["data"] == null ? [] : List<Product>.from(response["data"]!.map((x) => Product.fromJson(x))));
       if (isLoading) isListLoading.value = false;
       onSuccess();
       findTotal();
@@ -62,11 +62,7 @@ class CartController extends GetxController with HelperUI {
   }
 
   Future<void> addCart(VoidCallback onSuccess, {required int qty, required int productId}) async {
-    Map<String, dynamic> _body = {
-      "user_id": user.id,
-      "product_id": productId,
-      "qty": qty
-    };
+    Map<String, dynamic> _body = {"user_id": user.id, "product_id": productId, "qty": qty};
     showLoadingDialog();
     try {
       final response = await BaseApiCallHelper.post(AppUrls.addcart, _body);

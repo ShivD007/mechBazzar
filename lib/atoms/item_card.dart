@@ -9,40 +9,44 @@ import 'package:mechBazzar/core/custom_spacers.dart';
 import 'package:mechBazzar/core/text_extension.dart';
 
 class ItemCard extends StatelessWidget {
-  const ItemCard({Key? key}) : super(key: key);
+  const ItemCard(
+      {Key? key, required this.title, required this.imgPath, required this.currentPrice, required this.previousPrice})
+      : super(key: key);
+
+  final String title;
+  final String imgPath;
+  final double currentPrice;
+  final double previousPrice;
 
   @override
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(8),
-      
       child: Container(
-        height: 220.h,
-        width: 270.w,
+        height: 230.h,
+        width: 280.w,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(VALUE_INPUT_BORDER_RADIUS),
-          border: Border.all(color: AppColors.COLOR_GREY_900,width: 0.5)
-        ),
+            borderRadius: BorderRadius.circular(VALUE_INPUT_BORDER_RADIUS),
+            border: Border.all(color: AppColors.COLOR_GREY_900, width: 0.5)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            CustomNetworkImageView.square(
-                fit: BoxFit.cover,
-                height: 156.h,
-                width: 270.w,
-                imagePath: DUMMY_NETWORK_IMAGE),
+            CustomNetworkImageView.square(fit: BoxFit.cover, height: 156.h, width: 280.w, imagePath: imgPath),
             CustomSpacers.height8,
             Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 8.w),
-              child: "abc dallklkfadfa"
-                  .h25(fontSize: 16.sp, textColor: AppColors.COLOR_GREY_900),
+              padding: EdgeInsets.symmetric(horizontal: 8.w),
+              child: title.h25(
+                  fontSize: 14.sp,
+                  textColor: AppColors.COLOR_GREY_900,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.left),
             ),
             Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 8.w),
+              padding: EdgeInsets.symmetric(horizontal: 8.w),
               child: CurrencyView(
-                currentPrice: 5454,
-                previousPrice: 455,
+                currentPrice: currentPrice,
+                previousPrice: previousPrice,
               ),
             )
           ],

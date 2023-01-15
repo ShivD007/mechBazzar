@@ -2,6 +2,7 @@ import 'package:mechBazzar/atoms/custom_carousel.dart';
 import 'package:mechBazzar/atoms/sliver_app_delegate.dart';
 import 'package:mechBazzar/core/app_colors.dart';
 import 'package:mechBazzar/core/custom_spacers.dart';
+import 'package:mechBazzar/core/text_extension.dart';
 import 'package:mechBazzar/modules/home/widget/sliver_custom_app_bar.dart';
 import 'package:mechBazzar/modules/home/widget/sliver_horizontal_list.dart';
 import 'package:mechBazzar/modules/home/widget/sliver_list_title_widget.dart';
@@ -9,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../atoms/drawer_widget.dart';
+import '../../../routes/app_pages.dart';
+import '../../../routes/custom_navigator.dart';
 import '../controllers/home_controller.dart';
 
 final GlobalKey<ScaffoldState> home_key = GlobalKey();
@@ -38,44 +41,40 @@ class HomeView extends GetView<HomeController> {
           const SliverCustomAppBar(),
           // makeHeader(Container(color: AppColors.COLOR_GREY_200, child: CustomSpacers.height16), 16),
           SliverToBoxAdapter(child: CustomSpacers.height12),
-          
+
           SliverToBoxAdapter(child: _crouselWidget()),
+
           SliverToBoxAdapter(child: CustomSpacers.height12),
-          const SliverListTitle(
-            text: "Electric Tool & Equipment",
+
+          Obx(
+            () => controller.isInitialLoading.isTrue
+                ? SliverFillRemaining(
+                    child: Center(child: CircularProgressIndicator()),
+                  )
+                : SliverList(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            controller.homeListModel.data[index].categoryDetail.first.name.toString().body16(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.w700,
+                                textAlign: TextAlign.left,
+                                textColor: AppColors.COLOR_GREY_900),
+                            CustomSpacers.height6,
+                            SliverHorizontalList(
+                              itemList: controller.homeListModel.data[index].products,
+                            ),
+                            CustomSpacers.height16
+                          ],
+                        ),
+                      );
+                    }, childCount: controller.homeListModel.data.length),
+                  ),
           ),
-          SliverToBoxAdapter(child: CustomSpacers.height6),
-          const SliverHorizontalList(),
-          SliverToBoxAdapter(child: CustomSpacers.height16),
-          const SliverListTitle(
-            text: "Office Stationery & Supplies",
-          ),
-          SliverToBoxAdapter(child: CustomSpacers.height6),
-          const SliverHorizontalList(),
-          SliverToBoxAdapter(child: CustomSpacers.height16),
-          const SliverListTitle(
-            text: "Industrial Tools & Construction",
-          ),
-          SliverToBoxAdapter(child: CustomSpacers.height6),
-          const SliverHorizontalList(),
-          SliverToBoxAdapter(child: CustomSpacers.height16),
-          const SliverListTitle(
-            text: "Healthcare, Medical & Lab Supplies",
-          ),
-          SliverToBoxAdapter(child: CustomSpacers.height6),
-          const SliverHorizontalList(),
-          SliverToBoxAdapter(child: CustomSpacers.height16),
-          const SliverListTitle(
-            text: "Agriculture & Gardening",
-          ),
-          SliverToBoxAdapter(child: CustomSpacers.height6),
-          const SliverHorizontalList(),
-          SliverToBoxAdapter(child: CustomSpacers.height16),
-          const SliverListTitle(
-            text: "Safety Supplies",
-          ),
-          SliverToBoxAdapter(child: CustomSpacers.height6),
-          const SliverHorizontalList(),
         ],
       ),
     );

@@ -7,6 +7,8 @@ import 'package:mechBazzar/core/models/product_res_model.dart';
 import 'package:mechBazzar/modules/category/repository/category_repo.dart';
 import 'dart:async';
 
+import '../../../core/helper_ui.dart';
+
 class CategoryController extends GetxController with GetSingleTickerProviderStateMixin {
   TabController? tabController;
   RxBool isInitialLoading = false.obs;
@@ -31,30 +33,37 @@ class CategoryController extends GetxController with GetSingleTickerProviderStat
   }
 
   Future<void> getCategory() async {
-    await CategoryRepo.getShopCategory(
-        onError: (onError) {},
-        onSuccess: (response) async {
-          CategoryModels.fromJson(response).data.forEach((item) {
-            category.add(item);
-          });
+    await CategoryRepo.getShopCategory(onError: (e) {
+      isInitialLoading.value = false;
+      isSubCategoryLoading.value = false;
+      isListLoading.value = false;
+      HelperUI().showSnackbar(e.toString());
+    }, onSuccess: (response) async {
+      CategoryModels.fromJson(response).data.forEach((item) {
+        category.add(item);
+      });
 
-          tabController = TabController(length: category.length, vsync: this);
-          tabController!.addListener(() async {
-            selectedList.clear();
-            isListLoading.value = true;
-            isSubCategoryLoading.value = true;
+      tabController = TabController(length: category.length, vsync: this);
+      tabController!.addListener(() async {
+        selectedList.clear();
+        isListLoading.value = true;
+        isSubCategoryLoading.value = true;
 
-            await getSubCategory(category[tabController!.index].id);
-          });
-          await getSubCategory(category.first.id);
-          isInitialLoading.value = false;
-        });
+        await getSubCategory(category[tabController!.index].id);
+      });
+      await getSubCategory(category.first.id);
+      isInitialLoading.value = false;
+    });
   }
 
   Future<void> getSubCategory(int id) async {
     await CategoryRepo.getShopSubCategory(
         categoryId: id,
-        onError: (onError) {},
+        onError: (e) {
+          isSubCategoryLoading.value = false;
+          isListLoading.value = false;
+          HelperUI().showSnackbar(e.toString());
+        },
         onSuccess: (response) async {
           subCategory.clear();
           CategoryModels.fromJson(response).data.forEach((item) {
@@ -72,9 +81,13 @@ class CategoryController extends GetxController with GetSingleTickerProviderStat
         subcategoryId: subId,
         page: page,
         sortBy: sortBy,
-        onError: (onError) {},
+        onError: (e) {
+          isListLoading.value = false;
+          HelperUI().showSnackbar(e.toString());
+        },
         onSuccess: (response) {
-          selectedList.addAll(ProductList.fromJson(response).data );
+          selectedList.addAll(
+              response["data"] == null ? [] : List<Product>.from(response["data"]!.map((x) => Product.fromJson(x))));
 
           isListLoading.value = false;
         });

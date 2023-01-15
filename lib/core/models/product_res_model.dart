@@ -12,29 +12,29 @@ class ProductList {
   ProductList({
     this.errorCode,
     this.errorMsg,
-    this.data,
+    required this.data,
   });
 
   String? errorCode;
   String? errorMsg;
-  List<Product?>? data;
+  List<Product> data;
 
   factory ProductList.fromJson(Map<String, dynamic> json) => ProductList(
         errorCode: json["errorCode"],
         errorMsg: json["errorMsg"],
-        data: json["data"] == null ? [] : List<Product?>.from(json["data"]!.map((x) => Product.fromJson(x))),
+        data: json["data"] == null ? [] : List<Product>.from(json["data"]!.map((x) => Product.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "errorCode": errorCode,
         "errorMsg": errorMsg,
-        "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x!.toJson())),
+        "data": data == null ? [] : List<dynamic>.from(data.map((x) => x.toJson())),
       };
 }
 
 class Product {
   Product({
-    this.id,
+    required this.id,
     this.sku,
     this.affiliateLink,
     this.userId,
@@ -51,8 +51,8 @@ class Product {
     this.sizeQty,
     this.sizePrice,
     this.color,
-    this.price,
-    this.previousPrice,
+    required this.price,
+    required this.previousPrice,
     this.details,
     this.stock,
     this.policy,
@@ -100,7 +100,7 @@ class Product {
     this.gallery,
   });
 
-  int? id;
+  int id;
   String? sku;
   dynamic affiliateLink;
   int? userId;
@@ -117,8 +117,8 @@ class Product {
   dynamic sizeQty;
   dynamic sizePrice;
   dynamic color;
-  double? price;
-  int? previousPrice;
+  num price;
+  num previousPrice;
   String? details;
   dynamic stock;
   dynamic policy;
@@ -166,7 +166,7 @@ class Product {
   List<String?>? gallery;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
-        id: json["id"],
+        id: json["id"] ?? 0,
         sku: json["sku"],
         affiliateLink: json["affiliate_link"],
         userId: json["user_id"],
@@ -183,8 +183,8 @@ class Product {
         sizeQty: json["size_qty"],
         sizePrice: json["size_price"],
         color: json["color"],
-        price: json["price"].toDouble(),
-        previousPrice: json["previous_price"],
+        price: json["price"] ?? 0,
+        previousPrice: json["previous_price"] ?? 0,
         details: json["details"],
         stock: json["stock"],
         policy: json["policy"],

@@ -19,7 +19,7 @@ class CategoryController extends GetxController with GetSingleTickerProviderStat
 
   RxList<CategoryModel> subCategory = RxList([]);
   RxString slectedSubCategory = RxString("");
-  RxList<Product?> selectedList = RxList<Product?>([]);
+  RxList<Product> selectedList = RxList<Product>([]);
   @override
   Future<void> onInit() async {
     isInitialLoading.value = true;

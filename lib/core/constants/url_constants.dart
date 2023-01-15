@@ -12,4 +12,5 @@ class AppUrls {
   static const getProfile = "get_profile";
   static const getBrandList = "get_brand_list";
   static const brandProduct = "brand_product";
+  static const getProductDetail = "get_product_detail";
 }

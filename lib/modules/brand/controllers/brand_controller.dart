@@ -14,7 +14,7 @@ class BrandController extends GetxController with HelperUI, GetSingleTickerProvi
   RxBool isListLoading = false.obs;
   RxList<CategoryModel> brands = RxList([]);
 
-  RxList<Product?> selectedList = RxList<Product?>([]);
+  RxList<Product> selectedList = RxList<Product>([]);
   @override
   Future<void> onInit() async {
     isInitialLoading.value = true;
@@ -57,7 +57,7 @@ class BrandController extends GetxController with HelperUI, GetSingleTickerProvi
         page: page,
         onError: (onError) {},
         onSuccess: (response) {
-          selectedList.addAll(ProductList.fromJson(response).data ?? []);
+          selectedList.addAll(ProductList.fromJson(response).data);
 
           isListLoading.value = false;
         });

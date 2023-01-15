@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mechBazzar/atoms/horizontal_list.dart';
 import 'package:mechBazzar/atoms/item_card.dart';
 import 'package:mechBazzar/core/models/product_res_model.dart';
+import 'package:mechBazzar/routes/app_pages.dart';
+import 'package:mechBazzar/routes/custom_navigator.dart';
 
 import '../core/custom_spacers.dart';
 import 'loading_horizontal_list.dart';
@@ -13,7 +15,7 @@ class BrandCategoryListView extends StatelessWidget {
       : super(key: key);
   final Axis scrollDirection;
   final Widget? topWidget;
-  final List<Product?> itemList;
+  final List<Product> itemList;
   final bool isLoading;
   @override
   Widget build(BuildContext context) {
@@ -34,8 +36,11 @@ class BrandCategoryListView extends StatelessWidget {
               return isLoading
                   ? LoadingHorizontalItemCard()
                   : HorizontalItemCard(
-                      itemName: itemList[index]!.name.toString(),
-                      imagePath: "https:" + itemList[index]!.photo.toString(),
+                      itemName: itemList[index].name.toString(),
+                      imagePath: "https:" + itemList[index].photo.toString(),
+                      onTap: () {
+                        CustomNavigator.pushTo(Routes.productDetail, arguments: itemList[index].id);
+                      },
                     );
             },
             itemCount: isLoading ? 8 : itemList.length,

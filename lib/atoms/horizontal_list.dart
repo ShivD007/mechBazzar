@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mechBazzar/atoms/currency.dart';
 import 'package:mechBazzar/atoms/red_button.dart';
@@ -10,10 +11,12 @@ import '../core/Images/custom_network_image.dart';
 import '../core/app_colors.dart';
 
 class HorizontalItemCard extends StatelessWidget {
-  const HorizontalItemCard({Key? key, required this.itemName, required this.imagePath}) : super(key: key);
+  const HorizontalItemCard({Key? key, required this.itemName, required this.imagePath, required this.onTap})
+      : super(key: key);
 
   final String itemName;
   final String imagePath;
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -57,19 +60,22 @@ class HorizontalItemCard extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
-                      child: Align(
-                          alignment: Alignment.centerRight,
-                          child: Container(
-                            height: 30.w,
-                            width: 30.w,
-                            decoration: BoxDecoration(
-                                color: AppColors.COLOR_GREEN,
-                                borderRadius: BorderRadius.circular(VALUE_INPUT_BORDER_RADIUS)),
-                            child: Icon(
-                              Icons.chevron_right,
-                              color: AppColors.COLOR_WHITE,
-                            ),
-                          )),
+                      child: InkWell(
+                        onTap: onTap,
+                        child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Container(
+                              height: 30.w,
+                              width: 30.w,
+                              decoration: BoxDecoration(
+                                  color: AppColors.COLOR_GREEN,
+                                  borderRadius: BorderRadius.circular(VALUE_INPUT_BORDER_RADIUS)),
+                              child: Icon(
+                                Icons.chevron_right,
+                                color: AppColors.COLOR_WHITE,
+                              ),
+                            )),
+                      ),
                     ),
                   ],
                 ),

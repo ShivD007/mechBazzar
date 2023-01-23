@@ -3,6 +3,7 @@
 //     final homeListModel = homeListModelFromJson(jsonString);
 
 import 'dart:convert';
+import 'dart:developer';
 
 import '../../../core/models/product_res_model.dart';
 
@@ -22,11 +23,7 @@ class HomeListModel {
   factory HomeListModel.fromJson(Map<String, dynamic> json) => HomeListModel(
         errorCode: json["errorCode"],
         errorMsg: json["errorMsg"],
-        data: json["data"] == null
-            ? []
-            : json["data"] == null
-                ? []
-                : List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
       );
 }
 
@@ -47,9 +44,7 @@ class Datum {
                 : List<CategoryDetail>.from(json["category_detail"]!.map((x) => CategoryDetail.fromJson(x))),
         products: json["products"] == null
             ? []
-            : json["products"] == null
-                ? []
-                : List<Product>.from(json["products"]!.map((x) => Product.fromJson(x))),
+            : List<Product>.from(json["products"]!.map((x) => x == null ? null : Product.fromJson(x))),
       );
 }
 

@@ -11,12 +11,12 @@ import '../../../core/helper_ui.dart';
 class ForgetPasswordController extends GetxController with HelperUI {
   ForgetPasswordController();
   late TextEditingController emailController;
-  GlobalKey<FormState> formKey=GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Future<void> onInit() async {
     super.onInit();
-    emailController=TextEditingController();
+    emailController = TextEditingController();
   }
 
   @override
@@ -30,19 +30,19 @@ class ForgetPasswordController extends GetxController with HelperUI {
   }
 
   Future<void> onSubmit() async {
-    if(!formKey.currentState!.validate()){
+    if (!formKey.currentState!.validate()) {
       return;
     }
 
-    Map<String,dynamic> _body={
-      "email":emailController.text,
+    Map<String, dynamic> _body = {
+      "email": emailController.text,
     };
-showLoadingDialog();
-      try {
+    showLoadingDialog();
+    try {
       final response = await BaseApiCallHelper.post(AppUrls.forgetPass, _body);
       hideLoadingDialog();
       showSnackbar(forgetPasswordLinkSend);
-      CustomNavigator.pushTo(Routes.login);
+      CustomNavigator.pop();
     } catch (e) {
       hideLoadingDialog();
       showSnackbar(e.toString());

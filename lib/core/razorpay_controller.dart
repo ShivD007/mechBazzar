@@ -1,16 +1,17 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:mechBazzar/core/helper_ui.dart';
 import 'package:mechBazzar/modules/profile/models/users_model.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:get/get.dart';
 
 import '../atoms/save_shared_pref.dart';
 
-class RazorpayController extends GetxController {
+class RazorpayController extends GetxController with HelperUI {
   RxBool isButtonDisable = false.obs;
   Razorpay? _razorpay;
-  Function(dynamic reqModel)? onSuccess;
+  late Function(String orderId) onSuccess;
   late UserModel userModel;
 
   @override
@@ -34,10 +35,16 @@ class RazorpayController extends GetxController {
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    onSuccess(response.orderId.toString());
     log(response.toString());
   }
 
-  void _handlePaymentError(PaymentFailureResponse response) {}
+  void _handlePaymentError(PaymentFailureResponse response) {
+    HelperUI().showSnackbar(jsonDecode(response.message.toString())["description"] == null
+        ? jsonDecode(response.message.toString())["error"]["description"]
+        : jsonDecode(response.message.toString())["description"]);
+    hideLoadingDialog();
+  }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
     // Do something when an external wallet was selected
@@ -63,6 +70,7 @@ class RazorpayController extends GetxController {
         'prefill': {'contact': userModel.phone ?? "", 'email': userModel.email ?? "", "name": userModel.name ?? ""}
       });
     } catch (e) {
+      hideLoadingDialog();
       log(e.toString());
     }
   }

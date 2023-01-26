@@ -1,13 +1,12 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mechBazzar/atoms/save_shared_pref.dart';
 import 'package:mechBazzar/core/razorpay_controller.dart';
-import 'package:mechBazzar/modules/cart/model/cart_model.dart';
 import 'package:mechBazzar/modules/place_order/model/razar_pay_model.dart';
 import 'package:mechBazzar/modules/profile/models/users_model.dart';
+import 'package:mechBazzar/routes/custom_navigator.dart';
 import '../../../core/helper_ui.dart';
 import '../repository/place_order_repo.dart';
 
@@ -24,7 +23,7 @@ class PlaceOrderController extends GetxController with HelperUI {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late num amount;
   late int totalQty;
-  late List<Cart> cartList;
+  late List<Map<String, dynamic>> cartList;
 
   late RazorpayController razorpayController;
 
@@ -69,26 +68,26 @@ class PlaceOrderController extends GetxController with HelperUI {
   }
 
   Future<void> onSubmit() async {
-    showLoadingDialog();
     if (formKey.currentState!.validate()) {
+      showLoadingDialog();
+
       PlaceOrderRepo.getOrderID(
-          amount: amount.toInt(),
+          amount: (1 * 100).toInt(),
           onError: (e) {
             hideLoadingDialog();
             HelperUI().showSnackbar(e.toString());
           },
           onSuccess: (response) async {
-            log(response.toString());
             RazarpayOder razarpayOder = RazarpayOder.fromJson(response);
 
             await razorpayController.proceedWithRazorPay(
               orderId: razarpayOder.data!.id.toString(),
               price: amount.toDouble(),
               description: noteController.text,
-              onSuccess: (val) {
+              onSuccess: (orderId) {
                 PlaceOrderRepo.placeOrder(
                     userId: user.id!,
-                    cartList: cartList,
+                    cartList: jsonEncode(cartList),
                     totalQty: totalQty,
                     total: amount,
                     email: emailController.text,
@@ -99,13 +98,15 @@ class PlaceOrderController extends GetxController with HelperUI {
                     city: cityController.text,
                     zip: zipcodeController.text,
                     orderNotes: noteController.text,
-                    orderNumber: razarpayOder.data!.id.toString(),
+                    orderNumber: orderId,
                     onError: (e) {
                       hideLoadingDialog();
                       HelperUI().showSnackbar(e.toString());
                     },
                     onSuccess: (response) {
                       hideLoadingDialog();
+                      CustomNavigator.pop();
+                      HelperUI().showSnackbar("Successfully order placed!", false);
                     });
               },
             );

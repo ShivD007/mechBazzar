@@ -16,7 +16,7 @@ class CartController extends GetxController with HelperUI {
   RxBool isListLoading = false.obs;
   UserModel? user;
   RxList<Product?> cartList = RxList<Product?>([]);
-  List<Cart> orderList = [];
+  List<Map<String, dynamic>> orderList = [];
   RxNum total = RxNum(0);
   RxBool notValidQuantity = RxBool(false);
   int totalQty = 0;
@@ -97,7 +97,7 @@ class CartController extends GetxController with HelperUI {
   void getOderList() {
     orderList.clear();
     cartList.forEach((element) {
-      orderList.add(Cart.fromJson(element!.toJson()));
+      orderList.add(Cart.fromJson(element!.toJson()).toJson());
     });
   }
 

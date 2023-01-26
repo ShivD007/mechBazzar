@@ -7,7 +7,7 @@ import '../repository/product_repo.dart';
 
 class ProductDetailController extends GetxController with HelperUI {
   RxBool isInitialLoading = false.obs;
-   Product? product;
+  Product? product;
   late int productId;
 
   @override
@@ -32,7 +32,6 @@ class ProductDetailController extends GetxController with HelperUI {
         onError: (onError) {},
         onSuccess: (response) async {
           product = Product.fromJson(response["data"][0]);
-          log(response.toString());
           isInitialLoading.value = false;
         });
   }

@@ -92,7 +92,7 @@ class Product {
   num price;
   num previousPrice;
   String? details;
-  dynamic stock;
+  int? stock;
   dynamic policy;
   int? status;
   String? scrapUrl;

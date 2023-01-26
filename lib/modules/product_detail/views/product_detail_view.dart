@@ -60,7 +60,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                       HelperUI()
                           .showSnackbar("Successfully added to Cart", false);
                       HelperUI().hideLoadingDialog();
-                    }, qty: 1, productId: controller.productId);
+                    }, qty: 1, productId: controller.productId,stock:controller.product!.stock);
                   } else {
                     CustomNavigator.pushTo(Routes.login);
                   }

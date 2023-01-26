@@ -16,7 +16,12 @@ class HorizontalItemCard extends StatelessWidget {
       this.qty,
       this.showTap = true,
       this.onDelete,
-      this.onUpdateCart, required this.cPrice, required this.prevPrice})
+      this.onUpdateCart,
+      required this.cPrice,
+      required this.prevPrice,
+      required this.outOfStock,
+      this.onlyFewAvailable = false,
+      required this.stock})
       : super(key: key);
 
   final String itemName;
@@ -27,11 +32,13 @@ class HorizontalItemCard extends StatelessWidget {
   final VoidCallback? onDelete;
   final Function(int val)? onUpdateCart;
   final num? cPrice, prevPrice;
+  final bool outOfStock;
+  final bool? onlyFewAvailable;
+  final int? stock;
   @override
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(8.r),
-     
       child: Container(
         height: 130.h,
         width: double.infinity,
@@ -42,11 +49,24 @@ class HorizontalItemCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            CustomNetworkImageView.square(
-                fit: BoxFit.cover,
-                height: 130.h,
-                width: onDelete==null?150.w:120.w,
-                imagePath: imagePath),
+            Stack(
+              children: [
+                CustomNetworkImageView.square(
+                    fit: BoxFit.cover,
+                    height: 130.h,
+                    width: onDelete == null ? 150.w : 120.w,
+                    imagePath: imagePath),
+                Positioned(
+                    top: 0,
+                    left: 0,
+                    child: outOfStock
+                        ? ( "Out of stock")
+                            .h25(textColor: AppColors.COLOR_RED)
+                        :onlyFewAvailable!
+                                ? "$stock units available" .h25(textColor: AppColors.COLOR_RED)
+                                : SizedBox.shrink()),
+              ],
+            ),
             CustomSpacers.width8,
             Expanded(
               child: Padding(
@@ -87,21 +107,20 @@ class HorizontalItemCard extends StatelessWidget {
                         previousPrice: prevPrice,
                       ),
                     ),
-                      CustomSpacers.height10,
-
+                    CustomSpacers.height10,
                     if (qty != null && onUpdateCart != null) ...[
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.w),
                         child: Row(
                           children: [
-                            cta(()=>onUpdateCart!(qty! - 1), Icons.remove),
+                            cta(() => onUpdateCart!(qty! - 1), Icons.remove),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 16.w),
                               child: "$qty".h25(
                                   fontSize: 16.sp,
                                   textColor: AppColors.COLOR_GREY_900),
                             ),
-                            cta(()=>onUpdateCart!(qty! + 1), Icons.add),
+                            cta(() => onUpdateCart!(qty! + 1), Icons.add),
                           ],
                         ),
                       ),
@@ -113,16 +132,13 @@ class HorizontalItemCard extends StatelessWidget {
                             fontSize: 16.sp,
                             textColor: AppColors.COLOR_GREY_900),
                       ),
-                     
                     ],
                     if (showTap!)
                       Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 8.w),
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
                         child: cta(onTap, Icons.chevron_right),
                       ),
-                      CustomSpacers.height10,
-
+                    CustomSpacers.height10,
                   ],
                 ),
               ),
@@ -135,7 +151,7 @@ class HorizontalItemCard extends StatelessWidget {
 
   Widget cta(dynamic tap, IconData icon) {
     return GestureDetector(
-      onTap:tap,
+      onTap: tap,
       child: Align(
           alignment: Alignment.centerRight,
           child: Container(

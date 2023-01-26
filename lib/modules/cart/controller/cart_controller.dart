@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_statements
+
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
@@ -11,19 +13,22 @@ import '../../../network/api_base_helper.dart';
 
 class CartController extends GetxController with HelperUI {
   RxBool isListLoading = false.obs;
-   UserModel? user;
+  UserModel? user;
   RxList<Product?> cartList = RxList<Product?>([]);
   RxNum total = RxNum(0);
+  RxBool notValidQuantity = RxBool(false);
   @override
   void onInit() {
     isListLoading.value = true;
     super.onInit();
- setUser();
+    setUser();
   }
-  void setUser(){
-    String? users=SavePreferences.getStringPreferences("user");
-    user =users==null?null: UserModel.fromJson(json.decode(users));
+
+  void setUser() {
+    String? users = SavePreferences.getStringPreferences("user");
+    user = users == null ? null : UserModel.fromJson(json.decode(users));
   }
+
   @override
   void onReady() {
     super.onReady();
@@ -39,12 +44,14 @@ class CartController extends GetxController with HelperUI {
     total.value = 0;
     Map<String, dynamic> _body = {"user_id": user!.id};
     if (isLoading) isListLoading.value = true;
-   print("object");
+    print("object");
     try {
       final response = await BaseApiCallHelper.post(AppUrls.getcart, _body);
       cartList.clear();
-      cartList.addAll(
-          response["data"] == null ? [] : List<Product>.from(response["data"]!.map((x) => Product.fromJson(x))));
+      cartList.addAll(response["data"] == null
+          ? []
+          : List<Product>.from(
+              response["data"]!.map((x) => Product.fromJson(x))));
       if (isLoading) isListLoading.value = false;
       onSuccess();
       findTotal();
@@ -66,8 +73,19 @@ class CartController extends GetxController with HelperUI {
     }
   }
 
-  Future<void> addCart(VoidCallback onSuccess, {required int qty, required int productId}) async {
-    Map<String, dynamic> _body = {"user_id": user!.id, "product_id": productId, "qty": qty};
+  Future<void> addCart(VoidCallback onSuccess,
+      {required int qty, required int productId, required int? stock}) async {
+    Map<String, dynamic> _body = {
+      "user_id": user!.id,
+      "product_id": productId,
+      "qty": qty
+    };
+    if (stock != null && qty > stock) {
+      HelperUI().showSnackbar(
+          stock == 0 ? "out of stock" : "Only $stock in stock", true);
+      return;
+    }
+
     showLoadingDialog();
     try {
       final response = await BaseApiCallHelper.post(AppUrls.addcart, _body);
@@ -82,6 +100,10 @@ class CartController extends GetxController with HelperUI {
     total.value = 0;
     cartList.forEach((element) {
       total.value += element!.price * element.qty!;
+
+      notValidQuantity.value =
+          (element.stock == null ? false : (element.qty! > element.stock!)) ||
+              element.stock == 0;
     });
   }
 }

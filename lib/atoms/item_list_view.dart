@@ -43,12 +43,13 @@ class BrandCategoryListView extends StatelessWidget {
               return isLoading
                   ? LoadingHorizontalItemCard()
                   : HorizontalItemCard(
+                    outOfStock: itemList[index].stock==0,
                       itemName: itemList[index].name.toString(),
                       imagePath: "https:" + itemList[index].photo.toString(),
                       onTap: () {
                         CustomNavigator.pushTo(Routes.productDetail, arguments: itemList[index].id);
                       }, cPrice: itemList[index].price,
-                      prevPrice: itemList[index].previousPrice,
+                      prevPrice: itemList[index].previousPrice, stock: itemList[index].stock,
                     );
             },
             itemCount: isLoading ? 8 : itemList.length,

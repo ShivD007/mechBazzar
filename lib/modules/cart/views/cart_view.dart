@@ -23,8 +23,8 @@ class _CartViewState extends State<CartView> {
   @override
   void initState() {
     controller.setUser();
-    if(controller.user!=null)
-    controller.getCart(isLoading: true, onSuccess: () {});
+    if (controller.user != null)
+      controller.getCart(isLoading: true, onSuccess: () {});
     super.initState();
   }
 
@@ -33,15 +33,17 @@ class _CartViewState extends State<CartView> {
     return Scaffold(
       appBar: CustomAppBarWithBack(title: cart, isCenterAppicon: true),
       bottomNavigationBar: Obx(
-        () =>controller.total.value == 0?SizedBox.shrink(): Padding(
-          padding: EdgeInsets.fromLTRB(
-              22.w, 0, 22.w, 16.h + MediaQuery.of(context).viewInsets.bottom),
-          child: RedButton(
-            proceed + " $currency ${controller.total.value}",
-            () => CustomNavigator.pushTo(Routes.placeOrder),
-            isDisables: controller.total.value == 0,
-          ),
-        ),
+        () => controller.total.value == 0
+            ? SizedBox.shrink()
+            : Padding(
+                padding: EdgeInsets.fromLTRB(22.w, 0, 22.w,
+                    16.h + MediaQuery.of(context).viewInsets.bottom),
+                child: RedButton(
+                  proceed + " $currency ${controller.total.value}",
+                  () => CustomNavigator.pushTo(Routes.placeOrder),
+                  isDisables: controller.total.value == 0||controller.notValidQuantity.value,
+                ),
+              ),
       ),
       body: SafeArea(
           child: Obx(() => controller.isListLoading.value
@@ -55,7 +57,14 @@ class _CartViewState extends State<CartView> {
                         return Padding(
                           padding: EdgeInsets.symmetric(horizontal: 16.w),
                           child: HorizontalItemCard(
+                            stock: controller.cartList[index]!.stock,
                             showTap: false,
+                            outOfStock: controller.cartList[index]!.stock == 0,
+                            onlyFewAvailable:
+                                controller.cartList[index]!.stock == null
+                                    ? false
+                                    : (controller.cartList[index]!.qty! >
+                                        controller.cartList[index]!.stock!),
                             onDelete: () {
                               controller.removeCart(() {
                                 controller.getCart(onSuccess: () {
@@ -69,10 +78,13 @@ class _CartViewState extends State<CartView> {
                                 controller.getCart(onSuccess: () {
                                   HelperUI().hideLoadingDialog();
                                 });
-                              }, qty: val, productId: item.id);
+                              },
+                                  qty: val,
+                                  productId: item.id,
+                                  stock: item.stock);
                             },
                             qty: item.qty,
-                            itemName: item.name ?? "",
+                            itemName: item.name,
                             imagePath: "https:" + item.photo.toString(),
                             onTap: () {},
                             cPrice: item.price * item.qty!,

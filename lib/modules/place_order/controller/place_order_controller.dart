@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mechBazzar/atoms/save_shared_pref.dart';
 import 'package:mechBazzar/core/razorpay_controller.dart';
+import 'package:mechBazzar/modules/cart/model/cart_model.dart';
 import 'package:mechBazzar/modules/place_order/model/razar_pay_model.dart';
 import 'package:mechBazzar/modules/profile/models/users_model.dart';
 import '../../../core/helper_ui.dart';
@@ -22,6 +23,8 @@ class PlaceOrderController extends GetxController with HelperUI {
   late TextEditingController noteController;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late num amount;
+  late int totalQty;
+  late List<Cart> cartList;
 
   late RazorpayController razorpayController;
 
@@ -29,6 +32,9 @@ class PlaceOrderController extends GetxController with HelperUI {
   void onInit() {
     super.onInit();
     amount = Get.arguments[0];
+    totalQty = Get.arguments[1];
+    cartList = Get.arguments[2];
+
     user = UserModel.fromJson(json.decode(SavePreferences.getStringPreferences("user")!));
 
     bool isRegistred = Get.isRegistered<RazorpayController>();
@@ -63,10 +69,14 @@ class PlaceOrderController extends GetxController with HelperUI {
   }
 
   Future<void> onSubmit() async {
+    showLoadingDialog();
     if (formKey.currentState!.validate()) {
       PlaceOrderRepo.getOrderID(
           amount: amount.toInt(),
-          onError: (error) {},
+          onError: (e) {
+            hideLoadingDialog();
+            HelperUI().showSnackbar(e.toString());
+          },
           onSuccess: (response) async {
             log(response.toString());
             RazarpayOder razarpayOder = RazarpayOder.fromJson(response);
@@ -76,7 +86,27 @@ class PlaceOrderController extends GetxController with HelperUI {
               price: amount.toDouble(),
               description: noteController.text,
               onSuccess: (val) {
-                log(val);
+                PlaceOrderRepo.placeOrder(
+                    userId: user.id!,
+                    cartList: cartList,
+                    totalQty: totalQty,
+                    total: amount,
+                    email: emailController.text,
+                    name: nameController.text,
+                    phone: phoneController.text,
+                    address: addressController.text,
+                    customerCountry: countryController.text,
+                    city: cityController.text,
+                    zip: zipcodeController.text,
+                    orderNotes: noteController.text,
+                    orderNumber: razarpayOder.data!.id.toString(),
+                    onError: (e) {
+                      hideLoadingDialog();
+                      HelperUI().showSnackbar(e.toString());
+                    },
+                    onSuccess: (response) {
+                      hideLoadingDialog();
+                    });
               },
             );
           });

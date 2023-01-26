@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:mechBazzar/core/constants/string_constants.dart';
+import 'package:mechBazzar/modules/cart/model/cart_model.dart';
 import 'package:mechBazzar/modules/profile/models/users_model.dart';
 
 import '../../../atoms/save_shared_pref.dart';
@@ -25,13 +27,35 @@ class PlaceOrderRepo {
   }
 
   static Future placeOrder(
-      {required int brandId,
-      required int page,
+      {required int userId,
+      required List<Cart> cartList,
+      required int totalQty,
+      required num total,
+      required String email,
+      required String name,
+      required String phone,
+      required String address,
+      required String customerCountry,
+      required String city,
+      required String zip,
+      required String orderNotes,
+      required String orderNumber,
       required Function(String) onError,
       required Function(dynamic) onSuccess}) async {
     var body = {
-      'brand_id': brandId,
-      'page': page,
+      'user_id': userId,
+      'cart': cartList,
+      'totalQty': totalQty,
+      'total': total,
+      'email': email,
+      'name': name,
+      'phone': phone,
+      'address': address,
+      'customer_country': customerCountry,
+      'city': city,
+      'zip': zip,
+      'order_notes': orderNote,
+      'order_number': orderNumber,
     };
 
     try {

@@ -58,7 +58,7 @@ class ProfileController extends GetxController with HelperUI {
       "address": addressController.text,
       "name": nameController.text,
       "phone": phoneController.text,
-      "user_id": 31
+      "user_id": user.id
     };
     showLoadingDialog();
 
@@ -78,7 +78,7 @@ class ProfileController extends GetxController with HelperUI {
   }
 
   Future<void> onDeleteUser() async {
-    Map<String, dynamic> _body = {"user_id": 31};
+    Map<String, dynamic> _body = {"user_id": user.id};
     showLoadingDialog();
 
     try {

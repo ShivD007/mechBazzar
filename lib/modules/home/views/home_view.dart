@@ -44,7 +44,7 @@ class HomeView extends GetView<HomeController> {
 
           // SliverToBoxAdapter(child: _crouselWidget()),
 
-          SliverToBoxAdapter(child: CustomSpacers.height12),
+            SliverToBoxAdapter(child: CustomSpacers.height12),
 
           Obx(
             () => controller.isInitialLoading.isTrue

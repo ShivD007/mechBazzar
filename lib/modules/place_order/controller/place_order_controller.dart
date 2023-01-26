@@ -27,7 +27,7 @@ class PlaceOrderController extends GetxController with HelperUI {
   @override
   void onInit() {
     super.onInit();
-    amount = 100;
+    amount = Get.arguments[0];
     user = UserModel.fromJson(json.decode(SavePreferences.getStringPreferences("user")!));
 
     bool isRegistred = Get.isRegistered<RazorpayController>();

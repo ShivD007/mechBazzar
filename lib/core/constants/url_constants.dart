@@ -17,4 +17,6 @@ class AppUrls {
   static const getcart = "get_cart";
   static const removeCart = "remove_cart";
   static const getHomepageList = "get_homepage_list";
+  static const getOrderID = "razorpay";
+  static const placeOrder = "place_order";
 }

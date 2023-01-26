@@ -1,14 +1,13 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:mechBazzar/atoms/save_shared_pref.dart';
+import 'package:mechBazzar/core/razorpay_controller.dart';
 import 'package:mechBazzar/modules/profile/models/users_model.dart';
-import '../../../core/constants/url_constants.dart';
 import '../../../core/helper_ui.dart';
-import '../../../core/models/product_res_model.dart';
-import '../../../network/api_base_helper.dart';
+import '../repository/place_order_repo.dart';
 
 class PlaceOrderController extends GetxController with HelperUI {
   late UserModel user;
@@ -21,18 +20,25 @@ class PlaceOrderController extends GetxController with HelperUI {
   late TextEditingController zipcodeController;
   late TextEditingController noteController;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  late num amount;
+
+  late RazorpayController razorpayController;
 
   @override
   void onInit() {
     super.onInit();
-    user = UserModel.fromJson(
-        json.decode(SavePreferences.getStringPreferences("user")!));
+    amount = 100;
+    user = UserModel.fromJson(json.decode(SavePreferences.getStringPreferences("user")!));
 
+    bool isRegistred = Get.isRegistered<RazorpayController>();
+    if (isRegistred) {
+      razorpayController = Get.find();
+    }
     cityController = TextEditingController();
-    nameController = TextEditingController(text:user.name);
+    nameController = TextEditingController(text: user.name);
     emailController = TextEditingController(text: user.email);
-    phoneController = TextEditingController(text:user.phone);
-    addressController = TextEditingController(text:user.address);
+    phoneController = TextEditingController(text: user.phone);
+    addressController = TextEditingController(text: user.address);
     countryController = TextEditingController(text: "India");
     zipcodeController = TextEditingController();
     noteController = TextEditingController();
@@ -56,7 +62,20 @@ class PlaceOrderController extends GetxController with HelperUI {
   }
 
   Future<void> onSubmit() async {
-    if (!formKey.currentState!.validate()) {
+    if (formKey.currentState!.validate()) {
+      PlaceOrderRepo.getOrderID(
+          amount: amount,
+          onError: (error) {},
+          onSuccess: (response) async {
+            await razorpayController.proceedWithRazorPay(
+              onSuccess: (val) {
+                log(val);
+              },
+              price: amount.toDouble(),
+              description: noteController.text,
+            );
+          });
+
       return;
     }
   }

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mechBazzar/atoms/save_shared_pref.dart';
 import 'package:mechBazzar/core/razorpay_controller.dart';
+import 'package:mechBazzar/modules/place_order/model/razar_pay_model.dart';
 import 'package:mechBazzar/modules/profile/models/users_model.dart';
 import '../../../core/helper_ui.dart';
 import '../repository/place_order_repo.dart';
@@ -64,15 +65,19 @@ class PlaceOrderController extends GetxController with HelperUI {
   Future<void> onSubmit() async {
     if (formKey.currentState!.validate()) {
       PlaceOrderRepo.getOrderID(
-          amount: amount,
+          amount: amount.toInt(),
           onError: (error) {},
           onSuccess: (response) async {
+            log(response.toString());
+            RazarpayOder razarpayOder = RazarpayOder.fromJson(response);
+
             await razorpayController.proceedWithRazorPay(
+              orderId: razarpayOder.data!.id.toString(),
+              price: amount.toDouble(),
+              description: noteController.text,
               onSuccess: (val) {
                 log(val);
               },
-              price: amount.toDouble(),
-              description: noteController.text,
             );
           });
 

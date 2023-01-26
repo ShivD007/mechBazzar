@@ -46,17 +46,19 @@ class RazorpayController extends GetxController {
   Future proceedWithRazorPay({
     required double price,
     required String description,
+    required String orderId,
     required Function(dynamic) onSuccess,
   }) async {
     this.onSuccess = onSuccess;
     try {
       _razorpay?.open({
         "timeout": 600,
-        'key': "rzp_test_Rx50e7yZDiFWFU",
+        'key': "rzp_live_xQa6xbbhh6mxa7",
         'amount': (price * 100).toPrecision(2),
         'name': 'MechBazaar',
         "currency": "INR",
         "theme.color": "#4CAF1B",
+        'order_id': orderId,
         'description': description,
         'prefill': {'contact': userModel.phone ?? "", 'email': userModel.email ?? "", "name": userModel.name ?? ""}
       });

@@ -29,12 +29,7 @@ class SplashController extends GetxController {
     int nSplashTimer = 2;
 
     await Future.delayed(Duration(seconds: nSplashTimer)).then((value) async {
-        final   String? user = SavePreferences.getStringPreferences("user");
-      if (user !=null) {
-        CustomNavigator.pushReplacement(Routes.home);
-      } else {
-        CustomNavigator.pushReplacement(Routes.login);
-      }
+      CustomNavigator.pushReplacement(Routes.home);
     });
   }
 }

@@ -40,9 +40,9 @@ class HomeView extends GetView<HomeController> {
         slivers: [
           const SliverCustomAppBar(),
           // makeHeader(Container(color: AppColors.COLOR_GREY_200, child: CustomSpacers.height16), 16),
-          SliverToBoxAdapter(child: CustomSpacers.height12),
+          // SliverToBoxAdapter(child: CustomSpacers.height12),
 
-          SliverToBoxAdapter(child: _crouselWidget()),
+          // SliverToBoxAdapter(child: _crouselWidget()),
 
           SliverToBoxAdapter(child: CustomSpacers.height12),
 
@@ -53,20 +53,26 @@ class HomeView extends GetView<HomeController> {
                   )
                 : SliverList(
                     delegate: SliverChildBuilderDelegate((context, index) {
+                      if (controller.homeListModel.data[index].products.isEmpty)
+                        return SizedBox.shrink();
                       return Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.w),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            controller.homeListModel.data[index].categoryDetail.first.name.toString().body16(
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.w700,
-                                textAlign: TextAlign.left,
-                                textColor: AppColors.COLOR_GREY_900),
+                            controller.homeListModel.data[index].categoryDetail
+                                .first.name
+                                .toString()
+                                .body16(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w700,
+                                    textAlign: TextAlign.left,
+                                    textColor: AppColors.COLOR_GREY_900),
                             CustomSpacers.height6,
                             SliverHorizontalList(
-                              itemList: controller.homeListModel.data[index].products,
+                              itemList:
+                                  controller.homeListModel.data[index].products,
                             ),
                             CustomSpacers.height16
                           ],

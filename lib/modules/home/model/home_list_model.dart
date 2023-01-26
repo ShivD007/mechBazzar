@@ -33,20 +33,25 @@ class Datum {
     required this.products,
   });
 
-  List<CategoryDetail> categoryDetail;
-  List<Product> products;
+ late  List<CategoryDetail> categoryDetail;
+  late List<Product> products;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        categoryDetail: json["category_detail"] == null
+   Datum.fromJson(Map<String, dynamic> json) { 
+        categoryDetail= json["category_detail"] == null
             ? []
             : json["category_detail"] == null
                 ? []
-                : List<CategoryDetail>.from(json["category_detail"]!.map((x) => CategoryDetail.fromJson(x))),
-        products: json["products"] == null
-            ? []
-            : List<Product>.from(json["products"]!.map((x) => x == null ? null : Product.fromJson(x))),
-      );
-}
+                : List<CategoryDetail>.from(json["category_detail"]!.map((x) => CategoryDetail.fromJson(x)));
+       
+        if (json['products'] != null) {
+      products = <Product>[];
+      json['products'].forEach((v) {
+        if(v!=null)
+        products.add(new Product.fromJson(v));
+      });
+    }
+      
+}}
 
 class CategoryDetail {
   CategoryDetail({

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../atoms/save_shared_pref.dart';
 import '../../../core/constants/string_constants.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/custom_navigator.dart';
@@ -29,7 +30,14 @@ class SliverCustomAppBar extends StatelessWidget {
         IconButton(
           icon: const Icon(Icons.shopping_cart_rounded),
           onPressed: () {
-            CustomNavigator.pushTo(Routes.cart);
+
+              final   String? user = SavePreferences.getStringPreferences("user");
+      if (user !=null) {
+         CustomNavigator.pushTo(Routes.cart);
+      } else {
+        CustomNavigator.pushTo(Routes.login);
+      }
+           
           },
         )
       ],

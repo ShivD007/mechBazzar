@@ -2,6 +2,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mechBazzar/atoms/clickable_text.dart';
 import 'package:mechBazzar/atoms/red_button.dart';
 import 'package:mechBazzar/core/app_colors.dart';
+import 'package:mechBazzar/core/custom_appbar_with_back_button.dart';
 import 'package:mechBazzar/core/custom_input.dart';
 import 'package:mechBazzar/core/custom_spacers.dart';
 import 'package:mechBazzar/core/text_extension.dart';
@@ -34,9 +35,23 @@ class LoginView extends GetView<LoginController> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 CustomSpacers.height24,
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: welcomeBack.h25(textColor: AppColors.COLOR_GREEN)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    welcomeBack.h25(textColor: AppColors.COLOR_GREEN),
+                    ClickableTexts(
+                      title: "Skip Login.."
+                          .body14(textColor: AppColors.COLOR_GREEN),
+                      onClick: () {
+                        bool canPop=Navigator.canPop(context);
+                        if(!canPop){
+                          CustomNavigator.pushReplacement(Routes.home);
+                        }
+                        CustomNavigator.pop();
+                      },
+                    )
+                  ],
+                ),
                 CustomSpacers.height54,
                 CustomInput(
                   controller: controller.emailController,

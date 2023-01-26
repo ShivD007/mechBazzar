@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:mechBazzar/atoms/custom_carousel.dart';
 import 'package:mechBazzar/atoms/red_button.dart';
 import 'package:mechBazzar/core/Images/custom_network_image.dart';
 import 'package:mechBazzar/core/constants/string_constants.dart';
@@ -12,6 +13,7 @@ import 'package:mechBazzar/core/text_extension.dart';
 import 'package:mechBazzar/modules/cart/controller/cart_controller.dart';
 import '../../../atoms/currency.dart';
 import '../../../atoms/drawer_widget.dart';
+import '../../../atoms/save_shared_pref.dart';
 import '../../../core/app_colors.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/custom_navigator.dart';
@@ -25,27 +27,45 @@ class ProductDetailView extends GetView<ProductDetailController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBarWithBack(
-          title: "Product Details",
+          title: "",
           actionWidget: IconButton(
+            padding: EdgeInsets.zero,
             icon: const Icon(
               Icons.shopping_cart_rounded,
               color: AppColors.COLOR_BLACK,
             ),
             onPressed: () {
-              CustomNavigator.pushTo(Routes.cart);
+              final String? user = SavePreferences.getStringPreferences("user");
+              if (user != null) {
+                CustomNavigator.pushTo(Routes.cart);
+              } else {
+                CustomNavigator.pushTo(Routes.login);
+              }
             },
           )),
-      bottomNavigationBar: Padding(
-          padding: EdgeInsets.fromLTRB(
-              22.w, 0, 22.w, 16.h + MediaQuery.of(context).viewInsets.bottom),
-          child: RedButton(
-              controller.product?.stock == 0 ? "Out of stock" : "Add to cart",
-              () {
-            Get.find<CartController>().addCart(() {
-              HelperUI().showSnackbar("Successfully added to Cart", false);
-              HelperUI().hideLoadingDialog();
-            }, qty: 1, productId: controller.productId);
-          }, isDisables: controller.product?.stock == 0)),
+      bottomNavigationBar: Obx(
+        () => controller.isInitialLoading.isTrue
+            ? SizedBox.shrink()
+            : Padding(
+                padding: EdgeInsets.fromLTRB(22.w, 0, 22.w,
+                    16.h + MediaQuery.of(context).viewInsets.bottom),
+                child: RedButton(
+                    controller.product?.stock == 0
+                        ? "Out of stock"
+                        : "Add to cart", () {
+                  final String? user =
+                      SavePreferences.getStringPreferences("user");
+                  if (user != null) {
+                    Get.find<CartController>().addCart(() {
+                      HelperUI()
+                          .showSnackbar("Successfully added to Cart", false);
+                      HelperUI().hideLoadingDialog();
+                    }, qty: 1, productId: controller.productId);
+                  } else {
+                    CustomNavigator.pushTo(Routes.login);
+                  }
+                }, isDisables: controller.product?.stock == 0)),
+      ),
       body: Obx(
         () => controller.isInitialLoading.isTrue
             ? Center(
@@ -57,12 +77,9 @@ class ProductDetailView extends GetView<ProductDetailController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CustomNetworkImageView.square(
-                          fit: BoxFit.cover,
-                          height: 220.h,
-                          width: double.infinity,
-                          imagePath:
-                              "https:" + controller.product!.photo.toString()),
+                      CustomSpacers.height12,
+                      _crouselWidget(controller.product!.gallery ?? [],
+                          controller.product!.photo),
                       CustomSpacers.height10,
                       controller.product!.name
                           .toString()
@@ -95,5 +112,32 @@ class ProductDetailView extends GetView<ProductDetailController> {
               ),
       ),
     );
+  }
+
+  Widget _crouselWidget(List<String?> gallery, String imagePath) {
+    return CustomCarousel(
+        height: 220.h,
+        autoPlay: false,
+        enabledIndicatorRadius: 10.w,
+        disabledIndicatorRadius: 6.w,
+        showBottomIndicator: true,
+        spaceBeforeIndicator: 5.h,
+        widgetList: gallery.isEmpty
+            ? <Widget>[
+                CustomNetworkImageView.square(
+                    fit: BoxFit.cover,
+                    height: 220.h,
+                    width: double.infinity,
+                    imagePath: "https:" + imagePath),
+              ]
+            : gallery
+                .map(
+                  (e) => CustomNetworkImageView.square(
+                      fit: BoxFit.cover,
+                      height: 220.h,
+                      width: double.infinity,
+                      imagePath: "https:" + e!),
+                )
+                .toList());
   }
 }

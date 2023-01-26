@@ -52,7 +52,7 @@ class LoginController extends GetxController with HelperUI {
           "user", json.encode(userModel));
           print(userModel.toJson());
       hideLoadingDialog();
-      CustomNavigator.pushReplacement(Routes.home);
+      CustomNavigator.pop();
     } catch (e) {
       hideLoadingDialog();
       HelperUI().showSnackbar(e.toString());

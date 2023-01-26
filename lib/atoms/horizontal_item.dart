@@ -33,7 +33,7 @@ class HorizontalItemCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(8.r),
      
       child: Container(
-        height: 145.h,
+        height: 130.h,
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(VALUE_INPUT_BORDER_RADIUS),

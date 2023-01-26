@@ -11,16 +11,19 @@ import '../../../network/api_base_helper.dart';
 
 class CartController extends GetxController with HelperUI {
   RxBool isListLoading = false.obs;
-  late UserModel user;
+   UserModel? user;
   RxList<Product?> cartList = RxList<Product?>([]);
   RxNum total = RxNum(0);
   @override
   void onInit() {
     isListLoading.value = true;
     super.onInit();
-    user = UserModel.fromJson(json.decode(SavePreferences.getStringPreferences("user")!));
+ setUser();
   }
-
+  void setUser(){
+    String? users=SavePreferences.getStringPreferences("user");
+    user =users==null?null: UserModel.fromJson(json.decode(users));
+  }
   @override
   void onReady() {
     super.onReady();
@@ -34,9 +37,9 @@ class CartController extends GetxController with HelperUI {
     bool isLoading = false,
   }) async {
     total.value = 0;
-    Map<String, dynamic> _body = {"user_id": user.id};
+    Map<String, dynamic> _body = {"user_id": user!.id};
     if (isLoading) isListLoading.value = true;
-
+   print("object");
     try {
       final response = await BaseApiCallHelper.post(AppUrls.getcart, _body);
       cartList.clear();
@@ -52,7 +55,7 @@ class CartController extends GetxController with HelperUI {
   }
 
   Future<void> removeCart(VoidCallback onSuccess, int productId) async {
-    Map<String, dynamic> _body = {"user_id": user.id, "product_id": productId};
+    Map<String, dynamic> _body = {"user_id": user!.id, "product_id": productId};
     showLoadingDialog();
     try {
       final response = await BaseApiCallHelper.post(AppUrls.removeCart, _body);
@@ -64,7 +67,7 @@ class CartController extends GetxController with HelperUI {
   }
 
   Future<void> addCart(VoidCallback onSuccess, {required int qty, required int productId}) async {
-    Map<String, dynamic> _body = {"user_id": user.id, "product_id": productId, "qty": qty};
+    Map<String, dynamic> _body = {"user_id": user!.id, "product_id": productId, "qty": qty};
     showLoadingDialog();
     try {
       final response = await BaseApiCallHelper.post(AppUrls.addcart, _body);

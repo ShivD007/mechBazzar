@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mechBazzar/atoms/save_shared_pref.dart';
 import 'package:mechBazzar/core/app_colors.dart';
+import 'package:mechBazzar/core/constants/string_constants.dart';
 import 'package:mechBazzar/core/custom_spacers.dart';
 import 'package:mechBazzar/core/helper_ui.dart';
 import 'package:mechBazzar/core/text_extension.dart';
@@ -25,8 +26,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
   UserModel? user;
   @override
   void didChangeDependencies() {
-    user = UserModel.fromJson(
-        json.decode(SavePreferences.getStringPreferences("user")!));
+    String? users = SavePreferences.getStringPreferences("user");
+    user = users == null ? null : UserModel.fromJson(json.decode(users));
     super.didChangeDependencies();
   }
 
@@ -41,11 +42,16 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               decoration: BoxDecoration(color: AppColors.COLOR_GREEN),
               child: GestureDetector(
                 onTap: () async {
-                  await CustomNavigator.pushTo(Routes.profile);
-                  setState(() {
-                    user = UserModel.fromJson(json
-                        .decode(SavePreferences.getStringPreferences("user")!));
-                  });
+                  if (user != null) {
+                    await CustomNavigator.pushTo(Routes.profile);
+                    setState(() {
+                      user = UserModel.fromJson(json.decode(
+                          SavePreferences.getStringPreferences("user")!));
+                    });
+                  } else {
+                    CustomNavigator.pop();
+                    CustomNavigator.pushTo(Routes.login);
+                  }
                 },
                 child: Row(
                   children: [
@@ -59,17 +65,24 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     ),
                     CustomSpacers.width8,
                     Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          (user?.name ?? "").h25(
-                              maxLines: 1, textColor: AppColors.COLOR_WHITE),
-                          CustomSpacers.height12,
-                          (user?.email ?? "").body16(
-                              maxLines: 1, textColor: AppColors.COLOR_WHITE),
-                        ],
-                      ),
+                      child: user == null
+                          ? login.h25(
+                              textAlign: TextAlign.start,
+                              maxLines: 1,
+                              textColor: AppColors.COLOR_WHITE)
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                (user?.name ?? "").h25(
+                                    maxLines: 1,
+                                    textColor: AppColors.COLOR_WHITE),
+                                CustomSpacers.height12,
+                                (user?.email ?? "").body16(
+                                    maxLines: 1,
+                                    textColor: AppColors.COLOR_WHITE),
+                              ],
+                            ),
                     ),
                   ],
                 ),
@@ -91,16 +104,21 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ListTile(
             title: const Text('Order History'),
             onTap: () {
-              Navigator.pop(context);
+              if (user != null) {
+              } else {
+                CustomNavigator.pop();
+                CustomNavigator.pushTo(Routes.login);
+              }
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.power_settings_new),
-            title: const Text('Logout'),
-            onTap: () {
-              HelperUI().logout();
-            },
-          ),
+          if (user != null)
+            ListTile(
+              leading: const Icon(Icons.power_settings_new),
+              title: const Text('Logout'),
+              onTap: () {
+                HelperUI().logout();
+              },
+            ),
         ],
       ),
     );

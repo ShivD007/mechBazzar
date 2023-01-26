@@ -26,6 +26,8 @@ class _CartViewState extends State<CartView> {
 
   @override
   void initState() {
+    controller.setUser();
+    if(controller.user!=null)
     controller.getCart(isLoading: true, onSuccess: () {});
     super.initState();
   }
@@ -34,14 +36,14 @@ class _CartViewState extends State<CartView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBarWithBack(title: cart, isCenterAppicon: true),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.fromLTRB(
-            22.w, 0, 22.w, 16.h + MediaQuery.of(context).viewInsets.bottom),
-        child: Obx(
-          () => RedButton(
+      bottomNavigationBar: Obx(
+        () =>controller.total.value == 0?SizedBox.shrink(): Padding(
+          padding: EdgeInsets.fromLTRB(
+              22.w, 0, 22.w, 16.h + MediaQuery.of(context).viewInsets.bottom),
+          child: RedButton(
             proceed + " $currency ${controller.total.value}",
             () => CustomNavigator.pushTo(Routes.placeOrder),
-          isDisables: controller.total.value==0,
+            isDisables: controller.total.value == 0,
           ),
         ),
       ),

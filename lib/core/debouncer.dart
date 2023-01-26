@@ -4,15 +4,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Debouncer {
-  int? milliseconds;
-  VoidCallback? action;
-  Timer? timer;
+  late final int milliseconds;
+  late VoidCallback action;
+  Timer? _timer;
+
+  Debouncer({milliseconds});
 
   run(VoidCallback action) {
-    if (null != timer) {
-      timer!.cancel();
+    if (null != _timer) {
+      _timer?.cancel();
     }
-    timer = Timer(
+    _timer = Timer(
       const Duration(milliseconds: Duration.millisecondsPerSecond),
       action,
     );

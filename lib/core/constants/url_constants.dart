@@ -19,4 +19,5 @@ class AppUrls {
   static const getHomepageList = "get_homepage_list";
   static const getOrderID = "razorpay";
   static const placeOrder = "place_order";
+  static const searchProduct = "search_product";
 }

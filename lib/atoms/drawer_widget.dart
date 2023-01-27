@@ -105,8 +105,10 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             title: const Text('Order History'),
             onTap: () {
               if (user != null) {
+                 CustomNavigator.pushTo(Routes.orderhistory);
               } else {
                 CustomNavigator.pop();
+
                 CustomNavigator.pushTo(Routes.login);
               }
             },

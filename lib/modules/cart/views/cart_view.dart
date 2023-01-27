@@ -8,8 +8,10 @@ import 'package:mechBazzar/core/custom_appbar_with_back_button.dart';
 import 'package:mechBazzar/core/custom_spacers.dart';
 import 'package:mechBazzar/core/helper_ui.dart';
 import 'package:mechBazzar/core/models/product_res_model.dart';
+import 'package:mechBazzar/core/text_extension.dart';
 import 'package:mechBazzar/modules/cart/controller/cart_controller.dart';
 import 'package:mechBazzar/routes/custom_navigator.dart';
+import '../../../core/app_colors.dart';
 import '../../../routes/app_pages.dart';
 
 class CartView extends StatefulWidget {
@@ -47,7 +49,13 @@ class _CartViewState extends State<CartView> {
       body: SafeArea(
           child: Obx(() => controller.isListLoading.value
               ? HelperUI.getProgressIndicator()
-              : Padding(
+              : 
+              controller.orderList.isEmpty
+                  ? Center(
+                      child: "No item added to cart!".body16(
+                          fontSize: 24, textColor: AppColors.COLOR_GREY_600))
+                  :
+              Padding(
                   padding: EdgeInsets.only(top: 16.h),
                   child: ListView.separated(
                       shrinkWrap: true,

@@ -21,7 +21,7 @@ class HorizontalItemCard extends StatelessWidget {
       required this.prevPrice,
       required this.outOfStock,
       this.onlyFewAvailable = false,
-      required this.stock})
+      required this.stock,  this.showOrderedQuantity=false})
       : super(key: key);
 
   final String itemName;
@@ -35,6 +35,7 @@ class HorizontalItemCard extends StatelessWidget {
   final bool outOfStock;
   final bool? onlyFewAvailable;
   final int? stock;
+  final bool showOrderedQuantity;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -108,6 +109,14 @@ class HorizontalItemCard extends StatelessWidget {
                       ),
                     ),
                     CustomSpacers.height10,
+                    if(showOrderedQuantity)
+                          Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16.w),
+                              child: "$qty".h25(
+                                  fontSize: 16.sp,
+                                  textColor: AppColors.COLOR_GREY_900),
+                            ),
+                    
                     if (qty != null && onUpdateCart != null) ...[
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.w),

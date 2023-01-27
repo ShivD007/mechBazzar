@@ -30,7 +30,7 @@ class _SplashViewState extends State<SplashView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             CustomAssetImageView(
-              fit: BoxFit.fill,
+              fit: BoxFit.contain,
               imagePath: APP_ICON,
               height: 200.h,
               width: 200.h,

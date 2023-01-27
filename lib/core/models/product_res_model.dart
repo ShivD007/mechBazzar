@@ -28,7 +28,6 @@ class Product {
       this.details,
       this.stock,
       this.policy,
-      this.status,
       this.scrapUrl,
       this.scrapStatus,
       this.scrapId,
@@ -94,7 +93,6 @@ class Product {
   String? details;
   int? stock;
   dynamic policy;
-  int? status;
   String? scrapUrl;
   int? scrapStatus;
   String? scrapId;
@@ -161,7 +159,6 @@ class Product {
         details: json["details"],
         stock: json["stock"],
         policy: json["policy"],
-        status: json["status"],
         scrapUrl: json["scrap_url"],
         scrapStatus: json["scrap_status"],
         scrapId: json["scrap_id"],
@@ -228,7 +225,6 @@ class Product {
         "details": details,
         "stock": stock,
         "policy": policy,
-        "status": status,
         "scrap_url": scrapUrl,
         "scrap_status": scrapStatus,
         "scrap_id": scrapId,

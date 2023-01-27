@@ -70,7 +70,7 @@ class ProfileController extends GetxController with HelperUI {
       user.phone = phoneController.text;
       //saveToPreference
       await SavePreferences.saveStringPreferences("user", json.encode(user));
-      HelperUI().showSnackbar("Successfully edited!");
+      HelperUI().showSnackbar("Successfully edited!", false);
     } catch (e) {
       hideLoadingDialog();
       HelperUI().showSnackbar(e.toString());

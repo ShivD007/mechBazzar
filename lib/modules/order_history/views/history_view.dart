@@ -81,8 +81,6 @@ class HistoryView extends GetView<HistoryController> {
                                           child: HorizontalItemCard(
                                                 showTap: false,
                                                 outOfStock: false,
-                                                onlyFewAvailable: false,
-                                                showOrderedQuantity: true,
                                                 qty: item.qty,
                                                 itemName: item.productName ?? "",
                                                 imagePath: "https:" +

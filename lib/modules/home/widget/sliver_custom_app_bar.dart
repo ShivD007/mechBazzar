@@ -1,4 +1,5 @@
 import 'package:mechBazzar/core/app_colors.dart';
+import 'package:mechBazzar/core/custom_input.dart';
 import 'package:mechBazzar/modules/home/views/home_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class SliverCustomAppBar extends StatelessWidget {
           },
         )
       ],
-      expandedHeight: (AppBar().preferredSize.height + 78).h,
+      expandedHeight: (AppBar().preferredSize.height + 94).h,
       titleSpacing: 0,
       elevation: 1.0,
       flexibleSpace: FlexibleSpaceBar(
@@ -51,32 +52,24 @@ class SliverCustomAppBar extends StatelessWidget {
               height: (AppBar().preferredSize.height + 17).h,
             ),
             Padding(
-              padding: EdgeInsets.all(16.0.h),
+              padding: EdgeInsets.symmetric(horizontal:16.0.h),
               child: SizedBox(
-                height: 55.0.h,
+                height: 75.0.h,
                 width: double.infinity,
-                child: CupertinoTextField(
-                  onTap: () {
+                child: CustomInput(
+                  onTapAction: () {
                     CustomNavigator.pushTo(Routes.searchScreen);
                   },
-                  readOnly: true,
+                  fillColor: AppColors.COLOR_WHITE,
+                  isReadOnly: true,
                   keyboardType: TextInputType.text,
                   placeholder: 'Search...',
-                  placeholderStyle: TextStyle(
+                  
+                  suffixIcon: Icon(
+                    Icons.search,
                     color: AppColors.COLOR_LIGHT_GREEN,
-                    fontSize: 14.sp,
                   ),
-                  suffix: Padding(
-                    padding: EdgeInsets.fromLTRB(9.0.w, 6.0.h, 9.0.w, 6.0.h),
-                    child: Icon(
-                      Icons.search,
-                      color: AppColors.COLOR_LIGHT_GREEN,
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    color: AppColors.COLOR_WHITE,
-                  ),
+                 
                 ),
               ),
             ),

@@ -35,6 +35,7 @@ class CustomInput extends StatelessWidget {
   final Widget? suffix;
   final TextStyle? labelStyle;
   final FocusNode? focusNode;
+  final Color? fillColor;
 
   CustomInput(
       {Key? key,
@@ -69,7 +70,9 @@ class CustomInput extends StatelessWidget {
       this.verticalPadding,
       this.suffix,
       this.isdense = false,
-      this.focusNode})
+      this.focusNode,
+      this.fillColor
+      })
       : super(key: key);
 
   @override
@@ -101,7 +104,7 @@ class CustomInput extends StatelessWidget {
         errorMaxLines: 2,
         counter: showCounter! ? null : Offstage(),
         filled: true,
-        fillColor:isReadOnly||!isEnable?null: AppColors.COLOR_WHITE,
+        fillColor:fillColor??(isReadOnly||!isEnable?null: AppColors.COLOR_WHITE),
         suffix: suffix,
         isDense: isdense,
         suffixIcon: suffixIcon,

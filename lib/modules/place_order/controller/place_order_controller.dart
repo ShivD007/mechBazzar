@@ -72,7 +72,7 @@ class PlaceOrderController extends GetxController with HelperUI {
       showLoadingDialog();
 
       PlaceOrderRepo.getOrderID(
-          amount: (1 * 100).toInt(),
+          amount: (amount * 100).toInt(),
           onError: (e) {
             hideLoadingDialog();
             HelperUI().showSnackbar(e.toString());

@@ -60,11 +60,11 @@ class HorizontalItemCard extends StatelessWidget {
                     top: 0,
                     left: 0,
                     child: outOfStock
-                        ? ( "Out of stock")
-                            .h25(textColor: AppColors.COLOR_RED)
-                        :onlyFewAvailable!
-                                ? "$stock units available" .h25(textColor: AppColors.COLOR_RED)
-                                : SizedBox.shrink()),
+                        ? ("Out of stock").h25(textColor: AppColors.COLOR_RED)
+                        : onlyFewAvailable!
+                            ? "$stock units available"
+                                .h25(textColor: AppColors.COLOR_RED)
+                            : SizedBox.shrink()),
               ],
             ),
             CustomSpacers.width8,
@@ -75,7 +75,7 @@ class HorizontalItemCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Flexible(
+                    Expanded(
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -100,6 +100,7 @@ class HorizontalItemCard extends StatelessWidget {
                         ],
                       ),
                     ),
+                    CustomSpacers.height10,
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
                       child: CurrencyView(
@@ -107,41 +108,57 @@ class HorizontalItemCard extends StatelessWidget {
                         previousPrice: prevPrice,
                       ),
                     ),
-                    CustomSpacers.height10,
-                 
-                   
-                    
-                    if (qty != null && onUpdateCart != null) ...[
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.w),
-                        child: Row(
-                          children: [
-                            cta(() => onUpdateCart!(qty! - 1), Icons.remove),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16.w),
-                              child: "$qty".h25(
-                                  fontSize: 16.sp,
-                                  textColor: AppColors.COLOR_GREY_900),
+                    Expanded(
+                      child: (qty != null && onUpdateCart != null)
+                          ? Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8.w),
+                                child: Row(
+                                  children: [
+                                    cta(() => onUpdateCart!(qty! - 1),
+                                        Icons.remove),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 16.w),
+                                      child: "$qty".h25(
+                                          fontSize: 16.sp,
+                                          textColor: AppColors.COLOR_GREY_900),
+                                    ),
+                                    cta(() => onUpdateCart!(qty! + 1),
+                                        Icons.add),
+                                  ],
+                                ),
+                              ),
+                            )
+                          : Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: !(qty != null &&
+                                            onUpdateCart == null)
+                                        ? Container()
+                                        : Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 8.w, vertical: 8.w),
+                                            child: "Qty: $qty".h25(
+                                                textAlign: TextAlign.start,
+                                                fontSize: 16.sp,
+                                                textColor:
+                                                    AppColors.COLOR_GREY_900),
+                                          ),
+                                  ),
+                                  if (showTap!)
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 8.w),
+                                      child: cta(onTap, Icons.chevron_right),
+                                    ),
+                                ],
+                              ),
                             ),
-                            cta(() => onUpdateCart!(qty! + 1), Icons.add),
-                          ],
-                        ),
-                      ),
-                    ],
-                    if (qty != null && onUpdateCart == null) ...[
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.w),
-                        child: "Qty: $qty".h25(
-                            fontSize: 16.sp,
-                            textColor: AppColors.COLOR_GREY_900),
-                      ),
-                    ],
-                    if (showTap!)
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.w),
-                        child: cta(onTap, Icons.chevron_right),
-                      ),
-                    CustomSpacers.height10,
+                    ),
                   ],
                 ),
               ),

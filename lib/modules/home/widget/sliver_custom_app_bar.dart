@@ -29,6 +29,12 @@ class SliverCustomAppBar extends StatelessWidget {
       ),
       actions: [
         IconButton(
+          icon: const Icon(Icons.search),
+          onPressed: () {
+           CustomNavigator.pushTo(Routes.searchScreen);
+          },
+        ),
+        IconButton(
           icon: const Icon(Icons.shopping_cart_rounded),
           onPressed: () {
             final String? user = SavePreferences.getStringPreferences("user");
@@ -40,42 +46,10 @@ class SliverCustomAppBar extends StatelessWidget {
           },
         )
       ],
-      expandedHeight: (AppBar().preferredSize.height + 94).h,
+     
       titleSpacing: 0,
       elevation: 1.0,
-      flexibleSpace: FlexibleSpaceBar(
-        background: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            SizedBox(
-              height: (AppBar().preferredSize.height + 17).h,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal:16.0.h),
-              child: SizedBox(
-                height: 75.0.h,
-                width: double.infinity,
-                child: CustomInput(
-                  onTapAction: () {
-                    CustomNavigator.pushTo(Routes.searchScreen);
-                  },
-                  fillColor: AppColors.COLOR_WHITE,
-                  isReadOnly: true,
-                  keyboardType: TextInputType.text,
-                  placeholder: 'Search...',
-                  
-                  suffixIcon: Icon(
-                    Icons.search,
-                    color: AppColors.COLOR_LIGHT_GREEN,
-                  ),
-                 
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      
     );
   }
 }

@@ -7,6 +7,7 @@ import '../repository/search_repo.dart';
 
 class SearchController extends GetxController with HelperUI {
   RxBool isListLoading = false.obs;
+  RxBool searchingEmpty = true.obs;
 
   RxList<Product> searchList = RxList<Product>([]);
   Debouncer debouncer = Debouncer(milliseconds: 500);

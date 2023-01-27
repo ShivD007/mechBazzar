@@ -4,7 +4,6 @@ import 'package:mechBazzar/core/constants/url_constants.dart';
 import 'package:mechBazzar/network/api_base_helper.dart';
 import 'package:mechBazzar/routes/app_pages.dart';
 import 'package:mechBazzar/routes/custom_navigator.dart';
-
 import '../../../core/helper_ui.dart';
 
 class SignupController extends GetxController with HelperUI {

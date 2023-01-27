@@ -50,6 +50,7 @@ class HistoryView extends GetView<HistoryController> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
+                                        CustomSpacers.height10,
                                         Row(
                                           children: [
                                             "Order Status: ".body16(

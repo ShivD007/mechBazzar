@@ -69,7 +69,8 @@ class Product {
       this.showFront,
       this.brandId,
       this.gallery,
-      this.qty});
+      this.qty,
+      this.setKey});
 
   int id;
   String? sku;
@@ -135,6 +136,7 @@ class Product {
   String? brandId;
   List<String?>? gallery;
   int? qty;
+  int? setKey;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         id: json["id"] ?? 0,
@@ -199,12 +201,14 @@ class Product {
         showFront: json["show_front"],
         brandId: json["brand_id"],
         qty: json["qty"],
+        setKey: json["size_key"],
         gallery: json["gallery"] == null ? [] : List<String?>.from(json["gallery"]!.map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "sku": sku,
+        "qty": qty,
         "affiliate_link": affiliateLink,
         "user_id": userId,
         "category_id": categoryId,
@@ -265,6 +269,7 @@ class Product {
         "tax": tax,
         "show_front": showFront,
         "brand_id": brandId,
+        "size_key": setKey,
         "gallery": gallery?.map((x) => x).toList(),
       };
 }

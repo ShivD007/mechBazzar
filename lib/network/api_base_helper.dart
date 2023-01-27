@@ -35,8 +35,6 @@ class BaseApiCallHelper {
     Map<String, dynamic>? header,
   }) async {
     Map<String, String> _tempHeader = {...getHeaders(), ...header ?? {}};
-
-    log(body.toString());
     var responseJson;
     try {
       final response = await http.post(Uri.parse(_baseUrl + url), body: jsonEncode(body), headers: _tempHeader);

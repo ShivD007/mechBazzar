@@ -41,7 +41,8 @@ class _CartViewState extends State<CartView> {
                 child: RedButton(
                   proceed + " $currency ${controller.total.value}",
                   () => CustomNavigator.pushTo(Routes.placeOrder,
-                      arguments: [controller.total.value, controller.totalQty, controller.orderList]),
+                          arguments: [controller.total.value, controller.totalQty, controller.orderList])
+                      ?.then((value) => controller.getCart(isLoading: true, onSuccess: () {})),
                   isDisables: controller.total.value == 0 || controller.notValidQuantity.value,
                 ),
               ),

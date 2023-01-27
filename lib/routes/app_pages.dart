@@ -11,13 +11,13 @@ import 'package:mechBazzar/modules/place_order/views/place_order_view.dart';
 import 'package:mechBazzar/modules/profile/bindings/forget_password_bindings.dart';
 import 'package:mechBazzar/modules/profile/bindings/profile_bindings.dart';
 import 'package:mechBazzar/modules/profile/bindings/signup_binding.dart';
-import 'package:mechBazzar/modules/profile/controllers/login_controller.dart';
 import 'package:mechBazzar/modules/profile/views/forget_password_view.dart';
 import 'package:mechBazzar/modules/profile/views/profile_view.dart';
 import 'package:mechBazzar/modules/profile/views/signup_view.dart';
+import 'package:mechBazzar/modules/search/bindings/search_binding.dart';
+import 'package:mechBazzar/modules/search/views/search_view.dart';
 import 'package:mechBazzar/modules/splash/bindings/splash_binding.dart';
 import 'package:mechBazzar/modules/splash/views/splash_view.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
@@ -91,7 +91,11 @@ class AppPages {
     GetPage(
       name: Routes.orderhistory,
       binding: HistoryBinding(),
-      page: () => HistoryView(),
+      page: () => HistoryView()),
+      GetPage(
+      name: Routes.searchScreen,
+      binding: SearchBinding(),
+      page: () => SearchView(),
     ),
   ];
 }

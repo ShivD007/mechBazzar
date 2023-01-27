@@ -28,7 +28,7 @@ class PlaceOrderRepo {
 
   static Future placeOrder(
       {required int userId,
-      required List<Cart> cartList,
+      required String cartList,
       required int totalQty,
       required num total,
       required String email,

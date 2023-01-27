@@ -30,14 +30,12 @@ class SliverCustomAppBar extends StatelessWidget {
         IconButton(
           icon: const Icon(Icons.shopping_cart_rounded),
           onPressed: () {
-
-              final   String? user = SavePreferences.getStringPreferences("user");
-      if (user !=null) {
-         CustomNavigator.pushTo(Routes.cart);
-      } else {
-        CustomNavigator.pushTo(Routes.login);
-      }
-           
+            final String? user = SavePreferences.getStringPreferences("user");
+            if (user != null) {
+              CustomNavigator.pushTo(Routes.cart);
+            } else {
+              CustomNavigator.pushTo(Routes.login);
+            }
           },
         )
       ],
@@ -58,6 +56,9 @@ class SliverCustomAppBar extends StatelessWidget {
                 height: 55.0.h,
                 width: double.infinity,
                 child: CupertinoTextField(
+                  onTap: () {
+                    CustomNavigator.pushTo(Routes.searchScreen);
+                  },
                   readOnly: true,
                   keyboardType: TextInputType.text,
                   placeholder: 'Search...',

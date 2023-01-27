@@ -17,4 +17,5 @@ abstract class Routes {
   static const placeOrder = '/placeOrder';
   static const orderhistory = '/orderhistory';
 
+  static const searchScreen = '/searchScreen';
 }

@@ -38,6 +38,7 @@ class HorizontalItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 160.h,
       width: double.infinity,
       decoration: BoxDecoration(
         color: AppColors.COLOR_WHITE,
@@ -98,139 +99,50 @@ class HorizontalItemCard extends StatelessWidget {
                     previousPrice: prevPrice,
                   ),
                 ),
-                Flexible(
-                  child: (qty != null && onUpdateCart != null)
-                      ? Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.w),
-                            child: Row(
-                              children: [
-                                cta(() => onUpdateCart!(qty! - 1), Icons.remove),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                                  child: "$qty".h25(fontSize: 16.sp, textColor: AppColors.COLOR_GREY_900),
-                                ),
-                                cta(() => onUpdateCart!(qty! + 1), Icons.add),
-                              ],
-                            ),
-                          ),
-                        )
-                      : Align(
-                          alignment: Alignment.bottomCenter,
+                Spacer(),
+                (qty != null && onUpdateCart != null)
+                    ? Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.w),
                           child: Row(
                             children: [
-                              Expanded(
-                                child: !(qty != null && onUpdateCart == null)
-                                    ? SizedBox()
-                                    : Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.w),
-                                        child: "Qty: $qty".h25(
-                                            textAlign: TextAlign.start,
-                                            fontSize: 16.sp,
-                                            textColor: AppColors.COLOR_GREY_900),
-                                      ),
+                              cta(() => onUpdateCart!(qty! - 1), Icons.remove),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                child: "$qty".h25(fontSize: 16.sp, textColor: AppColors.COLOR_GREY_900),
                               ),
-                              if (showTap!)
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.w),
-                                  child: cta(onTap, Icons.chevron_right),
-                                ),
+                              cta(() => onUpdateCart!(qty! + 1), Icons.add),
                             ],
                           ),
                         ),
-                ),
+                      )
+                    : Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: !(qty != null && onUpdateCart == null)
+                                  ? SizedBox()
+                                  : Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.w),
+                                      child: "Qty: $qty".h25(
+                                          textAlign: TextAlign.start,
+                                          fontSize: 16.sp,
+                                          textColor: AppColors.COLOR_GREY_900),
+                                    ),
+                            ),
+                            if (showTap!)
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.w),
+                                child: cta(onTap, Icons.chevron_right),
+                              ),
+                          ],
+                        ),
+                      ),
               ]),
             ),
           )
-          // CustomSpacers.width8,
-          // Flexible(
-          //   child: Padding(
-          //     padding: EdgeInsets.only(top: 8.h),
-          //     child: Column(
-          //       mainAxisSize: MainAxisSize.min,
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       mainAxisAlignment: MainAxisAlignment.start,
-          //       children: [
-          //         Expanded(
-          //           child: Row(
-          //             crossAxisAlignment: CrossAxisAlignment.start,
-          //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //             children: [
-          //               Flexible(
-          //                 child: Padding(
-          //                   padding: EdgeInsets.only(left: 8.w),
-          //                   child: itemName.body16(
-          //                       textAlign: TextAlign.start,
-          //                       fontSize: 18.sp,
-          //                       maxLines: 2,
-          //                       textColor: AppColors.COLOR_GREY_900),
-          //                 ),
-          //               ),
-          //               if (onDelete != null)
-          //                 IconButton(
-          //                     onPressed: onDelete,
-          //                     icon: Icon(
-          //                       Icons.delete,
-          //                       color: AppColors.COLOR_RED,
-          //                     ))
-          //             ],
-          //           ),
-          //         ),
-          //         CustomSpacers.height10,
-          //         Padding(
-          //           padding: EdgeInsets.symmetric(horizontal: 8.w),
-          //           child: CurrencyView(
-          //             currentPrice: cPrice,
-          //             previousPrice: prevPrice,
-          //           ),
-          //         ),
-          //         Expanded(
-          //           child: (qty != null && onUpdateCart != null)
-          //               ? Align(
-          //                   alignment: Alignment.bottomCenter,
-          //                   child: Padding(
-          //                     padding: EdgeInsets.symmetric(horizontal: 8.w),
-          //                     child: Row(
-          //                       children: [
-          //                         cta(() => onUpdateCart!(qty! - 1), Icons.remove),
-          //                         Padding(
-          //                           padding: EdgeInsets.symmetric(horizontal: 16.w),
-          //                           child: "$qty".h25(fontSize: 16.sp, textColor: AppColors.COLOR_GREY_900),
-          //                         ),
-          //                         cta(() => onUpdateCart!(qty! + 1), Icons.add),
-          //                       ],
-          //                     ),
-          //                   ),
-          //                 )
-          //               : Align(
-          //                   alignment: Alignment.bottomCenter,
-          //                   child: Row(
-          //                     children: [
-          //                       Expanded(
-          //                         child: !(qty != null && onUpdateCart == null)
-          //                             ? SizedBox()
-          //                             : Padding(
-          //                                 padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.w),
-          //                                 child: "Qty: $qty".h25(
-          //                                     textAlign: TextAlign.start,
-          //                                     fontSize: 16.sp,
-          //                                     textColor: AppColors.COLOR_GREY_900),
-          //                               ),
-          //                       ),
-          //                       if (showTap!)
-          //                         Padding(
-          //                           padding: EdgeInsets.symmetric(horizontal: 8.w),
-          //                           child: cta(onTap, Icons.chevron_right),
-          //                         ),
-          //                     ],
-          //                   ),
-          //                 ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

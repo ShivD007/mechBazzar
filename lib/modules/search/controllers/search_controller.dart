@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mechBazzar/core/debouncer.dart';
@@ -35,8 +37,6 @@ class SearchController extends GetxController with HelperUI {
   void onClose() {}
 
   Future<void> getProductList(String text, int page) async {
-    isListLoading.value = true;
-    searchList.clear();
     await SearchRepo.getProductList(
         search: text,
         page: page,
@@ -45,6 +45,9 @@ class SearchController extends GetxController with HelperUI {
           HelperUI().showSnackbar(e.toString());
         },
         onSuccess: (response) {
+          if ((response["data"] as List).isNotEmpty) {
+            pagination++;
+          }
           searchList.addAll(
               response["data"] == null ? [] : List<Product>.from(response["data"]!.map((x) => Product.fromJson(x))));
 

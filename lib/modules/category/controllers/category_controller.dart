@@ -93,7 +93,9 @@ class CategoryController extends GetxController with GetSingleTickerProviderStat
         onSuccess: (response) {
           selectedList.addAll(
               response["data"] == null ? [] : List<Product>.from(response["data"]!.map((x) => Product.fromJson(x))));
-          pagination++;
+          if ((response["data"] as List).isNotEmpty) {
+            pagination++;
+          }
           isListLoading.value = false;
         });
   }

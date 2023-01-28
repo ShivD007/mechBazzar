@@ -38,10 +38,12 @@ class SearchView extends GetView<SearchController> {
                       controller.isListLoading.value = true;
                       controller.debouncer.run(() {
                         if (value.isNotEmpty) {
-                          controller.searchingEmpty.value=false;
+                          controller.searchingEmpty.value = false;
+                          controller.isListLoading.value = true;
+                          controller.searchList.clear();
                           controller.getProductList(value, 1);
                         } else {
-                          controller.searchingEmpty.value=true;
+                          controller.searchingEmpty.value = true;
                           controller.searchList.clear();
                           controller.isListLoading.value = false;
                         }
@@ -54,62 +56,51 @@ class SearchView extends GetView<SearchController> {
                   ),
                 ),
                 Obx(
-                  () =>    controller.searchingEmpty.value
-                  ? Expanded(
-                    child: Center(
-                      child: "Enter name to search for a product!".body16(
-                          fontSize: 24, textColor: AppColors.COLOR_GREY_600),
-                    ),
-                  )
-                  :Expanded(
-                    child: controller.isListLoading.value
-                        ? ListView.separated(
-                            controller: controller.scrollController,
-                            physics: const BouncingScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return LoadingHorizontalItemCard();
-                            },
-                            itemCount: 6,
-                            separatorBuilder:
-                                (BuildContext context, int index) =>
-                                    CustomSpacers.height10,
-                          )
-                        : controller.searchList.isEmpty
-                            ? Center(
-                                child: Text("No Item"),
-                              )
-                            : ListView.separated(
-                                controller: controller.scrollController,
-                                physics: const BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return HorizontalItemCard(
-                                    outOfStock:
-                                        controller.searchList[index].stock == 0,
-                                    itemName: controller.searchList[index].name
-                                        .toString(),
-                                    imagePath: "https:" +
-                                        controller.searchList[index].photo
-                                            .toString(),
-                                    onTap: () {
-                                      CustomNavigator.pushTo(
-                                          Routes.productDetail,
-                                          arguments:
-                                              controller.searchList[index].id);
-                                    },
-                                    cPrice: controller.searchList[index].price,
-                                    prevPrice: controller
-                                        .searchList[index].previousPrice,
-                                    stock: controller.searchList[index].stock,
-                                  );
-                                },
-                                itemCount: controller.searchList.length,
-                                separatorBuilder:
-                                    (BuildContext context, int index) =>
-                                        CustomSpacers.height10,
-                              ),
-                  ),
+                  () => controller.searchingEmpty.value
+                      ? Expanded(
+                          child: Center(
+                            child: "Enter name to search for a product!"
+                                .body16(fontSize: 24, textColor: AppColors.COLOR_GREY_600),
+                          ),
+                        )
+                      : Expanded(
+                          child: controller.isListLoading.value
+                              ? ListView.separated(
+                                  controller: controller.scrollController,
+                                  physics: const BouncingScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return LoadingHorizontalItemCard();
+                                  },
+                                  itemCount: 6,
+                                  separatorBuilder: (BuildContext context, int index) => CustomSpacers.height10,
+                                )
+                              : controller.searchList.isEmpty
+                                  ? Center(
+                                      child: Text("No Item"),
+                                    )
+                                  : ListView.separated(
+                                      controller: controller.scrollController,
+                                      physics: const BouncingScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        return HorizontalItemCard(
+                                          outOfStock: controller.searchList[index].stock == 0,
+                                          itemName: controller.searchList[index].name.toString(),
+                                          imagePath: "https:" + controller.searchList[index].photo.toString(),
+                                          onTap: () {
+                                            CustomNavigator.pushTo(Routes.productDetail,
+                                                arguments: controller.searchList[index].id);
+                                          },
+                                          cPrice: controller.searchList[index].price,
+                                          prevPrice: controller.searchList[index].previousPrice,
+                                          stock: controller.searchList[index].stock,
+                                        );
+                                      },
+                                      itemCount: controller.searchList.length,
+                                      separatorBuilder: (BuildContext context, int index) => CustomSpacers.height10,
+                                    ),
+                        ),
                 ),
               ],
             ),

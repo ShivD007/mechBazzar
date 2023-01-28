@@ -71,7 +71,9 @@ class BrandController extends GetxController with HelperUI, GetSingleTickerProvi
           HelperUI().showSnackbar(e.toString());
         },
         onSuccess: (response) {
-          pagination++;
+          if ((response["data"] as List).isNotEmpty) {
+            pagination++;
+          }
           selectedList.addAll(
               response["data"] == null ? [] : List<Product>.from(response["data"]!.map((x) => Product.fromJson(x))));
 

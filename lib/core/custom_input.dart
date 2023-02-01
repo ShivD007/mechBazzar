@@ -71,8 +71,7 @@ class CustomInput extends StatelessWidget {
       this.suffix,
       this.isdense = false,
       this.focusNode,
-      this.fillColor
-      })
+      this.fillColor})
       : super(key: key);
 
   @override
@@ -104,7 +103,7 @@ class CustomInput extends StatelessWidget {
         errorMaxLines: 2,
         counter: showCounter! ? null : Offstage(),
         filled: true,
-        fillColor:fillColor??(isReadOnly||!isEnable?null: AppColors.COLOR_WHITE),
+        fillColor: fillColor ?? (isReadOnly || !isEnable ? null : AppColors.COLOR_WHITE),
         suffix: suffix,
         isDense: isdense,
         suffixIcon: suffixIcon,
@@ -114,36 +113,29 @@ class CustomInput extends StatelessWidget {
         ),
         prefixIcon: prefixIcon,
         prefixIconColor: AppColors.COLOR_GREEN,
-        suffixText: !showCounterInside!
-            ? null
-            : '${controller!.text.length.toString()}/${maxLength.toString()}',
+        suffixText: !showCounterInside! ? null : '${controller!.text.length.toString()}/${maxLength.toString()}',
         labelText: labelTextFlag ? labelText : null,
         hoverColor: Colors.black12,
         focusColor: Colors.black12,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(dBorderRadius ?? 12.r),
-          borderSide: BorderSide(
-              color: Colors.black45, width: 1.5, style: BorderStyle.solid),
+          borderSide: BorderSide(color: Colors.black45, width: 1.5, style: BorderStyle.solid),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(dBorderRadius ?? 12.r),
-          borderSide: BorderSide(
-              color: Colors.black45, width: 1.5, style: BorderStyle.solid),
+          borderSide: BorderSide(color: Colors.black45, width: 1.5, style: BorderStyle.solid),
         ),
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(dBorderRadius ?? 12.r),
-          borderSide: BorderSide(
-              color: Colors.black45, width: 1.5, style: BorderStyle.solid),
+          borderSide: BorderSide(color: Colors.black45, width: 1.5, style: BorderStyle.solid),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(dBorderRadius ?? 12.r),
-          borderSide: BorderSide(
-              color: Colors.black45, width: 1.5, style: BorderStyle.solid),
+          borderSide: BorderSide(color: Colors.black45, width: 1.5, style: BorderStyle.solid),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(dBorderRadius ?? 12.r),
-          borderSide: BorderSide(
-              color: Colors.red, width: 1.5, style: BorderStyle.solid),
+          borderSide: BorderSide(color: Colors.red, width: 1.5, style: BorderStyle.solid),
         ),
         hintText: labelTextFlag ? null : placeholder,
         // contentPadding: EdgeInsets.only(

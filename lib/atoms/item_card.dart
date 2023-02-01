@@ -23,31 +23,43 @@ class ItemCard extends StatelessWidget {
     return Material(
       borderRadius: BorderRadius.circular(8),
       child: Container(
-        height: 230.h,
-        width: 280.w,
+        height: 250.h,
+        width: (MediaQuery.of(context).size.width - 32).w,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(VALUE_INPUT_BORDER_RADIUS),
-            border: Border.all(color: AppColors.COLOR_GREY_900, width: 0.5)),
+          color: AppColors.COLOR_WHITE,
+          borderRadius: BorderRadius.circular(VALUE_INPUT_BORDER_RADIUS),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            CustomNetworkImageView.square(fit: BoxFit.cover, height: 156.h, width: 280.w, imagePath: imgPath),
+            CustomNetworkImageView.square(
+                fit: BoxFit.contain,
+                height: 176.h,
+                width: (MediaQuery.of(context).size.width - 32).w,
+                imagePath: imgPath),
             CustomSpacers.height8,
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w),
               child: title.h25(
-                  fontSize: 14.sp,
+                  fontSize: 15.sp,
                   textColor: AppColors.COLOR_GREY_900,
+                  fontWeight: FontWeight.w500,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left),
             ),
+            Spacer(),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.w),
+              padding: EdgeInsets.symmetric(
+                horizontal: 8.w,
+              ),
               child: CurrencyView(
                 currentPrice: currentPrice,
                 previousPrice: previousPrice,
               ),
+            ),
+            SizedBox(
+              height: 8.w,
             )
           ],
         ),

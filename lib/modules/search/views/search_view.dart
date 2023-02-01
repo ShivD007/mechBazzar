@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:mechBazzar/core/custom_input.dart';
@@ -34,7 +34,8 @@ class SearchView extends GetView<SearchController> {
                     keyboardType: TextInputType.text,
                     placeholder: 'Search...',
                     autofocus: true,
-                    onChangedAction: ((value) {
+                    textInputAction: TextInputAction.search,
+                    onSubmittedAction: ((value) {
                       controller.isListLoading.value = true;
                       controller.debouncer.run(() {
                         if (value.isNotEmpty) {
@@ -46,6 +47,7 @@ class SearchView extends GetView<SearchController> {
                           controller.searchingEmpty.value = true;
                           controller.searchList.clear();
                           controller.isListLoading.value = false;
+                          Fluttertoast.showToast(msg: "Please enter text to search.");
                         }
                       });
                     }),

@@ -11,6 +11,7 @@ import 'package:mechBazzar/core/custom_spacers.dart';
 import 'package:mechBazzar/core/helper_ui.dart';
 import 'package:mechBazzar/core/text_extension.dart';
 import 'package:mechBazzar/modules/cart/controller/cart_controller.dart';
+import 'package:mechBazzar/modules/cart/model/cart_model.dart';
 import '../../../atoms/currency.dart';
 import '../../../atoms/save_shared_pref.dart';
 import '../../../core/app_colors.dart';
@@ -52,14 +53,15 @@ class ProductDetailView extends GetView<ProductDetailController> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (controller.product?.stock != 0)
-                     ...[ SizedBox(
+                    if (controller.product?.stock != 0) ...[
+                      SizedBox(
                         width: 180.w,
                         child: _quiCkBuy(),
                       ),
-                      CustomSpacers.width8],
+                      CustomSpacers.width8
+                    ],
                     SizedBox(
-                       width: 180.w,
+                      width: 180.w,
                       child: _addToCart(),
                     ),
                   ],
@@ -115,42 +117,36 @@ class ProductDetailView extends GetView<ProductDetailController> {
 
   RedButton _addToCart() {
     return RedButton(
-                        controller.product?.stock == 0
-                            ? "Out of stock"
-                            : "Add to cart", () {
-                      final String? user =
-                          SavePreferences.getStringPreferences("user");
-                      if (user != null) {
-                        Get.find<CartController>().addCart(() {
-                          HelperUI().showSnackbar(
-                              "Successfully added to Cart", false);
-                          HelperUI().hideLoadingDialog();
-                        },
-                            qty: 1,
-                            productId: controller.productId,
-                            stock: controller.product!.stock);
-                      } else {
-                        CustomNavigator.pushTo(Routes.login);
-                      }
-                    }, isDisables: controller.product?.stock == 0);
+        controller.product?.stock == 0 ? "Out of stock" : "Add to cart", () {
+      final String? user = SavePreferences.getStringPreferences("user");
+      if (user != null) {
+        Get.find<CartController>().addCart(() {
+          HelperUI().showSnackbar("Successfully added to Cart", false);
+          HelperUI().hideLoadingDialog();
+        },
+            qty: 1,
+            productId: controller.productId,
+            stock: controller.product!.stock);
+      } else {
+        CustomNavigator.pushTo(Routes.login);
+      }
+    }, isDisables: controller.product?.stock == 0);
   }
 
   RedButton _quiCkBuy() {
+    List<Map<String, dynamic>> orderList = [];
+
+    orderList.add(Cart.fromJson(controller.product!.toJson()).toJson());
+
     return RedButton("Quick Buy", () {
-                        final String? user =
-                            SavePreferences.getStringPreferences("user");
-                        if (user != null) {
-                          Get.find<CartController>().addCart(() {
-                            HelperUI().hideLoadingDialog();
-                            CustomNavigator.pushTo(Routes.cart);
-                          },
-                              qty: 1,
-                              productId: controller.productId,
-                              stock: controller.product!.stock);
-                        } else {
-                          CustomNavigator.pushTo(Routes.login);
-                        }
-                      }, isDisables: controller.product?.stock == 0);
+      final String? user = SavePreferences.getStringPreferences("user");
+      if (user != null) {
+        CustomNavigator.pushTo(Routes.placeOrder,
+            arguments: [controller.product!.price * 1, 1, orderList,controller.product!]);
+      } else {
+        CustomNavigator.pushTo(Routes.login);
+      }
+    }, isDisables: controller.product?.stock == 0);
   }
 
   Widget _crouselWidget(List<String?> gallery, String imagePath) {

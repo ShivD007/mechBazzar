@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mechBazzar/atoms/save_shared_pref.dart';
+import 'package:mechBazzar/core/models/product_res_model.dart';
 import 'package:mechBazzar/core/razorpay_controller.dart';
 import 'package:mechBazzar/modules/place_order/model/razar_pay_model.dart';
 import 'package:mechBazzar/modules/profile/models/users_model.dart';
@@ -24,6 +25,7 @@ class PlaceOrderController extends GetxController with HelperUI {
   late num amount;
   late int totalQty;
   late List<Map<String, dynamic>> cartList;
+  Product? product;
 
   late RazorpayController razorpayController;
 
@@ -33,8 +35,11 @@ class PlaceOrderController extends GetxController with HelperUI {
     amount = Get.arguments[0];
     totalQty = Get.arguments[1];
     cartList = Get.arguments[2];
+    product = Get.arguments[3];
+    product?.qty=1;
 
-    user = UserModel.fromJson(json.decode(SavePreferences.getStringPreferences("user")!));
+    user = UserModel.fromJson(
+        json.decode(SavePreferences.getStringPreferences("user")!));
 
     bool isRegistred = Get.isRegistered<RazorpayController>();
     if (isRegistred) {
@@ -106,7 +111,8 @@ class PlaceOrderController extends GetxController with HelperUI {
                     onSuccess: (response) {
                       hideLoadingDialog();
                       CustomNavigator.pop();
-                      HelperUI().showSnackbar("Successfully order placed!", false);
+                      HelperUI()
+                          .showSnackbar("Successfully order placed!", false);
                     });
               },
             );

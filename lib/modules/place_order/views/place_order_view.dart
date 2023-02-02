@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:mechBazzar/atoms/horizontal_item.dart';
 import 'package:mechBazzar/atoms/red_button.dart';
 import 'package:mechBazzar/core/constants/string_constants.dart';
 import 'package:mechBazzar/core/custom_appbar_with_back_button.dart';
@@ -34,6 +35,23 @@ class PlaceOrderView extends GetView<PlaceOrderController> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   CustomSpacers.height16,
+                 if(controller.product!=null)
+                 ...[ HorizontalItemCard(
+                            stock: controller.product!.stock,
+                            showTap: false,
+                            outOfStock: controller.product!.stock == 0,
+                            onlyFewAvailable: controller.product!.stock == null
+                                ? false
+                                : (controller.product!.qty! > controller.product!.stock!),
+                          
+                            qty: controller.product!.qty,
+                            itemName: controller.product!.name,
+                            imagePath: "https:" + controller.product!.photo.toString(),
+                            onTap: () {},
+                            cPrice: controller.product!.price * controller.product!.qty!,
+                            prevPrice: controller.product!.previousPrice * controller.product!.qty!,
+                          ),
+                  CustomSpacers.height16,],
                   CustomInput(
                     controller: controller.nameController,
                     prefixIcon: Icon(Icons.person),

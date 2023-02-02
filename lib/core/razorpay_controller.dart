@@ -17,7 +17,8 @@ class RazorpayController extends GetxController with HelperUI {
   @override
   void onInit() {
     super.onInit();
-    userModel = UserModel.fromJson(json.decode(SavePreferences.getStringPreferences("user")!));
+    userModel = UserModel.fromJson(
+        json.decode(SavePreferences.getStringPreferences("user")!));
     _razorpay = Razorpay();
     _razorpay?.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay?.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
@@ -40,10 +41,11 @@ class RazorpayController extends GetxController with HelperUI {
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
-    HelperUI().showSnackbar(jsonDecode(response.message.toString())["description"] == null
-        ? jsonDecode(response.message.toString())["error"]["description"]
-        : jsonDecode(response.message.toString())["description"]);
     hideLoadingDialog();
+    HelperUI().showSnackbar(
+        jsonDecode(response.message.toString())["description"] == null
+            ? jsonDecode(response.message.toString())["error"]["description"]
+            : jsonDecode(response.message.toString())["description"]);
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
@@ -67,7 +69,11 @@ class RazorpayController extends GetxController with HelperUI {
         "theme.color": "#4CAF1B",
         'order_id': orderId,
         'description': description,
-        'prefill': {'contact': userModel.phone ?? "", 'email': userModel.email ?? "", "name": userModel.name ?? ""}
+        'prefill': {
+          'contact': userModel.phone ?? "",
+          'email': userModel.email ?? "",
+          "name": userModel.name ?? ""
+        }
       });
     } catch (e) {
       hideLoadingDialog();

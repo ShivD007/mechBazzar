@@ -27,7 +27,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBarWithBack(
-          title: "",
+          title: "Product detail",
           actionWidget: IconButton(
             padding: EdgeInsets.zero,
             icon: const Icon(
@@ -47,8 +47,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
         () => controller.isInitialLoading.isTrue
             ? SizedBox.shrink()
             : Padding(
-                padding: EdgeInsets.fromLTRB(22.w, 0, 22.w,
-                    16.h + MediaQuery.of(context).viewInsets.bottom),
+                padding: EdgeInsets.fromLTRB(22.w, 0, 22.w, 16.h + MediaQuery.of(context).viewInsets.bottom),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -79,28 +78,24 @@ class ProductDetailView extends GetView<ProductDetailController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomSpacers.height12,
-                      _crouselWidget(controller.product!.gallery ?? [],
-                          controller.product!.photo),
+                      _crouselWidget(controller.product!.gallery ?? [], controller.product!.photo),
                       CustomSpacers.height10,
-                      controller.product!.name
-                          .toString()
-                          .h25(fontSize: 18.sp, textAlign: TextAlign.center),
+                      controller.product!.name.toString().h25(fontSize: 18.sp, textAlign: TextAlign.center),
                       CustomSpacers.height10,
                       price.h25(fontSize: 18.sp),
                       Padding(
                         padding: EdgeInsets.only(left: 8.w),
                         child: CurrencyView(
                           currentPrice: controller.product!.price.toDouble(),
-                          previousPrice:
-                              controller.product!.previousPrice.toDouble(),
+                          previousPrice: controller.product!.previousPrice.toDouble(),
                         ),
                       ),
                       CustomSpacers.height16,
                       sku.h25(fontSize: 18.sp),
                       Padding(
                         padding: EdgeInsets.only(left: 8.w),
-                        child: controller.product!.sku.toString().body16(
-                            maxLines: 3, textColor: AppColors.COLOR_GREY_900),
+                        child:
+                            controller.product!.sku.toString().body16(maxLines: 3, textColor: AppColors.COLOR_GREY_900),
                       ),
                       CustomSpacers.height10,
                       Html(
@@ -116,17 +111,13 @@ class ProductDetailView extends GetView<ProductDetailController> {
   }
 
   RedButton _addToCart() {
-    return RedButton(
-        controller.product?.stock == 0 ? "Out of stock" : "Add to cart", () {
+    return RedButton(controller.product?.stock == 0 ? "Out of stock" : "Add to cart", () {
       final String? user = SavePreferences.getStringPreferences("user");
       if (user != null) {
         Get.find<CartController>().addCart(() {
           HelperUI().showSnackbar("Successfully added to Cart", false);
           HelperUI().hideLoadingDialog();
-        },
-            qty: 1,
-            productId: controller.productId,
-            stock: controller.product!.stock);
+        }, qty: 1, productId: controller.productId, stock: controller.product!.stock);
       } else {
         CustomNavigator.pushTo(Routes.login);
       }
@@ -142,7 +133,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
       final String? user = SavePreferences.getStringPreferences("user");
       if (user != null) {
         CustomNavigator.pushTo(Routes.placeOrder,
-            arguments: [controller.product!.price * 1, 1, orderList,controller.product!]);
+            arguments: [controller.product!.price * 1, 1, orderList, controller.product!]);
       } else {
         CustomNavigator.pushTo(Routes.login);
       }
@@ -160,18 +151,12 @@ class ProductDetailView extends GetView<ProductDetailController> {
         widgetList: gallery.isEmpty
             ? <Widget>[
                 CustomNetworkImageView.square(
-                    fit: BoxFit.cover,
-                    height: 220.h,
-                    width: double.infinity,
-                    imagePath: "https:" + imagePath),
+                    fit: BoxFit.cover, height: 220.h, width: double.infinity, imagePath: "https:" + imagePath),
               ]
             : gallery
                 .map(
                   (e) => CustomNetworkImageView.square(
-                      fit: BoxFit.cover,
-                      height: 220.h,
-                      width: double.infinity,
-                      imagePath: "https:" + e!),
+                      fit: BoxFit.cover, height: 220.h, width: double.infinity, imagePath: "https:" + e!),
                 )
                 .toList());
   }

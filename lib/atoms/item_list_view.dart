@@ -37,9 +37,10 @@ class BrandCategoryListView extends StatelessWidget {
             child: topWidget!,
           ),
         Expanded(
-          child: !isLoading &&itemList.isEmpty
+          child: !isLoading && itemList.isEmpty
               ? Center(
-                  child: "No data found !"  .body16(fontSize: 24, textColor: AppColors.COLOR_GREY_600),
+                  child: "No data found!"
+                      .body16(textColor: AppColors.COLOR_GREY_600),
                 )
               : ListView.separated(
                   controller: scrollController,
@@ -52,9 +53,11 @@ class BrandCategoryListView extends StatelessWidget {
                         : HorizontalItemCard(
                             outOfStock: itemList[index].stock == 0,
                             itemName: itemList[index].name.toString(),
-                            imagePath: "https:" + itemList[index].photo.toString(),
+                            imagePath:
+                                "https:" + itemList[index].photo.toString(),
                             onTap: () {
-                              CustomNavigator.pushTo(Routes.productDetail, arguments: itemList[index].id);
+                              CustomNavigator.pushTo(Routes.productDetail,
+                                  arguments: itemList[index].id);
                             },
                             cPrice: itemList[index].price,
                             prevPrice: itemList[index].previousPrice,
@@ -62,7 +65,8 @@ class BrandCategoryListView extends StatelessWidget {
                           );
                   },
                   itemCount: isLoading ? 8 : itemList.length,
-                  separatorBuilder: (BuildContext context, int index) => CustomSpacers.height10,
+                  separatorBuilder: (BuildContext context, int index) =>
+                      CustomSpacers.height10,
                 ),
         )
       ],

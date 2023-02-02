@@ -36,33 +36,43 @@ class BrandCategoryListView extends StatelessWidget {
             child: topWidget!,
           ),
         Expanded(
-          child: itemList.isEmpty
-              ? Center(
-                  child: "No data found !".body16(textColor: AppColors.COLOR_GREY_600),
-                )
-              : ListView.separated(
+          child: isLoading
+              ? ListView.separated(
                   controller: scrollController,
-                  physics: const BouncingScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   scrollDirection: scrollDirection,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return isLoading
-                        ? LoadingHorizontalItemCard()
-                        : HorizontalItemCard(
-                            outOfStock: itemList[index].stock == 0,
-                            itemName: itemList[index].name.toString(),
-                            imagePath: "https:" + itemList[index].photo.toString(),
-                            onTap: () {
-                              CustomNavigator.pushTo(Routes.productDetail, arguments: itemList[index].id);
-                            },
-                            cPrice: itemList[index].price,
-                            prevPrice: itemList[index].previousPrice,
-                            stock: itemList[index].stock,
-                          );
+                    return LoadingHorizontalItemCard();
                   },
-                  itemCount: isLoading ? 8 : itemList.length,
+                  itemCount: 8,
                   separatorBuilder: (BuildContext context, int index) => CustomSpacers.height10,
-                ),
+                )
+              : itemList.isEmpty
+                  ? Center(
+                      child: "No data found!".body16(textColor: AppColors.COLOR_GREY_600),
+                    )
+                  : ListView.separated(
+                      controller: scrollController,
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: scrollDirection,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return HorizontalItemCard(
+                          outOfStock: itemList[index].stock == 0,
+                          itemName: itemList[index].name.toString(),
+                          imagePath: "https:" + itemList[index].photo.toString(),
+                          onTap: () {
+                            CustomNavigator.pushTo(Routes.productDetail, arguments: itemList[index].id);
+                          },
+                          cPrice: itemList[index].price,
+                          prevPrice: itemList[index].previousPrice,
+                          stock: itemList[index].stock,
+                        );
+                      },
+                      itemCount: itemList.length,
+                      separatorBuilder: (BuildContext context, int index) => CustomSpacers.height10,
+                    ),
         )
       ],
     );

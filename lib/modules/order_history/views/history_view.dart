@@ -25,8 +25,7 @@ class HistoryView extends GetView<HistoryController> {
               ? HelperUI.getProgressIndicator()
               : controller.orderList.isEmpty
                   ? Center(
-                      child: "No order".body16(
-                          fontSize: 24, textColor: AppColors.COLOR_GREY_600))
+                      child: "No order".body16(textColor: AppColors.COLOR_GREY_600))
                   : Padding(
                       padding: EdgeInsets.only(top: 16.h),
                       child: ListView.separated(

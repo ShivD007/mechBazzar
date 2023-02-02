@@ -53,8 +53,7 @@ class _CartViewState extends State<CartView> {
               : 
               controller.orderList.isEmpty
                   ? Center(
-                      child: "No item added to cart!".body16(
-                          fontSize: 24, textColor: AppColors.COLOR_GREY_600))
+                      child: "No item added to cart!".body16(textColor: AppColors.COLOR_GREY_600))
                   :
               Padding(
                   padding: EdgeInsets.only(top: 16.h),

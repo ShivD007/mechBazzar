@@ -62,7 +62,7 @@ class SearchView extends GetView<SearchController> {
                       ? Expanded(
                           child: Center(
                             child: "Enter name to search for a product!"
-                                .body16(fontSize: 24, textColor: AppColors.COLOR_GREY_600),
+                              .body16(textColor: AppColors.COLOR_GREY_600)
                           ),
                         )
                       : Expanded(

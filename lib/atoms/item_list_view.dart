@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mechBazzar/atoms/horizontal_item.dart';
 import 'package:mechBazzar/atoms/item_card.dart';
+import 'package:mechBazzar/core/helper_ui.dart';
 import 'package:mechBazzar/core/models/product_res_model.dart';
 import 'package:mechBazzar/core/text_extension.dart';
 import 'package:mechBazzar/routes/app_pages.dart';
@@ -36,9 +37,9 @@ class BrandCategoryListView extends StatelessWidget {
             child: topWidget!,
           ),
         Expanded(
-          child: itemList.isEmpty
+          child: !isLoading &&itemList.isEmpty
               ? Center(
-                  child: "No data found !".body16(textColor: AppColors.COLOR_GREY_600),
+                  child: "No data found !"  .body16(fontSize: 24, textColor: AppColors.COLOR_GREY_600),
                 )
               : ListView.separated(
                   controller: scrollController,

@@ -23,8 +23,8 @@ class ItemCard extends StatelessWidget {
     return Material(
       borderRadius: BorderRadius.circular(8),
       child: Container(
-        height: 250.h,
-        width: 290.w,
+        height: 200.h,
+        width: 250.w,
         decoration: BoxDecoration(
           color: AppColors.COLOR_WHITE,
           borderRadius: BorderRadius.circular(VALUE_INPUT_BORDER_RADIUS),
@@ -33,7 +33,7 @@ class ItemCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            CustomNetworkImageView.square(fit: BoxFit.contain, height: 176.h, width: 300.w, imagePath: imgPath),
+            CustomNetworkImageView.square(fit: BoxFit.contain, height: 140.h, width: 290.w, imagePath: imgPath),
             CustomSpacers.height8,
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w),

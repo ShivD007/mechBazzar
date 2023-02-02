@@ -79,18 +79,22 @@ class HistoryView extends GetView<HistoryController> {
                                     children: item.cart!
                                         .map((item) => Padding(
                                           padding:  EdgeInsets.symmetric(horizontal: 10.w,vertical: 6.h),
-                                          child: HorizontalItemCard(
-                                                showTap: false,
-                                                outOfStock: false,
-                                                qty: item.qty,
-                                                itemName: item.productName ?? "",
-                                                imagePath: "https:" +
-                                                    item.productImage.toString(),
-                                                onTap: () {},
-                                                cPrice: item.price,
-                                                prevPrice: null,
-                                                stock: null,
-                                              ),
+                                          child: CustomCard(
+                                            verticalPadding: 0,
+                                            horizontalPadding: 0,
+                                            child: HorizontalItemCard(
+                                                  showTap: false,
+                                                  outOfStock: false,
+                                                  qty: item.qty,
+                                                  itemName: item.productName ?? "",
+                                                  imagePath: "https:" +
+                                                      item.productImage.toString(),
+                                                  onTap: () {},
+                                                  cPrice: item.price,
+                                                  prevPrice: null,
+                                                  stock: null,
+                                                ),
+                                          ),
                                         ))
                                         .toList(),
                                   ),

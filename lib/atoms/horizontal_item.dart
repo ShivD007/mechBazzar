@@ -38,7 +38,6 @@ class HorizontalItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 160.h,
       width: double.infinity,
       decoration: BoxDecoration(
         color: AppColors.COLOR_WHITE,
@@ -51,14 +50,18 @@ class HorizontalItemCard extends StatelessWidget {
           Stack(
             children: [
               CustomNetworkImageView.square(
-                  fit: BoxFit.fill, height: 160.h, width: onDelete == null ? 150.w : 120.w, imagePath: imagePath),
+                  fit: BoxFit.fill,
+                  height: 140.h,
+                  width: onDelete == null ? 150.w : 120.w,
+                  imagePath: imagePath),
               Positioned(
                   top: 0,
                   left: 0,
                   child: outOfStock
                       ? ("Out of stock").h25(textColor: AppColors.COLOR_RED)
                       : onlyFewAvailable!
-                          ? "$stock units available".h25(textColor: AppColors.COLOR_RED)
+                          ? "$stock units available"
+                              .h25(textColor: AppColors.COLOR_RED)
                           : SizedBox.shrink()),
             ],
           ),
@@ -66,81 +69,95 @@ class HorizontalItemCard extends StatelessWidget {
           Flexible(
             child: Padding(
               padding: EdgeInsets.only(top: 8.h),
-              child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Flexible(
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 8.w),
-                            child: itemName.body16(
-                                textAlign: TextAlign.start,
-                                fontSize: 18.sp,
-                                maxLines: 2,
-                                textColor: AppColors.COLOR_GREY_900),
-                          ),
-                        ),
-                        if (onDelete != null)
-                          IconButton(
-                              onPressed: onDelete,
-                              icon: Icon(
-                                Icons.delete,
-                                color: AppColors.COLOR_RED,
-                              ))
-                      ]),
-                ),
-                CustomSpacers.height10,
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.w),
-                  child: CurrencyView(
-                    currentPrice: cPrice,
-                    previousPrice: prevPrice,
-                  ),
-                ),
-                Spacer(),
-                (qty != null && onUpdateCart != null)
-                    ? Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.w),
-                          child: Row(
-                            children: [
-                              cta(() => onUpdateCart!(qty! - 1), Icons.remove),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                                child: "$qty".h25(fontSize: 16.sp, textColor: AppColors.COLOR_GREY_900),
-                              ),
-                              cta(() => onUpdateCart!(qty! + 1), Icons.add),
-                            ],
-                          ),
-                        ),
-                      )
-                    : Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Row(
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(
-                              child: !(qty != null && onUpdateCart == null)
-                                  ? SizedBox()
-                                  : Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.w),
-                                      child: "Qty: $qty".h25(
-                                          textAlign: TextAlign.start,
+                            Flexible(
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 8.w),
+                                child: itemName.body16(
+                                    textAlign: TextAlign.start,
+                                    fontSize: 18.sp,
+                                    maxLines: 2,
+                                    textColor: AppColors.COLOR_GREY_900),
+                              ),
+                            ),
+                            if (onDelete != null)
+                              IconButton(
+                                  onPressed: onDelete,
+                                  icon: Icon(
+                                    Icons.delete,
+                                    color: AppColors.COLOR_RED,
+                                  ))
+                          ]),
+                    ),
+                    CustomSpacers.height10,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
+                      child: CurrencyView(
+                        currentPrice: cPrice,
+                        previousPrice: prevPrice,
+                      ),
+                    ),
+                    Flexible(
+                      child: (qty != null && onUpdateCart != null)
+                          ? Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 8.w, vertical: 8.w),
+                                child: Row(
+                                  children: [
+                                    cta(() => onUpdateCart!(qty! - 1),
+                                        Icons.remove),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 16.w),
+                                      child: "$qty".h25(
                                           fontSize: 16.sp,
                                           textColor: AppColors.COLOR_GREY_900),
                                     ),
-                            ),
-                            if (showTap!)
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.w),
-                                child: cta(onTap, Icons.chevron_right),
+                                    cta(() => onUpdateCart!(qty! + 1),
+                                        Icons.add),
+                                  ],
+                                ),
                               ),
-                          ],
-                        ),
-                      ),
-              ]),
+                            )
+                          : Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: !(qty != null &&
+                                            onUpdateCart == null)
+                                        ? SizedBox()
+                                        : Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 8.w, vertical: 8.w),
+                                            child: "Qty: $qty".h25(
+                                                textAlign: TextAlign.start,
+                                                fontSize: 16.sp,
+                                                textColor:
+                                                    AppColors.COLOR_GREY_900),
+                                          ),
+                                  ),
+                                  if (showTap!)
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 8.w, vertical: 8.w),
+                                      child: cta(onTap, Icons.chevron_right),
+                                    ),
+                                ],
+                              ),
+                            ),
+                    ),
+                  ]),
             ),
           )
         ],
@@ -157,7 +174,8 @@ class HorizontalItemCard extends StatelessWidget {
             height: 30.w,
             width: 30.w,
             decoration: BoxDecoration(
-                color: AppColors.COLOR_GREEN, borderRadius: BorderRadius.circular(VALUE_INPUT_BORDER_RADIUS)),
+                color: AppColors.COLOR_GREEN,
+                borderRadius: BorderRadius.circular(VALUE_INPUT_BORDER_RADIUS)),
             child: Icon(
               icon,
               color: AppColors.COLOR_WHITE,

@@ -35,11 +35,12 @@ class HomeView extends GetView<HomeController> {
       key: home_key,
       drawer: DrawerWidget(),
       body: CustomScrollView(
+       
         shrinkWrap: true,
         slivers: [
           const SliverCustomAppBar(),
           makeHeader(Container(color: AppColors.COLOR_GREY_200, child: CustomSpacers.height16), 16),
-          SliverToBoxAdapter(child: CustomSpacers.height12),
+         
           SliverToBoxAdapter(child: _crouselWidget()),
           SliverToBoxAdapter(child: CustomSpacers.height12),
           Obx(
@@ -57,7 +58,7 @@ class HomeView extends GetView<HomeController> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             controller.homeListModel.data[index].categoryDetail.first.name.toString().body16(
-                                fontSize: 18.sp,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w700,
                                 textAlign: TextAlign.left,
                                 textColor: AppColors.COLOR_GREY_900),
@@ -86,7 +87,6 @@ class HomeView extends GetView<HomeController> {
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
-      color: AppColors.COLOR_GREY_200,
       child: CustomCarousel(
           height: 210.h,
           autoPlay: true,

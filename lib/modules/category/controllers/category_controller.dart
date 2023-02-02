@@ -74,7 +74,7 @@ class CategoryController extends GetxController with GetSingleTickerProviderStat
           CategoryModels.fromJson(response).data.forEach((item) {
             subCategory.add(item);
           });
-          slectedSubCategory.value = subCategory.first.name;
+          slectedSubCategory.value = subCategory.isEmpty?"":subCategory.first.name;
           isSubCategoryLoading.value = false;
           await getProductList(category[tabController!.index].id, (subCategory.first.id), 1, 1);
         });

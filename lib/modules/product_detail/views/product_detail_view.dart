@@ -12,7 +12,6 @@ import 'package:mechBazzar/core/helper_ui.dart';
 import 'package:mechBazzar/core/text_extension.dart';
 import 'package:mechBazzar/modules/cart/controller/cart_controller.dart';
 import '../../../atoms/currency.dart';
-import '../../../atoms/drawer_widget.dart';
 import '../../../atoms/save_shared_pref.dart';
 import '../../../core/app_colors.dart';
 import '../../../routes/app_pages.dart';
@@ -32,7 +31,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
             padding: EdgeInsets.zero,
             icon: const Icon(
               Icons.shopping_cart_rounded,
-              color: AppColors.COLOR_BLACK,
+              color: AppColors.COLOR_GREEN,
             ),
             onPressed: () {
               final String? user = SavePreferences.getStringPreferences("user");
@@ -47,18 +46,24 @@ class ProductDetailView extends GetView<ProductDetailController> {
         () => controller.isInitialLoading.isTrue
             ? SizedBox.shrink()
             : Padding(
-                padding: EdgeInsets.fromLTRB(22.w, 0, 22.w, 16.h + MediaQuery.of(context).viewInsets.bottom),
-                child: RedButton(controller.product?.stock == 0 ? "Out of stock" : "Add to cart", () {
-                  final String? user = SavePreferences.getStringPreferences("user");
-                  if (user != null) {
-                    Get.find<CartController>().addCart(() {
-                      HelperUI().showSnackbar("Successfully added to Cart", false);
-                      HelperUI().hideLoadingDialog();
-                    }, qty: 1, productId: controller.productId, stock: controller.product!.stock);
-                  } else {
-                    CustomNavigator.pushTo(Routes.login);
-                  }
-                }, isDisables: controller.product?.stock == 0)),
+                padding: EdgeInsets.fromLTRB(22.w, 0, 22.w,
+                    16.h + MediaQuery.of(context).viewInsets.bottom),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (controller.product?.stock != 0)
+                     ...[ SizedBox(
+                        width: 180.w,
+                        child: _quiCkBuy(),
+                      ),
+                      CustomSpacers.width8],
+                    SizedBox(
+                       width: 180.w,
+                      child: _addToCart(),
+                    ),
+                  ],
+                )),
       ),
       body: Obx(
         () => controller.isInitialLoading.isTrue
@@ -72,24 +77,28 @@ class ProductDetailView extends GetView<ProductDetailController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomSpacers.height12,
-                      _crouselWidget(controller.product!.gallery ?? [], controller.product!.photo),
+                      _crouselWidget(controller.product!.gallery ?? [],
+                          controller.product!.photo),
                       CustomSpacers.height10,
-                      controller.product!.name.toString().h25(fontSize: 18.sp, textAlign: TextAlign.center),
+                      controller.product!.name
+                          .toString()
+                          .h25(fontSize: 18.sp, textAlign: TextAlign.center),
                       CustomSpacers.height10,
                       price.h25(fontSize: 18.sp),
                       Padding(
                         padding: EdgeInsets.only(left: 8.w),
                         child: CurrencyView(
                           currentPrice: controller.product!.price.toDouble(),
-                          previousPrice: controller.product!.previousPrice.toDouble(),
+                          previousPrice:
+                              controller.product!.previousPrice.toDouble(),
                         ),
                       ),
                       CustomSpacers.height16,
                       sku.h25(fontSize: 18.sp),
                       Padding(
                         padding: EdgeInsets.only(left: 8.w),
-                        child:
-                            controller.product!.sku.toString().body16(maxLines: 3, textColor: AppColors.COLOR_GREY_900),
+                        child: controller.product!.sku.toString().body16(
+                            maxLines: 3, textColor: AppColors.COLOR_GREY_900),
                       ),
                       CustomSpacers.height10,
                       Html(
@@ -104,9 +113,49 @@ class ProductDetailView extends GetView<ProductDetailController> {
     );
   }
 
+  RedButton _addToCart() {
+    return RedButton(
+                        controller.product?.stock == 0
+                            ? "Out of stock"
+                            : "Add to cart", () {
+                      final String? user =
+                          SavePreferences.getStringPreferences("user");
+                      if (user != null) {
+                        Get.find<CartController>().addCart(() {
+                          HelperUI().showSnackbar(
+                              "Successfully added to Cart", false);
+                          HelperUI().hideLoadingDialog();
+                        },
+                            qty: 1,
+                            productId: controller.productId,
+                            stock: controller.product!.stock);
+                      } else {
+                        CustomNavigator.pushTo(Routes.login);
+                      }
+                    }, isDisables: controller.product?.stock == 0);
+  }
+
+  RedButton _quiCkBuy() {
+    return RedButton("Quick Buy", () {
+                        final String? user =
+                            SavePreferences.getStringPreferences("user");
+                        if (user != null) {
+                          Get.find<CartController>().addCart(() {
+                            HelperUI().hideLoadingDialog();
+                            CustomNavigator.pushTo(Routes.cart);
+                          },
+                              qty: 1,
+                              productId: controller.productId,
+                              stock: controller.product!.stock);
+                        } else {
+                          CustomNavigator.pushTo(Routes.login);
+                        }
+                      }, isDisables: controller.product?.stock == 0);
+  }
+
   Widget _crouselWidget(List<String?> gallery, String imagePath) {
     return CustomCarousel(
-        height: 220.h,
+        height: 180.h,
         autoPlay: false,
         enabledIndicatorRadius: 10.w,
         disabledIndicatorRadius: 6.w,
@@ -115,12 +164,18 @@ class ProductDetailView extends GetView<ProductDetailController> {
         widgetList: gallery.isEmpty
             ? <Widget>[
                 CustomNetworkImageView.square(
-                    fit: BoxFit.cover, height: 220.h, width: double.infinity, imagePath: "https:" + imagePath),
+                    fit: BoxFit.cover,
+                    height: 220.h,
+                    width: double.infinity,
+                    imagePath: "https:" + imagePath),
               ]
             : gallery
                 .map(
                   (e) => CustomNetworkImageView.square(
-                      fit: BoxFit.cover, height: 220.h, width: double.infinity, imagePath: "https:" + e!),
+                      fit: BoxFit.cover,
+                      height: 220.h,
+                      width: double.infinity,
+                      imagePath: "https:" + e!),
                 )
                 .toList());
   }

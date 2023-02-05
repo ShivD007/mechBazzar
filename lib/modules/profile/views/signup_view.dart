@@ -16,20 +16,20 @@ class SignUpView extends GetView<SignupController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // bottomNavigationBar: Padding(
-      //   padding: EdgeInsets.fromLTRB(22.w, 2.h, 22.w, 16.w + MediaQuery.of(context).viewInsets.bottom),
-      //   child: RedButton(submit, controller.onSubmit),
-      // ),
-      body: SafeArea(
-          child: Container(
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          color: AppColors.COLOR_GREEN.withOpacity(0.8),
-          image: DecorationImage(
-              alignment: Alignment.bottomCenter, image: AssetImage(SPLASH_CIRCLE_CUTOUT), fit: BoxFit.fitWidth),
-        ),
-        child: Form(
+    return Container(
+      constraints: const BoxConstraints.expand(),
+      decoration: BoxDecoration(
+        color: AppColors.COLOR_GREEN.withOpacity(0.8),
+        image: DecorationImage(
+            alignment: Alignment.bottomCenter, image: AssetImage(SPLASH_CIRCLE_CUTOUT), fit: BoxFit.fitWidth),
+      ),
+      child: Scaffold(
+        // bottomNavigationBar: Padding(
+        //   padding: EdgeInsets.fromLTRB(22.w, 2.h, 22.w, 16.w + MediaQuery.of(context).viewInsets.bottom),
+        //   child: RedButton(submit, controller.onSubmit),
+        // ),
+        body: SafeArea(
+            child: Form(
           key: controller.formKey,
           child: SingleChildScrollView(
             child: Padding(
@@ -154,8 +154,8 @@ class SignUpView extends GetView<SignupController> {
               ),
             ),
           ),
-        ),
-      )),
+        )),
+      ),
     );
   }
 }

@@ -25,6 +25,7 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
             alignment: Alignment.bottomCenter, image: AssetImage(SPLASH_CIRCLE_CUTOUT), fit: BoxFit.fitWidth),
       ),
       child: Scaffold(
+        backgroundColor: Colors.transparent,
         body: SafeArea(
             child: Form(
           key: controller.formKey,

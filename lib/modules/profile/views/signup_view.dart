@@ -24,6 +24,7 @@ class SignUpView extends GetView<SignupController> {
             alignment: Alignment.bottomCenter, image: AssetImage(SPLASH_CIRCLE_CUTOUT), fit: BoxFit.fitWidth),
       ),
       child: Scaffold(
+        backgroundColor: Colors.transparent,
         // bottomNavigationBar: Padding(
         //   padding: EdgeInsets.fromLTRB(22.w, 2.h, 22.w, 16.w + MediaQuery.of(context).viewInsets.bottom),
         //   child: RedButton(submit, controller.onSubmit),

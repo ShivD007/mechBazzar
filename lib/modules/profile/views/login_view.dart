@@ -28,6 +28,7 @@ class LoginView extends GetView<LoginController> {
             alignment: Alignment.bottomCenter, image: AssetImage(SPLASH_CIRCLE_CUTOUT), fit: BoxFit.fitWidth),
       ),
       child: Scaffold(
+        backgroundColor: Colors.transparent,
         // bottomNavigationBar: Padding(
         //     padding: EdgeInsets.fromLTRB(22.w, 0, 22.w, 16.h + MediaQuery.of(context).viewInsets.bottom),
         //     child: RedButton(login, controller.onSubmit)),

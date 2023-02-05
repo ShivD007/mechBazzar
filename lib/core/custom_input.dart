@@ -34,6 +34,8 @@ class CustomInput extends StatelessWidget {
   final double? verticalPadding;
   final Widget? suffix;
   final TextStyle? labelStyle;
+  final TextStyle? textStyle;
+  final TextStyle? hintStyle;
   final FocusNode? focusNode;
   final Color? fillColor;
 
@@ -71,12 +73,15 @@ class CustomInput extends StatelessWidget {
       this.suffix,
       this.isdense = false,
       this.focusNode,
-      this.fillColor})
+      this.fillColor,
+      this.textStyle,
+      this.hintStyle})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: textStyle,
       onEditingComplete: onEditingCompleteAction,
       onTap: onTapAction,
       focusNode: focusNode,
@@ -101,6 +106,8 @@ class CustomInput extends StatelessWidget {
       // textAlignVertical: const TextAlignVertical(y: 0.6),
       decoration: InputDecoration(
         errorMaxLines: 2,
+        labelStyle: labelStyle,
+        hintStyle: hintStyle,
         counter: showCounter! ? null : Offstage(),
         filled: true,
         fillColor: fillColor ?? (isReadOnly || !isEnable ? null : AppColors.COLOR_WHITE),
@@ -112,26 +119,26 @@ class CustomInput extends StatelessWidget {
           minWidth: 32.w,
         ),
         prefixIcon: prefixIcon,
-        prefixIconColor: AppColors.COLOR_GREEN,
+        prefixIconColor: AppColors.COLOR_WHITE,
         suffixText: !showCounterInside! ? null : '${controller!.text.length.toString()}/${maxLength.toString()}',
         labelText: labelTextFlag ? labelText : null,
         hoverColor: Colors.black12,
         focusColor: Colors.black12,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(dBorderRadius ?? 12.r),
-          borderSide: BorderSide(color: Colors.black45, width: 1.5, style: BorderStyle.solid),
+          borderSide: BorderSide(color: Colors.transparent, width: 1.5, style: BorderStyle.solid),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(dBorderRadius ?? 12.r),
-          borderSide: BorderSide(color: Colors.black45, width: 1.5, style: BorderStyle.solid),
+          borderSide: BorderSide(color: Colors.transparent, width: 1.5, style: BorderStyle.solid),
         ),
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(dBorderRadius ?? 12.r),
-          borderSide: BorderSide(color: Colors.black45, width: 1.5, style: BorderStyle.solid),
+          borderSide: BorderSide(color: Colors.transparent, width: 1.5, style: BorderStyle.solid),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(dBorderRadius ?? 12.r),
-          borderSide: BorderSide(color: Colors.black45, width: 1.5, style: BorderStyle.solid),
+          borderSide: BorderSide(color: Colors.transparent, width: 1.5, style: BorderStyle.solid),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(dBorderRadius ?? 12.r),

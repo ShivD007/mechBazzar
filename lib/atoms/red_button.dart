@@ -50,9 +50,7 @@ class RedButton extends StatelessWidget {
             alignment: Alignment.center,
             height: 48.h,
             //decoration: BoxDecoration(borderRadius: ),
-            child:
-                text.h25(fontSize: 20.sp, textColor: AppColors.COLOR_WHITE)));
+            child: text.h25(fontSize: 18.sp, textColor: AppColors.COLOR_WHITE)));
   }
   //endregion
-
 }

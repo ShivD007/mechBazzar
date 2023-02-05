@@ -9,6 +9,7 @@ import 'package:mechBazzar/modules/profile/controllers/forget_pass_controller.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/constants/image_constants.dart';
 import '../../../core/constants/string_constants.dart';
 
 class ForgetPasswordView extends GetView<ForgetPasswordController> {
@@ -17,53 +18,66 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.fromLTRB(
-            22.w, 2.h, 22.w, 16.w + MediaQuery.of(context).viewInsets.bottom),
-        child: RedButton(sendEmail, () {
-          controller.onSubmit();
-        }),
-      ),
       body: SafeArea(
-          child: Form(
-            key: controller.formKey,
-            child: SingleChildScrollView(
-                  child: Padding(
-            padding: EdgeInsets.all(22.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CustomSpacers.height24,
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: forgetPasswordTitle.h25(
-                        textColor: AppColors.COLOR_GREEN)),
-                CustomSpacers.height10,
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: forgetPasswordMsg.h25(
-                      fontSize: 16.sp,
-                        textColor: AppColors.COLOR_GREY_500,
-                        textAlign: TextAlign.start)),
-                CustomSpacers.height54,
-                CustomInput(
-                  controller: controller.emailController,
-                  prefixIcon: Icon(Icons.email),
-                  placeholder: email,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (val) {
-                    if (val!.isEmpty) {
-                      return enterEmail;
-                    }
-                    return null;
-                  },
-                ),
-              ],
-            ),
+          child: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          color: AppColors.COLOR_GREEN.withOpacity(0.8),
+          image: DecorationImage(
+              alignment: Alignment.bottomCenter, image: AssetImage(SPLASH_CIRCLE_CUTOUT), fit: BoxFit.fitWidth),
+        ),
+        child: Form(
+          key: controller.formKey,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(22.h),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CustomSpacers.height24,
+                  Align(
+                      alignment: Alignment.topCenter, child: forgetPasswordTitle.h25(textColor: AppColors.COLOR_WHITE)),
+                  CustomSpacers.height20,
+                  Align(
+                      alignment: Alignment.topCenter,
+                      child: forgetPasswordMsg.h25(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16.sp,
+                          textColor: AppColors.COLOR_WHITE,
+                          textAlign: TextAlign.start)),
+                  CustomSpacers.height104,
+                  CustomInput(
+                    textStyle: TextStyle(color: AppColors.COLOR_WHITE),
+                    hintStyle: TextStyle(color: AppColors.COLOR_WHITE),
+                    fillColor: AppColors.COLOR_LIGHT_GREEN.withOpacity(0.5),
+                    controller: controller.emailController,
+                    prefixIcon: Icon(Icons.email),
+                    placeholder: "$email/$mobileNumber ",
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (val) {
+                      if (val!.isEmpty) {
+                        return enterEmail;
+                      }
+                      return null;
+                    },
                   ),
-                ),
-          )),
+                  CustomSpacers.height40,
+                  SizedBox(
+                    height: 55.h,
+                    child: RedButton(
+                      submit,
+                      controller.onSubmit,
+                      backgroundColor: AppColors.COLOR_LIGHT_GREEN.withOpacity(0.6),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      )),
     );
   }
 }

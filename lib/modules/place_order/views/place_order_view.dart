@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:mechBazzar/atoms/horizontal_item.dart';
 import 'package:mechBazzar/atoms/red_button.dart';
+import 'package:mechBazzar/core/app_colors.dart';
 import 'package:mechBazzar/core/constants/string_constants.dart';
 import 'package:mechBazzar/core/custom_appbar_with_back_button.dart';
 import 'package:mechBazzar/core/custom_spacers.dart';
@@ -19,8 +20,7 @@ class PlaceOrderView extends GetView<PlaceOrderController> {
           isCenterAppicon: true,
         ),
         bottomNavigationBar: Padding(
-          padding: EdgeInsets.fromLTRB(
-              22.w, 0, 22.w, 16.h + MediaQuery.of(context).viewInsets.bottom),
+          padding: EdgeInsets.fromLTRB(22.w, 0, 22.w, 16.h + MediaQuery.of(context).viewInsets.bottom),
           child: RedButton(payment, () => controller.onSubmit()),
         ),
         body: SafeArea(
@@ -35,30 +35,28 @@ class PlaceOrderView extends GetView<PlaceOrderController> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   CustomSpacers.height16,
-                 if(controller.product!=null)
-                 ...[ HorizontalItemCard(
-                            stock: controller.product!.stock,
-                            showTap: false,
-                            outOfStock: controller.product!.stock == 0,
-                            onlyFewAvailable: controller.product!.stock == null
-                                ? false
-                                : (controller.product!.qty! > controller.product!.stock!),
-                          
-                            qty: controller.product!.qty,
-                            itemName: controller.product!.name,
-                            imagePath: "https:" + controller.product!.photo.toString(),
-                            onTap: () {},
-                            cPrice: controller.product!.price * controller.product!.qty!,
-                            prevPrice: controller.product!.previousPrice * controller.product!.qty!,
-                          ),
-                  CustomSpacers.height16,],
+                  if (controller.product != null) ...[
+                    HorizontalItemCard(
+                      stock: controller.product!.stock,
+                      showTap: false,
+                      outOfStock: controller.product!.stock == 0,
+                      onlyFewAvailable: controller.product!.stock == null
+                          ? false
+                          : (controller.product!.qty! > controller.product!.stock!),
+                      qty: controller.product!.qty,
+                      itemName: controller.product!.name,
+                      imagePath: "https:" + controller.product!.photo.toString(),
+                      onTap: () {},
+                      cPrice: controller.product!.price * controller.product!.qty!,
+                      prevPrice: controller.product!.previousPrice * controller.product!.qty!,
+                    ),
+                    CustomSpacers.height16,
+                  ],
                   CustomInput(
                     controller: controller.nameController,
                     prefixIcon: Icon(Icons.person),
                     placeholder: name,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))
-                    ],
+                    inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))],
                     validator: (val) {
                       if (val!.isEmpty) {
                         return enterYourName;
@@ -114,17 +112,14 @@ class PlaceOrderView extends GetView<PlaceOrderController> {
                     controller: controller.countryController,
                     prefixIcon: Icon(Icons.flag),
                     isReadOnly: true,
+                    fillColor: AppColors.COLOR_GREY_300,
                     placeholder: country,
                   ),
                   CustomSpacers.height12,
-                  Row(
-                    
-                    mainAxisSize: MainAxisSize.min, children: [
+                  Row(mainAxisSize: MainAxisSize.min, children: [
                     Expanded(
                       child: CustomInput(
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))
-                        ],
+                        inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))],
                         controller: controller.cityController,
                         prefixIcon: Icon(Icons.location_city),
                         placeholder: city,
@@ -147,7 +142,7 @@ class PlaceOrderView extends GetView<PlaceOrderController> {
                           if (val!.isEmpty || val.length < 6) {
                             return enterValidZipcode;
                           }
-                    
+
                           return null;
                         },
                       ),

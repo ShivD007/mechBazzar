@@ -54,7 +54,7 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
                     hintStyle: TextStyle(color: AppColors.COLOR_WHITE),
                     fillColor: AppColors.COLOR_LIGHT_GREEN.withOpacity(0.5),
                     controller: controller.emailController,
-                    prefixIcon: Icon(Icons.email),
+                    prefixIcon: Icon(Icons.email, color: AppColors.COLOR_WHITE),
                     placeholder: "$email/$mobileNumber ",
                     keyboardType: TextInputType.emailAddress,
                     validator: (val) {

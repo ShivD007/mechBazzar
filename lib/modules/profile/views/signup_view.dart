@@ -47,7 +47,7 @@ class SignUpView extends GetView<SignupController> {
                     hintStyle: TextStyle(color: AppColors.COLOR_WHITE),
                     fillColor: AppColors.COLOR_LIGHT_GREEN.withOpacity(0.5),
                     controller: controller.nameController,
-                    prefixIcon: Icon(Icons.person),
+                    prefixIcon: Icon(Icons.person, color: AppColors.COLOR_WHITE),
                     placeholder: name,
                     inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))],
                     validator: (val) {
@@ -64,7 +64,7 @@ class SignUpView extends GetView<SignupController> {
                     fillColor: AppColors.COLOR_LIGHT_GREEN.withOpacity(0.5),
                     controller: controller.emailController,
                     keyboardType: TextInputType.emailAddress,
-                    prefixIcon: Icon(Icons.email),
+                    prefixIcon: Icon(Icons.email, color: AppColors.COLOR_WHITE),
                     placeholder: email,
                     validator: (val) {
                       if (val!.isEmpty) {
@@ -78,7 +78,7 @@ class SignUpView extends GetView<SignupController> {
                     textStyle: TextStyle(color: AppColors.COLOR_WHITE),
                     hintStyle: TextStyle(color: AppColors.COLOR_WHITE),
                     fillColor: AppColors.COLOR_LIGHT_GREEN.withOpacity(0.5),
-                    prefixIcon: Icon(Icons.phone),
+                    prefixIcon: Icon(Icons.phone, color: AppColors.COLOR_WHITE),
                     placeholder: mobileNumber,
                     maxLength: 10,
                     controller: controller.phoneController,
@@ -96,7 +96,7 @@ class SignUpView extends GetView<SignupController> {
                     textStyle: TextStyle(color: AppColors.COLOR_WHITE),
                     hintStyle: TextStyle(color: AppColors.COLOR_WHITE),
                     fillColor: AppColors.COLOR_LIGHT_GREEN.withOpacity(0.5),
-                    prefixIcon: Icon(Icons.location_city),
+                    prefixIcon: Icon(Icons.location_city, color: AppColors.COLOR_WHITE),
                     placeholder: address,
                     minLine: 1,
                     maxLines: 4,
@@ -110,27 +110,38 @@ class SignUpView extends GetView<SignupController> {
                     controller: controller.addressController,
                   ),
                   CustomSpacers.height12,
-                  CustomInput(
-                    textStyle: TextStyle(color: AppColors.COLOR_WHITE),
-                    hintStyle: TextStyle(color: AppColors.COLOR_WHITE),
-                    fillColor: AppColors.COLOR_LIGHT_GREEN.withOpacity(0.5),
-                    controller: controller.password,
-                    prefixIcon: Icon(Icons.lock),
-                    isObscure: true,
-                    placeholder: password,
-                    validator: (val) {
-                      if (val!.isEmpty) {
-                        return enterPassword;
-                      }
-                      return null;
-                    },
+                  Obx(
+                    () => CustomInput(
+                      textStyle: TextStyle(color: AppColors.COLOR_WHITE),
+                      hintStyle: TextStyle(color: AppColors.COLOR_WHITE),
+                      fillColor: AppColors.COLOR_LIGHT_GREEN.withOpacity(0.5),
+                      controller: controller.password,
+                      prefixIcon: Icon(Icons.lock, color: AppColors.COLOR_WHITE),
+                      isObscure: !controller.passwordVisible.value,
+                      suffixIcon: IconButton(
+                          icon: Icon(
+                            controller.passwordVisible.value ? Icons.visibility : Icons.visibility_off,
+                            color: AppColors.COLOR_WHITE,
+                          ),
+                          onPressed: () {
+                            // Update the state i.e. toogle the state of passwordVisible variable
+                            controller.passwordVisible.value = !controller.passwordVisible.value;
+                          }),
+                      placeholder: password,
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return enterPassword;
+                        }
+                        return null;
+                      },
+                    ),
                   ),
                   CustomSpacers.height12,
                   CustomInput(
                     textStyle: TextStyle(color: AppColors.COLOR_WHITE),
                     hintStyle: TextStyle(color: AppColors.COLOR_WHITE),
                     fillColor: AppColors.COLOR_LIGHT_GREEN.withOpacity(0.5),
-                    prefixIcon: Icon(Icons.lock),
+                    prefixIcon: Icon(Icons.lock, color: AppColors.COLOR_WHITE),
                     isObscure: true,
                     placeholder: confirmPassword,
                     validator: (val) {

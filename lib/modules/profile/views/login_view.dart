@@ -77,24 +77,35 @@ class LoginView extends GetView<LoginController> {
                     },
                   ),
                   CustomSpacers.height12,
-                  CustomInput(
-                    textStyle: TextStyle(color: AppColors.COLOR_WHITE),
-                    hintStyle: TextStyle(color: AppColors.COLOR_WHITE),
-                    fillColor: AppColors.COLOR_LIGHT_GREEN.withOpacity(0.5),
-                    prefixIcon: Icon(
-                      Icons.lock,
-                      color: AppColors.COLOR_WHITE,
+                  Obx(
+                    () => CustomInput(
+                      textStyle: TextStyle(color: AppColors.COLOR_WHITE),
+                      hintStyle: TextStyle(color: AppColors.COLOR_WHITE),
+                      fillColor: AppColors.COLOR_LIGHT_GREEN.withOpacity(0.5),
+                      prefixIcon: Icon(
+                        Icons.lock,
+                        color: AppColors.COLOR_WHITE,
+                      ),
+                      showBorderColor: false,
+                      isObscure: !controller.passwordVisible.value,
+                      suffixIcon: IconButton(
+                          icon: Icon(
+                            controller.passwordVisible.value ? Icons.visibility : Icons.visibility_off,
+                            color: AppColors.COLOR_WHITE,
+                          ),
+                          onPressed: () {
+                            // Update the state i.e. toogle the state of passwordVisible variable
+                            controller.passwordVisible.value = !controller.passwordVisible.value;
+                          }),
+                      controller: controller.passwordController,
+                      placeholder: password,
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return enterPassword;
+                        }
+                        return null;
+                      },
                     ),
-                    showBorderColor: false,
-                    isObscure: true,
-                    controller: controller.passwordController,
-                    placeholder: password,
-                    validator: (val) {
-                      if (val!.isEmpty) {
-                        return enterPassword;
-                      }
-                      return null;
-                    },
                   ),
                   CustomSpacers.height8,
                   Align(

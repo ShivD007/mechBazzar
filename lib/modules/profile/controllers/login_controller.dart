@@ -13,6 +13,7 @@ import '../../../routes/app_pages.dart';
 class LoginController extends GetxController with HelperUI {
   late TextEditingController emailController;
   late TextEditingController passwordController;
+  RxBool passwordVisible = false.obs;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -38,19 +39,15 @@ class LoginController extends GetxController with HelperUI {
       return;
     }
 
-    Map<String, dynamic> _body = {
-      "email": emailController.text,
-      "password": passwordController.text
-    };
+    Map<String, dynamic> _body = {"email": emailController.text, "password": passwordController.text};
     showLoadingDialog();
     try {
       final response = await BaseApiCallHelper.post(AppUrls.login, _body);
       print(response);
       UserModel userModel = UserModel.fromJson(response["data"][0]);
       //saveToPreference
-      await SavePreferences.saveStringPreferences(
-          "user", json.encode(userModel));
-          print(userModel.toJson());
+      await SavePreferences.saveStringPreferences("user", json.encode(userModel));
+      print(userModel.toJson());
       hideLoadingDialog();
       CustomNavigator.pop();
     } catch (e) {

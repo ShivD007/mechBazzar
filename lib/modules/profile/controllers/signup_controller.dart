@@ -13,15 +13,16 @@ class SignupController extends GetxController with HelperUI {
   late TextEditingController nameController;
   late TextEditingController phoneController;
   late TextEditingController addressController;
-  GlobalKey<FormState> formKey=GlobalKey<FormState>();
-  
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  RxBool passwordVisible = false.obs;
+
   @override
   Future<void> onInit() async {
-    emailController=TextEditingController();
-    password=TextEditingController();
-    nameController=TextEditingController();
-    phoneController=TextEditingController();
-    addressController=TextEditingController();
+    emailController = TextEditingController();
+    password = TextEditingController();
+    nameController = TextEditingController();
+    phoneController = TextEditingController();
+    addressController = TextEditingController();
     super.onInit();
   }
 
@@ -32,36 +33,35 @@ class SignupController extends GetxController with HelperUI {
 
   @override
   void onClose() {
-    emailController.dispose(); 
-    password.dispose(); 
-    nameController.dispose(); 
-    phoneController.dispose(); 
-    addressController.dispose(); 
-
+    emailController.dispose();
+    password.dispose();
+    nameController.dispose();
+    phoneController.dispose();
+    addressController.dispose();
   }
 
-   Future<void> onSubmit() async {
-    if(!formKey.currentState!.validate()){
+  Future<void> onSubmit() async {
+    if (!formKey.currentState!.validate()) {
       return;
     }
 
-    Map<String,dynamic> _body={
-      "email":emailController.text,
-      "password":password.text,
-      "name":nameController.text,
-      "phone":phoneController.text,
-      "address":addressController.text
+    Map<String, dynamic> _body = {
+      "email": emailController.text,
+      "password": password.text,
+      "name": nameController.text,
+      "phone": phoneController.text,
+      "address": addressController.text
     };
-showLoadingDialog();
-      try {
+    showLoadingDialog();
+    try {
       final response = await BaseApiCallHelper.post(AppUrls.signup, _body);
-         hideLoadingDialog();
+      hideLoadingDialog();
 
       CustomNavigator.pop();
     } catch (e) {
-         hideLoadingDialog();
+      hideLoadingDialog();
 
-        HelperUI().showSnackbar(e.toString());
+      HelperUI().showSnackbar(e.toString());
     }
   }
 }

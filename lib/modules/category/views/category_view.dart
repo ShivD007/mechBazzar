@@ -48,7 +48,7 @@ class CategoryView extends GetView<CategoryController> {
                                 height: 50.h,
                                 child: Obx(
                                   () => controller.subCategory.isEmpty
-                                      ? SizedBox.shrink()
+                                      ? const SizedBox.shrink()
                                       : ChoiceChipList(
                                           chipList: controller.subCategory,
                                           selectedChip: controller.slectedSubCategory.value,

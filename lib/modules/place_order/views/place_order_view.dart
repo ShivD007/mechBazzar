@@ -112,7 +112,6 @@ class PlaceOrderView extends GetView<PlaceOrderController> {
                     controller: controller.countryController,
                     prefixIcon: Icon(Icons.flag),
                     isReadOnly: true,
-                    fillColor: AppColors.COLOR_GREY_300,
                     placeholder: country,
                   ),
                   CustomSpacers.height12,

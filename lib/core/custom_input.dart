@@ -110,7 +110,7 @@ class CustomInput extends StatelessWidget {
         hintStyle: hintStyle,
         counter: showCounter! ? null : Offstage(),
         filled: true,
-        fillColor: fillColor ?? (isReadOnly || !isEnable ? null : AppColors.COLOR_GREY_200),
+        fillColor: fillColor ?? (isReadOnly || !isEnable ? null : AppColors.COLOR_WHITE),
         suffix: suffix,
         isDense: isdense,
         suffixIcon: suffixIcon,
@@ -126,19 +126,19 @@ class CustomInput extends StatelessWidget {
         focusColor: Colors.black12,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(dBorderRadius ?? 12.r),
-          borderSide: BorderSide(color: Colors.transparent, width: 1.5, style: BorderStyle.solid),
+          borderSide: BorderSide(color: AppColors.COLOR_GREY_200, width: 1.5, style: BorderStyle.solid),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(dBorderRadius ?? 12.r),
-          borderSide: BorderSide(color: Colors.transparent, width: 1.5, style: BorderStyle.solid),
+          borderSide: BorderSide(color: AppColors.COLOR_GREY_200, width: 1.5, style: BorderStyle.solid),
         ),
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(dBorderRadius ?? 12.r),
-          borderSide: BorderSide(color: Colors.transparent, width: 1.5, style: BorderStyle.solid),
+          borderSide: BorderSide(color: AppColors.COLOR_GREY_200, width: 1.5, style: BorderStyle.solid),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(dBorderRadius ?? 12.r),
-          borderSide: BorderSide(color: Colors.transparent, width: 1.5, style: BorderStyle.solid),
+          borderSide: BorderSide(color: AppColors.COLOR_GREY_200, width: 1.5, style: BorderStyle.solid),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(dBorderRadius ?? 12.r),

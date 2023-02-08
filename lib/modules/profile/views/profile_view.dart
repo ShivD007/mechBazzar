@@ -54,7 +54,6 @@ class ProfileView extends GetView<ProfileController> {
                         CustomInput(
                           controller: controller.emailController,
                           isReadOnly: true,
-                          fillColor: AppColors.COLOR_GREY_300,
                           prefixIcon: Icon(Icons.email),
                           placeholder: email,
                           validator: (val) {

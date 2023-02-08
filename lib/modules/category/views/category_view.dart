@@ -47,17 +47,22 @@ class CategoryView extends GetView<CategoryController> {
                               topWidget: SizedBox(
                                 height: 50.h,
                                 child: Obx(
-                                  () => ChoiceChipList(
-                                    chipList: controller.subCategory,
-                                    selectedChip: controller.slectedSubCategory.value,
-                                    onSelect: (index) {
-                                      controller.slectedSubCategory.value = controller.subCategory[index].name;
-                                      controller.isListLoading.value = true;
-                                      controller.selectedList.clear();
-                                      controller.getProductList(controller.category[controller.tabController!.index].id,
-                                          controller.subCategory[index].id, 1, 1);
-                                    },
-                                  ),
+                                  () => controller.subCategory.isEmpty
+                                      ? SizedBox.shrink()
+                                      : ChoiceChipList(
+                                          chipList: controller.subCategory,
+                                          selectedChip: controller.slectedSubCategory.value,
+                                          onSelect: (index) {
+                                            controller.slectedSubCategory.value = controller.subCategory[index].name;
+                                            controller.isListLoading.value = true;
+                                            controller.selectedList.clear();
+                                            controller.getProductList(
+                                                controller.category[controller.tabController!.index].id,
+                                                controller.subCategory[index].id,
+                                                1,
+                                                1);
+                                          },
+                                        ),
                                 ),
                               ),
                             ),
